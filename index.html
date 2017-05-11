@@ -1,22 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Знаю JS</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Learn JS</title>
 </head>
-<body>
+<body> 
+	<script src="js/jquery-1.12.0.min.js"></script>	
+	<div class="container">
+		<script>
+			// var a = 3;
+			// document.write(a);
+			// document.write('<br/>');
+			// ////////////////////////
+			// var b = 5;
+			// var c = 6;
+			// document.write(b+c);
+			// document.write('<br/>');
+			// document.write(b*c);
+			// document.write('<br/>');
+			// document.write(b/c);
+			// document.write('<br/>');
+			// ////////////////////////
+			// var d = 10;
+			// var e = 20;
+			// var result = (d + e);
+			// document.write(result);
+			// document.write('<br/>');
+			// ////////////////////////
+			// var g = 15;
+			// var h = 18;
+			// var c = (g - h);
+			// var k = 10;
+			// var result = (c + k);
+			// document.write(result);
 
-<div class="container">
-    <script>
-        alert('Салам');
-    </script>  
+			// Задача_1
+			// var obj = {a: 1, b: 2, c: 3};
+			// document.write(obj['c']);
+			// document.write(obj.c);
+			// document.write('<br/>');
+
+			// Задача_2
+			// var obj = {Коля: '1000', Вася: '500', Петя: '200'};
+			// document.write(obj['Коля']+', '+ obj['Петя']);
+			// document.write('<br/>');
+
+			// Задача_3
+			// var obj = {1: 'Понедельник', 2: 'Вторник', 3: 'Среда', 4: 'Четверг', 5: 'Пятница', 6: 'Суббота',  7: 'Воскресенье'};
+			// document.write(obj['1']);
+			// document.write('<br/>');
+
+			// Задача_4
+			// var obj = {1: 'Понедельник', 2: 'Вторник', 3: 'Среда', 4: 'Четверг', 5: 'Пятница', 6: 'Суббота',  7: 'Воскресенье'};
+			// var day = 3;
+			// document.write(obj[day]);
+			// document.write('<br/>');
+
+			// Задачи по многомерным массивам
+			//Задача_1
+			// var arr =  [ [1, 2, 3], [4, 5, 6], [7,8,9] ];
+			// document.write(arr[1][0]);
+			// document.write('<br/>');
+
+			// Задача_2
+			// var lang = {js:['jQuery', 'Angular'], php: 'hello', css: 'world'};
+			// document.write(lang['js'][0]);
+			// document.write('<br/>');
+
+			// Задача_3
+			// var days = {
+			// 	ru:['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота',  'Воскресенье'],
+			// 	en:['Monday', 'Tyesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',  'Sunday']
+			// };
+			// document.write(days['ru'][0]+ ', ' + days['en'][2]);
+			// document.write('<br/>');
+
+			// Задача_4
+			// var days = {
+			// 	ru:['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота',  'Воскресенье'],
+			// 	en:['Monday', 'Tyesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',  'Sunday']
+			// };
+			// var lang = days.ru;
+			// var day = 2;
+			// document.write(lang[day]);
+			// document.write('<br/>');
+
+			/* IF ELSE
+			============================================================= */
+            // http://theory.phphtml.net/tasks/javascript/base/rabota-s-konstrukciyami-if-else-switch-case-v-javascript.html
+
+            // var a = 4;
+            // if(a == 0 || a == 2){
+            // 	var a = a + 7;
+            // 	document.write(a);
+            // }
+            // else{
+            // 	var a = a / 7;
+            // 	document.write(a);
+            // }
+
+            // var num = 2;
+            // switch (num){
+            // 	case 1: result = 'зима';
+            // 	break;
+            // 	case 2: result = 'весна';
+            // 	break;
+            // 	case 3: result = 'лето';
+            // 	break;
+            // 	case 4: result = 'осень';
+            // 	break;
+            // }
+            // document.write(result);
+            // document.write('<br/>');
+
+            // Задача_16
+            // var day = 23;
+            // if (day <= 10){
+            // 	var decad = 1;
+            // }
+            // if (day >= 11 && day <= 20){
+            // 	var decad = 2;
+            // }
+            // if (day >= 21 && day <=30){
+            // 	var decad = 3;
+            // }
+            // document.write(decad);
+            // document.write('<br/>');
+
+            //  // Задача_17
+            //  var month = 11;
+            //  if (month == 12 || month <= 2){
+            //  	var result = 'Зима'; 
+            //  }
+            //  if(month >= 3 && month <=5){
+            //  	result = 'весна';
+            //  }
+            //  if(month >=6 && month <=8){
+            //  	result = 'лето';
+            //  }
+            //  if(month >=9 && month <=11){
+            //  	result = 'осень';
+            //  }
+            //  document.write(result);
+            //  document.write('<br/>');
+
+            //  // Задача_18 - Эту задачу не смог решить, но логику понял
+            //  var year = 2000;
+            //  if (year % 4 == 0 || (year % 400 == 0 && year % 100 != 0)) {
+            //  	document.write('Високосный');
+            //  } else {
+            //  	document.write('Не високосный');
+            //  }
+            //  document.write('<br/>');
+
+            //  // Задача_19
+            //  var symbol = 'abcde';
+            //  if (symbol.charAt(0) === 'a'){
+            //  	document.write('да');
+            //  }
+            //  else{
+            //  	document.write('нет');
+            //  }
+            //  document.write('<br/>');
+
+            //   // Задача_20
+            //   var number = '12345';
+            //   if(number.charAt(0) == '1' || number.charAt(0) == '2' || number.charAt(0) == '3' ){
+            //   	document.write('да');
+            //   }
+            //   else{
+            //   	document.write('нет');
+            //   }
+            //   document.write('<br/>');
+
+            //   // Задача_21 (2 варианта) Мне кажется тут я написал гавнокод, жду комментарий)
+            //   var numb = '123';
+            //   // result = + numb.charAt(0) + + numb.charAt(1) + + numb.charAt(2);
+            //   result = Number(numb.charAt(0)) + Number(numb.charAt(1)) + Number(numb.charAt(2));
+            //   document.write(result);
+            //   document.write('<br/>');
+
+            //   // Задача_22
+            //   var num = '222222';
+            //   result_1 = Number(num.charAt(0)) + Number(num.charAt(1)) + Number(num.charAt(2));
+            //   result_2 = Number(num.charAt(3)) + Number(num.charAt(4)) + Number(num.charAt(5));
+            //   if(result_1 == result_2){
+            //   	document.write('да');
+            //   }
+            //   else{
+            //   	document.write('нет');
+            //   }
+            //   document.write('<br/>');
+
+            //   //Задача_23
+            //   var domen = 'http://phphtml.net';
+            //   if (domen[0]=='h' && domen[1] == 't' && domen[2] == 't' && domen[3] == 'p'){
+            //   	document.write('да');
+            //   }
+            //   else{
+            //   	document.write('нет');
+            //   }
+            //   document.write('<br/>');
+
+              /* for while 
+              http://theory.phphtml.net/books/javascript/base/rabota-s-ciklami-for-i-while-v-javascript.html
+              =======================================*/
+              // var num = 1;
+
+              // while(num <= 100){
+              // 	document.write(num+'<br>');
+              // 	num ++;
+              // }
+
+              // for (var num = 1; num <= 100; num++){
+              // 	document.write(num+'<br>');
+              // }
+
+
+              // for (var num = 11; num <= 33; num++){
+              // 	document.write(num+'<br>');
+              // }
+
+              // var num = 11;
+
+              // while(num <= 33){
+              // 	document.write(num+'<br>');
+              // 	num ++;
+              // }
+
+              // var num = 1;
+              // while (num < 100){
+              // 	if(num % 2 === 0){
+              // 		document.write(num+'<br>');
+              // 	}
+              // 	num++;
+              // }
+
+              //  С помощью цикла найдите сумму чисел от 1 до 100. 
+              // var num = 1;
+              // var result = 1;
+              // for (var num = 0; num < 100;	num++){
+              // 	result = result + num;
+              // }
+              // document.write(result);
+              // document.write('<br>');
+
+              //  Дан массив с элементами [1, 2, 3, 4, 5]. С помощью цикла for выведите все эти элементы на экран
+              // var arr = ['1','2','3','4','5'];
+              // for (var i =0; i < arr.length; i++){
+              // 	document.write(arr[i]);
+              // }
+
+              //Дан массив с элементами [1, 2, 3, 4, 5]. С помощью цикла for найдите сумму элементов этого массива. Запишите ее в переменную result
+              // var arr = [1,2,3,4,5];
+              // var result = 0;
+              // for (var i =0; i < arr.length; i++){
+              // 	result = result + arr[i];
+              // }
+              // document.write(result);
+
+              //  Дан объект obj. С помощью первого цикла for-in выведите на экран ключи, с помощью второго - элементы.
+              // var obj = {green: 'зеленый', red: 'красный', blue: 'голубой'}
+              // for (key in obj) {
+              // 	document.write(key + ', '); 
+              // }
+              // for (key in obj) {
+              // 	document.write(obj[key] + ', '); 
+              // }
+              // document.write('<br/>');
+
+			//	Дан объект obj с ключами Коля, Вася, Петя с элементами '200', '300', '400'. С помощью цикла for-in выведите на экран строки такого формата: 'Коля - зарплата 200 долларов.'.
+			// var obj = {Коля: '200', Вася: '300', Петя: '400'}
+			// for(key in obj){
+			// 	document.write(key + '- зарплата ' + obj[key] + ' долларов' +' ')
+			// }
+
+			/*=======================================*/
+			//Задачи на циклы while, for в JavaScript
+
+			//  Дан массив с элементами 2, 5, 9, 15, 0, 4. С помощью цикла for и оператора if выведите на экран столбец тех элементов массива, которые больше 3-х, но меньше 10.
+			// var num = [2, 15, 9, 15, 0, 4];
+			// for (var i = 0; i < num.length; i++) {
+			// 	if(i > 3 && i < 10){
+			// 		document.write(num[i]+'<br/>');
+			// 	}
+			// }
+
+			// Дан массив с числами. Числа могут быть положительными и отрицательными. Найдите сумму положительных элементов массива. 
+			// var numbers = [-2, 5, 1, -5, -1, 1, 3, 4, -1];
+			// var result = 0; 
+			// 	for (var i = 0; i < numbers.length; i++) {
+			// 	if(numbers[i] >= 0){
+			// 		result = result + numbers[i];
+			// 	}
+			// }
+			// document.write(result);
+
+			//Дан массив с элементами 1, 2, 5, 9, 4, 13, 4, 10. С помощью цикла foreach и оператора if проверьте есть ли в массиве элемент со значением, равным 4. Если есть - выведите на экран 'Есть!' и выйдите из цикла. Если нет - ничего делать не надо.
+			// var arr = [1, 2, 5, 9, 4, 13, 4, 10];
+			// for (var i = 0; i < arr.length; i++){
+			// 	if(i == 4){
+			// 		document.write('Есть!');
+			// 		break;
+			// 	}
+			// }
+
+			// 	Дан массив числами, например: [10, 20, 30, 50, 235, 3000]. Выведите на экран только те числа из массива, которые начинаются на цифру 1, 2 или 5. 
+
+			/* Комментарий - Ощущение, что решил костыльным путем */
+			// var numbers = [10, 20, 30, 50, 235, 3000];
+			// var c = numbers.length;
+			// for (var i = 0; i < c; i++){
+			// 	str = numbers[i] + "";
+			// 	if(str[0] === '1'|| str[0] === '2'|| str[0] === '5'){
+			// 		document.write(numbers[i]+', ');
+
+			// 	}
+			// }
+
+			//Дан массив с элементами 1, 2, 3, 4, 5, 6, 7, 8, 9. С помощью цикла for создайте строку '-1-2-3-4-5-6-7-8-9-
+			// var arr = [1,2,3,4,5,6,7,8,9]; 
+			// var b = arr.length;
+			// var c = ' ';
+			// for (var i = 0; i < b; i++){
+			// 	c = c + '-' + arr[i];
+			// }
+			// document.write(c + '-');
+
+			//Составьте массив дней недели. С помощью цикла for выведите все дни недели, а выходные дни выведите жирным.
+			// var days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+			// var b = days.length;
+			// for(var i = 0; i < b; i++){
+			// 	if(i == 5 || i == 6){
+			// 		document.write('<strong>'+ days[i]+'</strong><br>');
+			// 	}
+			// 	else{
+			// 		document.write(days[i]+' ');
+			// 	}
+			// }
+
+			//Составьте массив дней недели. С помощью цикла for выведите все дни недели, а текущий день выведите курсивом. Текущий день должен храниться в переменной day.
+			// var week = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+			// var b = week.length;
+			// var day = 0;
+			// for(var i = 0; i < b; i++){
+			// 	if(i == day){
+			// 		document.write('<em>'+ week[i] + '</em>' + ' ' );
+			// 	}
+			// 	else{
+			// 		document.write(week[i]+' ');
+			// 	}
+			// }
+
+			//Дано число n=1000. Делите его на 2 столько раз, пока результат деления не станет меньше 50. Какое число получится? Посчитайте количество итераций, необходимых для этого (итерация - это проход цикла), и запишите его в переменную num.
+			/* тут чо то тормознул, посмотрел ответ, наверное позднее время сказалось, второй час ночи */
+			// var n = 1000;
+			// var num = 0;
+			// while (n > 50) {
+			// 	num++;
+			// 	n = n / 2;
+			// }
+			// document.write(n);
+			// document.write('<br/>')
+			// document.write(num);
+
+			/*===========================================
+			=============================================*/
+
+			//Задачи на математические функции JavaScript
+			// var a = 10;
+			// var b =3;
+			// var result = a % b;
+			// document.write(result);
+
+			// var a = 10;
+			// var b = 3;
+			// var rest = a % b;
+			// if (rest != 0) {
+			// 	document.write('Делится с остатком '+rest);
+			// } else {
+			// 	document.write('Делится, результат деления: '+(a / b));
+			// }
+
+			// var a = 20;
+			// var b = 15;
+			// document.write(Math.abs(b-a));
+
+            // Задачи математические ф-ии http://theory.phphtml.net/tasks/javascript/base/rabota-s-matematicheskimi-funkciyami-v-javascript.html
+
+            // Дан массив arr. Найдите среднее арифметическое его элементов. Проверьте задачу на массиве с элементами 12, 15, 20, 25, 59, 79. 
+            // var arr = [12, 15, 20, 25, 59, 79];
+            // // var arr = [2, 2, 2,];
+            // var a = arr.length;
+            // var result = 0;
+            // for(var i = 0; i < a; i++){
+            // 	result = (result + arr[i]);
+            // }
+            // document.write(result / 6);
+
+            // Напишите скрипт, который будет находить факториал числа. Факториал (обозначается !) - это произведение всех целых чисел, меньше данного, и его самого. Например, 4! = 1*2*3*4. 
+            // var a = 4,
+            // b = 1;
+
+            // if(a == 0){
+            // 	document.write('Факториал числа 0! = 1');
+            // }
+            // else{
+            // 	for(var i = 1; i <= a; i++){
+            // 		b*=i;
+            // 	}
+            // 	document.write('Факториал числа '+a+'! = '+ b);
+
+            // } 
+
+            //Напишите скрипт, который проверяет, является ли данное число простым (простое число - это то, которое делится только на 1 и на само себя). 
+            // var a = 11, b = 0; 
+            // for(var i = 2; i < a; i++) {
+            // 	if(a % i == 0) {
+            // 		b = 1;
+            // 		document.write('Не простое число');
+            // 	}
+            // }
+            // if(b == 0) {
+            // 	document.write('Простое число');
+            // }
+
+            // Напишите скрипт, который найдет все простые числа в заданном промежутке. Проверьте его работу на промежутке от 1 до 1000. 
+
+
+            // var a = 1; 
+            // var b = 1000; 
+            // var result = ''; 
+
+            // for(i = a; i < b ; i++) 
+            // {
+            // 	for(c = 2; c < i; c++) 
+            // 	{
+
+            // 		if(i % c == 0)
+            // 		{
+            // 			break; 
+            // 		}
+
+            // 		if(i == c + 1) 
+            // 		{
+            // 			result += i + ', ' ; 
+            // 		}
+            // 	}
+            // }
+            // document.write('простые числа: ' + result);
+
+			// 	Напишите скрипт, который будет разлагать заданное число на простые множители. 
+			
+			var num = 100; 
+			var result = ''; 
+
+			for(var i = 2; i <= num; i++){
+				if(num % i == 0){
+					result = result + i + ', '; 
+					num = num / i; 
+					i = 1; 
+				};
+			}
+			document.write('простые множители: ' + result);
+
+</script>  
 </div><!-- container -->
-
-<!-- Javascript section -->
-
-<script src="js/jquery-1.12.0.min.js"></script>
-<script src="js/custom.js"></script>
 
 </body>
 </html>
