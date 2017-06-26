@@ -512,12 +512,248 @@
             // document.write(result);
             
 
+            /* Функции для работы с массивами
+            ===================================================
+            ===================================================*/
+               // arr = ['a','b','c'];
+               // arr.reverse();
+               // document.write(arr);
+               // document.write('<br/>');
+
+               // arr.push('d','e');
+               // document.write(arr);
+               // document.write('<br/>');
+
+               // arr.unshift('i', 'k');
+               // document.write(arr);
+               // document.write('<br/>');
+
+               // var arr = ['1', '2', '3', '4', '5', '6'];
+               // var result = [];
+
+                // while (arr.length > 0) { //массив уменьшается в цикле пока не достигнет нуля
+                //     var first = arr.shift();
+                //     var last = arr.pop();
+                //     var str = first+last; //тут будет строка '16', потом '25', потом '34'
+                //     result.push(str);
+                // }
+                // document.write(result);
+                // После цикла в result лежит массив ['16', '25', '34']. Сольем его в строку:
+                // result = result.join('-');
+                // document.write(result);
+
+                 // var arr = ['1', '2', '3', '4', '5', '6'];
+                 // var result = arr.slice(2,5);
+                 // document.write(result);
+
+                 // var arr = ['a', 'b', 'c', 'd', 'e', 'f'];
+                 // arr.splice(-2, 1);
+                 // document.write(arr);
+
+                //  var arr = ['a', 'b', 'c', 'd', 'e'];
+
+                //  arr.forEach(function(elem, index) {
+                //     document.write(index + '. ' + elem + '<br>');
+                // });
+
+                // function sortArr(a,b){
+                //     if(a > b)
+                //         return -1; 
+                //     if(a < b)
+                //         return 1; 
+                //     if(a==b)
+                //         return 0 ;
+                // }
+
+                // var arr = [43,-3, 10, 100];
+                // document.write(arr.sort(sortArr));
+
+
+                /* Задачи функции по работе с массивами
+                ===========================================*/
+                //  Даны два массива: [1, 2, 3] и [4, 5, 6]. Объедините их вместе.
+                // arr1 = ['1','2','3'];
+                // arr2 = ['4','5','6'];
+                // var c = arr1.concat(arr2);
+                // document.write(c);
+
+                // Дан массив [1, 2, 3]. Сделайте из него массив [3, 2, 1]
+                // arr1 = ['1','2','3'];
+                // arr2 = arr1.reverse();
+                // document.write(arr2);
+
+                // Дан массив [1, 2, 3]. Добавьте ему в конец элементы 4, 5, 6
+                // arr1 = ['1','2','3'];
+                // arr1.push('4','5','6');
+                // document.write(arr1);
+
+
+                // Дан массив [1, 2, 3]. Добавьте ему в начало элементы 4, 5, 6
+                // arr1 = ['1','2','3'];
+                // arr1.unshift('4','5','6');
+                // document.write(arr1);
+
+                // Дан массив ['js', 'css', 'jq']. Выведите на экран первый элемент
+                // var arr = ['js', 'css', 'jq'];
+                // var arr2 = arr.shift();
+                // document.write(arr2);
+
+                 // Дан массив ['js', 'css', 'jq']. Выведите на экран последний элемент
+                 // var arr = ['js', 'css', 'jq'];
+                 // var arr2 = arr.pop();
+                 // document.write(arr2);
+
+                 // Дан массив [1, 2, 3, 4, 5]. С помощью метода slice запишите в новый элементы [1, 2, 3].
+                 // var arr = [1, 2, 3, 4, 5];
+                 // document.write(arr.slice(0,3));
+
+                 // Дан массив [1, 2, 3, 4, 5]. С помощью метода slice запишите в новый элементы [4, 5]
+                 // var arr = [1, 2, 3, 4, 5];
+                 // var arr2 = arr.slice(3);
+                 // document.write(arr2);
+
+                 // Дан массив [1, 2, 3, 4, 5]. С помощью метода splice преобразуйте массив в [1, 4, 5].
+                 // var arr = [1, 2, 3, 4, 5];
+                 // arr.splice(1,2);
+                 // document.write(arr);
+
+                 // Дан массив [1, 2, 3, 4, 5]. С помощью метода splice запишите в новый массив элементы [2, 3, 4]
+                 // var arr = [1, 2, 3, 4, 5];
+                 // var result = arr.splice(1, 3);
+                 // document.write(result);
+
+                 // Дан массив [1, 2, 3, 4, 5]. С помощью метода splice сделайте из него массив [1, 2, 3, 'a', 'b', 'c', 4, 5]
+
+                 // var arr = [1, 2, 3, 4, 5];
+                 // arr.splice(3, 0, 'a','b','c');
+                 // document.write(arr);
+
+                 // Дан массив [1, 2, 3, 4, 5]. С помощью метода splice сделайте из него массив [1, 'a', 'b', 2, 3, 4, 'c', 5, 'e']
+                 // var arr = [1, 2, 3, 4, 5];
+                 // arr.splice(1, 0, 'a','b');
+                 // arr.splice(6, 0, 'c');
+                 // arr.splice(8, 0, 'e');
+                 // document.write(arr);
+
+                // Дан массив [3, 4, 1, 2, 7]. Отсортируйте его.
+                // var arr = [3, 4, 1, 2, 7];
+                // arr.sort();
+                // document.write(arr);
+
+                // Дан объект {js:'test', jq: 'hello', css: 'world'}. Получите массив его ключей.
+                // var arr = {js:'test', jq: 'hello', css: 'world'};
+                // var result = Object.keys(arr);
+                // document.write(result);
+
+
+
+                /* Отработка стандартных функций JavaScript
+                ===============================================*/
+
+                // Дана строка. Сделайте заглавным первый символ этой строки не используя цикл. Найдите два решения
+                // var str = 'строка';
+                // var first = str.substr(0,1);
+                // first = first.toUpperCase();
+                // var newStr = str.replace('с', first);
+                // document.write(newStr);
+
+                // var str = 'строка';
+                // var arr = str.split('');
+                // arr[0] = arr[0].toUpperCase();
+                // var str = arr.join('');
+                // document.write(str);
+
+                // Дана строка. Сделайте заглавным последний символ этой строки не используя цикл. Найдите два решения.
+                // var str = 'строка';
+                // var first = str.substr(-1,1);
+                // // document.write(first);
+                // first = first.toUpperCase();
+                // var newStr = str.replace('а', first);
+                // document.write(newStr);
+
+                // var str = 'строка';
+                // var arr = str.split('');
+                // arr[5] = arr[5].toUpperCase();
+                // var str = arr.join('');
+                // document.write(str);
+
+                // Дана строка, например, '123456'. Переверните эту строку (сделайте из нее '654321') не используя цикл.
+                // var str = '123456';
+                // var arr = str.split('');
+                // arr.reverse();
+                // var str = arr.join('');
+                // document.write(str);
+
+                // Дано число, например, 3751. Отсортируйте цифры в нем (сделайте из него 1357) не используя цикл.
+                // var str = '3751';
+                // var arr = str.split('');
+                // arr.sort()
+                // str = arr.join('');
+                // document.write(str);
+
+                // Проверьте, что строка начинается на http://
+                // var str = 'http://site.ru';
+                // var newStr = str.substr(0,7);
+                // if (newStr == 'http://'){
+                //     console.log(true);
+                // }
+                // else{
+                //     console.log(false);
+                // }
+
+                // Проверьте, что строка заканчивается на .html
+                // var str = 'index.html';
+                // var newStr = str.substr(5);
+                // if (newStr == '.html'){
+                //     console.log(true);
+                // }
+                // else{
+                //     console.log(false);
+                // }
+                
+                // Дана строка вида '/folder1/folder2/folder3/folder4/'. Строки между слешеми могут быть любыми. Получите содержимое второго блока (в нашем случае 'folder2').
+                // var str = '/folder1/folder2/folder3/folder4/';
+                // console.log(str.indexOf('/', 8));
+                // console.log(str.indexOf('/', 9));
+                // console.log(str.slice(8, 17));
+
+                // Дана строка вида '/folder1/folder2/folder3/folder4/'. Строки между слешеми могут быть любыми. Получите содержимое второго блока с конца (в нашем случае 'folder3').
+                // var str = '/folder1/folder2/folder3/folder4/';
+                // console.log(str.lastIndexOf('/', 26));
+                // console.log(str.lastIndexOf('/', 22));
+                // console.log(str.slice(16, 25));
+
+                // Дана строка вида '/folder1/folder2/folder3/folder4/'. Строки между слешеми могут быть любыми. Удалите из нее блок с заданным номером. Найдите два решения, оба без цикла.
+                // var str = '/folder1/folder2/folder3/folder4/';
+                // console.log(str.indexOf('/', 7));
+                // console.log(str.indexOf('/', 9));
+                // console.log(str.slice(8, 17));
+
+                // var str = '/folder1/folder2/folder3/folder4/';
+                // var arr = str.split('');
+                // arr.splice(0, 8);
+                // arr.splice(9);
+                // str = arr.join('');
+                // console.log(str);
+
+     
+
+                
 
 
 
 
-        </script>  
-    </div><!-- container -->
 
-</body>
-</html>
+
+
+
+
+
+
+
+
+            </script>  
+        </div><!-- container -->
+
+    </body>
+    </html>
