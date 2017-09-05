@@ -1046,9 +1046,97 @@
                 // document.write(getDivisors(6));
 
 
+// Дана строка вида 'var_text_hello'. Сделайте из него текст 'varTextHello'.
+                // var userWorkString = 'var_text_hello_my_world';
+                // function firstCapitalLetterInWord(str) {
+                //     var firstLetter = str.substr(0,1).toUpperCase();
+                //     return firstLetter + str.substr(1);
+                // }
+                // function sampleCapitalLetter(usrString) {
+                //     var workArray = usrString.split('_');
+                //     for (var i = 0; i < workArray.length; i++) {
+                //         workArray[i] = firstCapitalLetterInWord(workArray[i]);
+                //     }
+                //     document.write(workArray.join(''));
+                // }
 
-            </script>  
-        </div><!-- container -->
+                // document.write('Начальная строка: ' + userWorkString + '<br>');
+                // sampleCapitalLetter(userWorkString);
 
-    </body>
-    </html>
+/////////////////////////////////////////////////////////////////
+
+                // var str ='abcde abcde abcde';
+                // var newArr = [];
+
+                // var arr = str.split(' ');
+                // for (var i = 0; i < arr.length; i++) {
+                //     newArr.push(ucfirst(arr[i]));
+                // }
+
+                // var newStr = newArr.join(' ');
+                // alert(newStr);
+
+                // function ucfirst(str) {
+                //     return str[0].toUpperCase() + str.substr(1);
+                // }
+
+                // Дана строка вида 'var_text_hello'. Сделайте из него текст 'varTextHello'.
+
+                    // вариант с ифом
+                // var str = 'var_text_hello';
+                // var newArr = [];
+                // var arr = str.split('_');
+                // for (var i = 1; i < arr.length; i++) {
+          
+            
+                    // if(i===0){
+                    //     newArr.push((arr[i]));
+                    // }
+                    // else{
+                    //     newArr.push(upper(arr[i]));
+                    // }
+                // }
+                // var newStr = newArr.join('');
+
+                // function upper(str) {
+                //     return str[0].toUpperCase() + str.substr(1);
+                // }
+                // document.write(newStr);
+
+                // вариант без ифа
+                var str = 'var_text_hello'; 
+                var arr = str.split('_'); 
+                for (var i = 1; i < arr.length; i++) { 
+                    arr[i] = upper(arr[i]); 
+
+                } 
+                var newStr = arr.join(''); 
+
+                function upper(str) { 
+                    return str[0].toUpperCase() + str.substr(1); 
+                } 
+                document.write(newStr);
+
+                // Дана строка, например, '123456'. Сделайте из нее '214365'.
+                // var str = '123456'; 
+                // function Nstr(line) { 
+                //     var arr = line.split(''); 
+                //     var NewArr = []; 
+                //     var Newstr = ''; 
+                //     console.log(arr); 
+                //     for (i=0; i < arr.length; i++) { 
+                //         NewArr.push(arr[1], arr[0], arr[3], arr[2], arr[4], arr[5]); 
+                //         console.log(NewArr); 
+                //         Newstr = NewArr.join(''); 
+                //         console.log(Newstr); 
+                //         return NewArr; 
+                //     } 
+                // } 
+                // Nstr(str);
+                 // document.write(NewArr);
+
+             </script>  
+         </div><!-- container -->
+
+     </body>
+     </html>
