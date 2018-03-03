@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Learn JS</title>
+</head>
+
+<body>
+	<script src="js/jquery-1.12.0.min.js"></script>
+
+	<div class="container">
+
+		<select name="" id="mySelect" onchange="funSelect()">
+			<option value="5">5</option>
+			<option value="10">10</option>
+		</select>
+		<select name="" id="mySelect2" onchange="funSelect()">
+			<option value="15">15</option>
+			<option value="20">20</option>
+		</select>
+		<div id="text_comment" style="margin-bottom:30px;"></div>
+
+		<input type="range" min="0" max="100" step="2" oninput="func_range()" id="r1">
+		<p id="one"></p>
+		<input type="text" id="i1">
+		<br>
+		<br>
+
+		<input id="ch1" type="checkbox" onchange="func_check()">
+		<p id="p1"></p>
+		<br>
+
+		<input name="radio" type="radio" value="5">5
+		<input name="radio" type="radio" value="3">3
+		<input name="radio" type="radio" value="535">535
+
+		<input type="text" name="price" id="inp">
+		<p id="text"></p>
+
+		<div class="script_fighter">
+			<h1>Скрипт для расчета рейтинга бойцов</h1>
+			Введите текущее кол-во очков бойца:
+			<br>
+			<input type="text" id="points">
+			<br>
+			<br> Введите кол-во побед решением:
+			<br>
+			<input type="text" id="w-des">
+			<br>
+			<br> Введите кол-во побед нокаутом:
+			<br>
+			<input type="text" id="w-ko">
+			<br>
+			<br> Введите кол-во поражений решением:
+			<br>
+			<input type="text" id="l-des">
+			<br>
+			<br> Введите кол-во поражений нокаутом:
+			<br>
+			<input type="text" id="l-ko">
+			<br>
+			<br>
+			<button id="btn">Расчитать</button>
+			<br>
+			<br> Результат:
+			<p id="result"></p><br><br>
+
+			<ul>
+				<li>Лион - 500</li>
+				<li>Паша - 400</li>
+				<li>Аслан - 300</li>
+			</ul>
+		</div>
+
+
+		<!-- script -->
+		<script>
+
+			var num_1 = 100;
+			var num_2 = 50;
+			
+			$('#btn').click(function(){
+				var points = Number($('#points').val());
+				var win_points = (Number($('#w-des').val()) * num_2) + (Number($('#w-ko').val()) * num_1);
+				var loose_points = (Number($('#l-des').val()) * num_2) + (Number($('#l-ko').val()) * num_1);
+				var result = (win_points + points) - loose_points;
+				$('#result').html(result);
+			});
+
+			// Получаем выбранную опцию
+			// function funTest() {
+			// 	var sel = document.getElementById('mySelect').selectedIndex;
+			// 	var options = document.getElementById('mySelect').options;
+			// 	alert('Выбрана опция ' + options[sel].text);
+			// }
+
+			// выводим изначальные значения селектов на экран
+			function sel() {
+				var xxx = $("select");
+				var names = 0;
+				$('option:selected', xxx).each(function () { names = Number(names) + Number(this.value); });
+				$('#text_comment').html(names);
+			}
+			sel();
+
+			// складываем выбраные значения
+			$(function funSelect() {
+				var xxx = $("select");
+				xxx.change(function () {
+					var names = 0;
+					$('option:selected', xxx).each(function () { names = Number(names) + Number(this.value); });
+					$('#text_comment').html(names);
+				}
+				);
+			}
+			);
+
+			
+
+			// =========================================
+
+			// выводим значения range в параграф
+			// function func_range() {
+			// 	var rng = document.getElementById('r1');
+			// 	var p = document.getElementById('one');
+			// 	p.innerHTML = rng.value;
+			// }
+			// func_range();
+
+			// выводим значения range в инпут
+			function func_range() {
+				var rng = document.getElementById('r1');
+				var p = document.getElementById('i1');
+				i1.value = rng.value;
+			}
+			func_range();
+
+			// ============================================
+
+			// Проверка чекбокса на изменение состояния
+			function func_check() {
+				var ch = document.getElementById('ch1');
+				var ch_p = document.getElementById('p1');
+				if (ch.checked) {
+					$('#p1').html('выбран');
+				}
+				else {
+					$('#p1').html('НЕ выбран');
+				}
+
+			}
+			func_check();
+
+			// ===========================================
+
+			// выводим значения радио кнопок в инпут и параграф
+			$('input[name="radio"]').on('change', function (e) {
+				var val = $(this).val();
+				$('#inp').val(val);
+				$('#text').text(val);
+			});
+
+		</script>
+	</div>
+	<!-- container -->
+
+</body>
+
+</html>
