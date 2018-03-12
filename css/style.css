@@ -1,2 +1,25 @@
 .container{width:900px;margin:200px auto}
-/*# sourceMappingURL=style.css.map */
+
+/* css generator */
+#block{
+    width: 200px;
+    height: 100px;
+    background: green;
+}
+
+/* menu */
+.menu-item{
+    border:2px solid grey;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-item .submenu{
+    height: 40px;
+    width: 120px;
+    background: green;
+    position: absolute;
+    cursor: pointer;
+    display: none;
+}

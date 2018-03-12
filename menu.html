@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Learn JS</title>
+</head>
+
+<body>
+	<script src="js/jquery-1.12.0.min.js"></script>
+
+	<div class="container">
+		<div id="nav">
+			<div class="menu-item">
+				Меню 1
+				<div class="submenu">Подменю 1</div>
+			</div>
+			<div class="menu-item">
+				Меню 1
+				<div class="submenu">Подменю 2</div>
+			</div>
+			<div class="menu-item">
+				Меню 1
+				<div class="submenu">Подменю 3</div>
+			</div>
+		</div>
+
+		<!-- script -->
+		<script>
+			document.getElementById('nav').onmouseover = function(event) {
+				var target = event.target;
+				if(target.className == 'menu-item') {
+					var s = target.getElementsByClassName('submenu');
+					closeMenu();
+					s[0].style.display='block';
+				}
+			}
+				
+			document.onmouseover = function(event){
+				var target = event.target;
+				if(target.className!='menu-item' && target.className!='submenu'){
+					closeMenu();
+				}
+			}
+
+			function closeMenu() {
+				var menu = document.getElementById('nav');
+				var subm = document.getElementsByClassName('submenu');
+				for (var i = 0; i < subm.length; i++){
+					subm[i].style.display="none";
+				}
+			}
+		</script>
+	</div>
+	<!-- container -->
+
+</body>
+
+</html>

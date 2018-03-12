@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Learn JS</title>
+</head>
+
+<body>
+	<script src="js/jquery-1.12.0.min.js"></script>
+
+	<div class="container">
+
+		<div class="block1">
+			<p>Верхний левый угол:
+				<input type="range" id="rtl" min="0" max="100" value="0" oninput="fun1()">
+				<input type="text" id="ttl" value="0">
+			</p>
+	
+			<p>Верхний правый угол:
+				<input type="range" id="rtr" min="0" max="100" value="0" oninput="fun1()">
+				<input type="text" id="ttr" value="0">
+			</p>
+	
+			<p>Нижний правый угол:
+				<input type="range" id="rbr" min="0" max="100" value="0" oninput="fun1()">
+				<input type="text" id="tbr" value="0">
+			</p>
+		
+			<p>Нижний левый угол:
+				<input type="range" id="rbl" min="0" max="100" value="0" oninput="fun1()">
+				<input type="text" id="tbl" value="0">
+			</p>
+		</div>
+		<div id="block"></div>
+
+		<!-- script -->
+		<script>
+			function fun1(){
+				var rtl=document.getElementById('rtl').value;
+				var rtr=document.getElementById('rtr').value;
+				var rbr=document.getElementById('rbr').value;
+				var rbl=document.getElementById('rbl').value;
+				var ttl=document.getElementById('ttl');
+				var ttr=document.getElementById('ttr');
+				var tbr=document.getElementById('tbr');
+				var tbl=document.getElementById('tbl');
+
+				var block = document.getElementById('block');
+
+				ttl.value=rtl;
+				ttr.value=rtr;
+				tbr.value=rbr;
+				tbl.value=rbl;
+
+				block.style.borderRadius=rtl+'px ' +rtr +'px ' +rbr +'px ' +rbl+'px ';
+				
+			}
+
+		</script>
+	</div>
+	<!-- container -->
+
+</body>
+
+</html>
