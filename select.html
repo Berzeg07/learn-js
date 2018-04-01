@@ -77,6 +77,9 @@
 
 		<!-- script -->
 		<script>
+			document.getElementById('points').onkeypress = function (e) {
+				return !(/[А-Яа-яA-Za-z ]/.test(String.fromCharCode(e.charCode)));
+			}
 
 			var num_1 = 100;
 			var num_2 = 50;
@@ -88,7 +91,8 @@
 				var result = (win_points + points) - loose_points;
 				$('#result').html(result);
 			});
-
+            //==============================================================================================
+			
 			// Получаем выбранную опцию
 			// function funTest() {
 			// 	var sel = document.getElementById('mySelect').selectedIndex;
