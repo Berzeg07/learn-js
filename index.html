@@ -15,7 +15,47 @@
     <script src="js/jquery-1.12.0.min.js"></script>
 
     <div class="container">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <button id="btn">Жми</button>
+            <input id="num" type="text" value="">  
         <script>
+            
+            var elem = document.getElementsByTagName('p');
+            var btn= document.getElementById('btn');
+            btn.addEventListener('click', func);
+
+            function func() {
+                var arr2 = [];
+                for (var i = 0; i< elem.length; i++) {
+                    arr2[i] = elem[i].innerHTML;
+                    console.log(arr2[i]);
+                }
+               
+                var input = document.getElementById('num');
+                input.value = arr2.sort();
+            }
+
+            // function sortArr(a, b) {
+            //     if (a > b) {
+            //         return -1;
+            //     }
+            //     if (a < b) {
+            //         return -1;
+            //     }
+            //     if (a == b) {
+            //         return 0;
+            //     }
+            // }   
+
+            // for (var i = 1; i <= 9; i++) {
+            //     for (var j = 1; j <= 4; j++) {
+            //         document.write(i); //выводит '111', потом '222', потом '333' и так далее
+            //     }
+            // }
+
+            
             // var a = 3;
 			// document.write(a);
 			// document.write('<br/>');
@@ -1101,18 +1141,18 @@
                 // document.write(newStr);
 
                 // вариант без ифа
-                var str = 'var_text_hello'; 
-                var arr = str.split('_'); 
-                for (var i = 1; i < arr.length; i++) { 
-                    arr[i] = upper(arr[i]); 
+                // var str = 'var_text_hello'; 
+                // var arr = str.split('_'); 
+                // for (var i = 1; i < arr.length; i++) { 
+                //     arr[i] = upper(arr[i]); 
 
-                } 
-                var newStr = arr.join(''); 
+                // } 
+                // var newStr = arr.join(''); 
 
-                function upper(str) { 
-                    return str[0].toUpperCase() + str.substr(1); 
-                } 
-                document.write(newStr);
+                // function upper(str) { 
+                //     return str[0].toUpperCase() + str.substr(1); 
+                // } 
+                // document.write(newStr);
 
                 // Дана строка, например, '123456'. Сделайте из нее '214365'.
                 // var str = '123456'; 
