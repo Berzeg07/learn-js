@@ -16,7 +16,6 @@
 			justify-content: space-between;
 		}
 		.box-top_item{
-			border:1px solid black;
 			padding: 10px;
 			width: 160px;
 		}
@@ -25,27 +24,79 @@
 			padding: 10px;
 			width: 160px;
 			text-align: center;
+		}
+		.border{
 			border:1px solid black;
 		}
+
+		/*Таймер*/
+		.timer_box{
+			width: 200px;
+			text-align: center;
+			margin: 50px auto;
+		}
 	</style>
+	<!-- Таймер -->
+	<script>
+		 function startTimer() {
+		  var my_timer = document.getElementById("my_timer");
+		  var time = my_timer.innerHTML;
+		  var bgColor = 'white';
+		  document.body.style.backgroundColor = (bgColor);
+		  var arr = time.split(":");
+		  var m = arr[0];
+		  var s = arr[1];
+		  if (s == 0) {
+			if (m == 0) {
+				// alert("Время вышло");
+				window.location.reload();
+				return;
+			}
+			m--;
+			if (m < 10) m = "0" + m;
+			s = 59;
+		  }
+		  else s--;
+		  if (s < 10) s = "0" + s;
+		  document.getElementById("my_timer").innerHTML = m+":"+s;
+		  setTimeout(startTimer, 1000);
+		  if(s < 5){
+			  if(bgColor = 'white'){
+			  	bgColor = 'grey';
+			  	document.body.style.backgroundColor = (bgColor);
+			  }
+			  else{
+			  	bgColor = 'white';
+			  	document.body.style.backgroundColor = (bgColor);
+			  }
+		  }
+		  localStorage.setItem('backgroundColor', bgColor);
+		}
+	</script>
 </head>
 <body>
 	<div class="container">
-
+		<div class="timer_box border">
+			<span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">00:10</span>
+			<script>
+				startTimer();
+			</script>
+		</div>
 		<div class="box-top">
-			<div class="box-top_item master">
+			<div class="box-top_item master border">
 				<p>Мастер меча</p>
-				<p>Время до следующей тренировки: <span id="time_to_train">10</span></p>
-				<p>Можно тренироваться</p>
 				<button id="btn_master" type="submit">Тренироваться</button>
 			</div>
-			<div class="box-top_item hero">
+			<div class="box-top_item hero border">
 				<p>Персонаж:</p>
 				<p>Сила: <span id="hero_power">1</span></p>
+				<p>Ловкость: <span id="hero_agility">1</span></p>
+				<p>Броня: <span id="hero_armor">1</span></p>
+				<p>Здоровье: <span id="hero_hp">1</span></p>
 				<p>Предметы:</p>
 				<p id="item">Пусто</p>
 			</div>
-			<div class="box-top_item forge">
+			<div class="box-top_item forge border">
 				<p>Кузница - выберите что ковать</p>
 				<label for="sword_forge">
 					<input id="sword_forge" type="radio"> Меч
@@ -54,7 +105,7 @@
 			</div>
 		</div>
 
-		<div class="enemy">
+		<div class="enemy border">
 			<p>Противник</p>
 			<button id="btn_enemy">Сражаться в дуэли</button>
 		</div>
@@ -62,84 +113,76 @@
 	</div>
 
 	<script>
+		window.onload = function() {
 
-		//Функция тренировки =================================
-		var TimeToTrain = document.getElementById('time_to_train');
-		//Запускает таймер
-		function goTimer(){
-			window.timerId = window.setInterval(timer, 500);
-			// BtnMaster.disabled = true;
-		}
-		//Останавливает таймер
-		function stop(){
-			window.clearInterval(window.timerId);
-			TimeToTrain.innerHTML = "Можно тренить";
-		}
-		function timer(){
-			var number = parseInt(TimeToTrain.innerHTML)-1;
-			TimeToTrain.innerHTML = number;
+			// Функция тренировки ==================================
+			var HeroPowerAbility = 1;
+			var BtnMaster = document.getElementById('btn_master');
+			var HeroPower = document.getElementById('hero_power');
+			BtnMaster.addEventListener('click', training);
 
-			if(number == 0) {
-				// number--;
-				stop();
-				// var timetStop = document.getElementById('stop');
-				// timetStop.innerHTML = 'Обратный отсчет завершен.';
+			function training() {
+				if (HeroPowerAbility < 3 ){
+					HeroPowerAbility++;
+					HeroPower.innerHTML = HeroPowerAbility;
+					alert('Ваша сила увеличиалсь на 1')
+				}
+				else if (HeroPowerAbility == 3){
+					this.removeEventListener('click', training);
+					alert("На сегодня тренировка закончена")
+				}
+				localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
 			}
-		}
+			// Конец функции тренировок =============================
 
-		var HeroPowerAbility = 1;
-		var BtnMaster = document.getElementById('btn_master');
-		var HeroPower = document.getElementById('hero_power');
-		BtnMaster.addEventListener('click', training);
+			// Функция кузницы ======================================
+			var SwordForge = document.getElementById('sword_forge');
+			var BtnForge = document.getElementById('btn_forge');
+			var HeroItem = document.getElementById('item');
+			BtnForge.addEventListener('click', forge);
 
-		function training() {
-			goTimer();
-			if (HeroPowerAbility < 3 ){
-				HeroPowerAbility++;
+			function forge() {
+				if (SwordForge.checked) {
+					alert("Поздравляю! Теперь у вас есть меч");
+					this.removeEventListener('click', forge);
+					HeroItem.innerHTML = 'Меч';
+				}
+				else{
+					alert('Выберите предмет для ковки!');
+				}
+			}
+			// Конец функции кузницы ==============================
+
+			// Функция дуэли ======================================
+			var BtnEnemy = document.getElementById('btn_enemy');
+			BtnEnemy.addEventListener('click', fight);
+
+			function fight() {
+				if(HeroPowerAbility < 3 || HeroItem.innerHTML != 'Меч'){
+					alert('Вы проиграли дуэль!')
+					HeroPowerAbility = 1;
+					HeroPower.innerHTML = HeroPowerAbility;
+					localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
+				}
+				else{
+					alert('Поздравляю! Вы победили в дуэли! Игра окончена')
+				}
+			}
+			// Конец функции дуэли ====================================
+
+			// Выводим данные с локального хранилища ===============
+			if (localStorage.getItem('HeroPowerAbility')!==null){
+				HeroPowerAbility = localStorage.getItem('HeroPowerAbility');
 				HeroPower.innerHTML = HeroPowerAbility;
-				alert('Ваша сила увеличиалсь на 1')
 			}
-			else if (HeroPowerAbility == 3){
-				this.removeEventListener('click', training);
-				alert("На сегодня тренировка закончена")
+			if (localStorage.getItem('backgroundColor')!==null){
+				bgColor = localStorage.getItem('backgroundColor');
+				document.body.style.backgroundColor = (bgColor);
 			}
+			// Конец вывод данных с локального хранилища
 		}
-		// ==========================================================
+		// конец onload
 
-		//Функция кузницы ======================================
-		var SwordForge = document.getElementById('sword_forge');
-		var BtnForge = document.getElementById('btn_forge');
-		var HeroItem = document.getElementById('item');
-		BtnForge.addEventListener('click', forge);
-
-		function forge() {
-			if (SwordForge.checked) {
-				alert("Поздравляю! Теперь у вас есть меч");
-				this.removeEventListener('click', forge);
-				HeroItem.innerHTML = 'Меч';
-			}
-			else{
-				alert('Выберите предмет для ковки!');
-			}
-		}
-		//=======================================================
-
-		//Функция дуэли ======================================
-		var BtnEnemy = document.getElementById('btn_enemy');
-		BtnEnemy.addEventListener('click', fight);
-
-		function fight() {
-			if(HeroPowerAbility < 3 || HeroItem.innerHTML != 'Меч'){
-				alert('Вы проиграли дуэль!')
-			}
-			else{
-				alert('Поздравляю! Вы победили в дуэли! Игра окончена')
-			}
-		}
-
-
-
-		//=======================================================
 
 
 
