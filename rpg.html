@@ -11,13 +11,13 @@
 </head>
 <body>
 	<div class="container">
-		<div class="timer_box border">
+		<!-- <div class="timer_box border">
 			<span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">10:00</span>
-			<!-- Вызов таймера -->
+
 			<script>
 				startTimer();
 			</script>
-		</div>
+		</div> -->
 
 		<div class="box-top">
 			<!-- Мастер меча -->
@@ -42,7 +42,7 @@
 			</div>
 			<!-- Кузница -->
 			<div class="box-item forge border">
-				<p>Кузница - выберите что ковать</p>
+				<p>Кузнец Харальд</p>
 				<label for="sword_forge">
 					<input id="sword_forge" type="radio"> Меч
 				</label><br><br>
@@ -83,9 +83,14 @@
 			</div>
 			<!-- Ферма Онара -->
 			<div class="box-item border">
-				<p>Ферма Харальда</p>
-				<button id="btn_farmeGuard" type="button">Поговорить с охраной</button><br><br>
-				<button type="button">Наняться на работу</button>
+				<p>Ферма Онара</p>
+				<button id="btn_farmeGuard" type="button">Поговорить с Сентезой (Охрана)</button><br><br>
+				<button id="btn_onar" type="button" >Поговорить с Онаром</button><br><br>
+				<button id="btn_workFarm" type="button">Наняться на работу</button>
+				<p id="timeOfwork">
+					10
+				</p>
+				<p id="stop"></p>
 			</div>
 			<!-- Дом -->
 			<div class="box-item border">

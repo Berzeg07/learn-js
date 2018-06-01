@@ -4,6 +4,8 @@ window.onload = function() {
     var HeroPowerAbility = 1;
     var weapon = false;
     var HeroPower = document.getElementById('hero_power');
+    var HeroGold = document.getElementById('hero_gold');
+
     // Конец Персонаж ==================================
 
     // Мастер Ларс ==========================================
@@ -16,8 +18,6 @@ window.onload = function() {
             alert("Ларс: Думаешь я консультирую каждого встречного?!");
         }
     }
-    // Конец совет
-
     // Тренировка
     var BtnMaster = document.getElementById('btn_master');
     BtnMaster.addEventListener('click', training);
@@ -37,7 +37,6 @@ window.onload = function() {
         // }
         // localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
     }
-    // Конец тренировки
     // Конец мастер Ларс ==============================================
 
     // Таверна ==============================================
@@ -52,33 +51,73 @@ window.onload = function() {
     // Конец таверна ========================================
 
     // Ферма ================================================
+    var BtnOnar = document.getElementById('btn_onar');
+    var BtnWorkFarm = document.getElementById('btn_workFarm');
+    BtnOnar.disabled = true;
+    BtnWorkFarm.disabled = true;
+
     // Разговор с охраной
     var BtnFarmeGuard = document.getElementById('btn_farmeGuard');
-    // var afterDialogBull = false;
+    var afterDialogBull = false;
     BtnFarmeGuard.addEventListener('click', FarmeGuard);
-
     function FarmeGuard() {
-        // if(afterDialogBull == true){
-        //     alert('Охрана: я тебе все сказал!');
-        // }
         if(aboutMissing == false){
-            alert('Охрана: Что тебе нужно? Хочешь наняться на работу? Жми соответствующую кнопку');
-        }
-        else if(aboutMissing == true){
-            var dialogGuard1 = confirm('Охрана: Что тебе нужно? Хочешь наняться на работу? Жми соответствующую кнопку');
-            var dialogGuard2 = confirm('Вы: Говорят у вас пропадают люди?');
-            var dialogGuard3 = confirm('Охрана: Небось в таверне об этом только и твердят, тебе какое дело?');
-            var dialogGuard4 = confirm('Вы: Я могу помочь с проблемой');
-            var dialogGuard5 = confirm('Охрана: Поговори с Харальдом, он сейчас на складах');
-            BtnFarmeGuard.removeEventListener('click', FarmeGuard);
-            BtnFarmeGuard.addEventListener('click', afterDialog);
+            var paySenteza = confirm('Сентеза: Что тебе нужно, хочешь наняться на работу? Как бы там ни было если хочешь пройти дальше, плати 100 монет');
+            if (paySenteza = true){
+                alert('Сентеза: такой разговор мне по душе, можешь проходить :)');
+                BtnWorkFarm.disabled = false;
+                BtnFarmeGuard.removeEventListener('click', FarmeGuard);
+                BtnFarmeGuard.addEventListener('click', afterFirstDialog);
+            }
         }
     }
     function afterDialog(){
-        alert('Охрана: я тебе все сказал!');
-        // afterDialogBull = true;
-        localStorage.setItem('afterDialogBull', afterDialogBull);
+        alert('Сентеза: я тебе все сказал!');
     }
+    function afterFirstDialog(){
+        alert('С тобой приятно иметь дело :)!');
+        if(aboutMissing == true){
+            var dialogGuard1 = confirm('Сентеза: Что тебе опять?');
+            var dialogGuard2 = confirm('Вы: Говорят у вас пропадают люди?');
+            var dialogGuard3 = confirm('Сентеза: Небось в таверне об этом только и твердят, тебе какое дело?');
+            var dialogGuard4 = confirm('Вы: Я могу помочь с проблемой');
+            var dialogGuard5 = confirm('Сентеза: Поговори с Онаром, он сейчас на складах');
+            BtnFarmeGuard.removeEventListener('click', afterFirstDialog);
+            BtnFarmeGuard.addEventListener('click', afterDialog);
+            BtnOnar.disabled = false;
+        }
+    }
+
+    // Наняться на работу
+    BtnWorkFarm.addEventListener('click', GoToWork);
+    var timetStop = document.getElementById('stop');
+    var arrButtons = [];
+    var arrButtons = document.getElementsByTagName('button');
+    function GoToWork(){
+			window.timerId = window.setInterval(timer, 300);
+            for(var i=0; i < arrButtons.length; i++){
+                arrButtons[i].disabled = true;
+            }
+            timetStop.innerHTML = 'Вы работайте в поле';
+		}
+		//Останавливает таймер
+		function stop(){
+			window.clearInterval(window.timerId);
+            number = 10;
+            timeOfwork.innerHTML = number;
+		}
+		function timer(){
+			var timeOfwork = document.getElementById('timeOfwork');
+			var number = parseInt(timeOfwork.innerHTML)-1;
+			timeOfwork.innerHTML = number;
+			if(number == 0) {
+				stop();
+                for(var i=0; i < arrButtons.length; i++){
+                    arrButtons[i].disabled = false;
+                }
+				timetStop.innerHTML = 'Вы заработали 100 золотых';
+		     }
+	    }
     // Конец ферма ======================================================
 
     // Кузница =============================================
@@ -108,7 +147,7 @@ window.onload = function() {
             alert('Вы убиты!')
             HeroPowerAbility = 1;
             HeroPower.innerHTML = HeroPowerAbility;
-            localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
+            // localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
         }
         else{
             alert('Поздравляю! Вы победили в дуэли! Игра окончена')
@@ -117,17 +156,15 @@ window.onload = function() {
     // Конец функции дуэли ====================================
 
     // Выводим данные с локального хранилища ======================
-    if (localStorage.getItem('HeroPowerAbility')!==null){
-        HeroPowerAbility = localStorage.getItem('HeroPowerAbility');
-        HeroPower.innerHTML = HeroPowerAbility;
-    }
-    if (localStorage.getItem('backgroundColor')!==null){
-        bgColor = localStorage.getItem('backgroundColor');
-        document.body.style.backgroundColor = (bgColor);
-    }
-    if (localStorage.getItem('afterDialogBull')!==null){
-        afterDialogBull = localStorage.getItem('afterDialogBull');
-    }
+    // if (localStorage.getItem('HeroPowerAbility')!==null){
+    //     HeroPowerAbility = localStorage.getItem('HeroPowerAbility');
+    //     HeroPower.innerHTML = HeroPowerAbility;
+    // }
+    // if (localStorage.getItem('backgroundColor')!==null){
+    //     bgColor = localStorage.getItem('backgroundColor');
+    //     document.body.style.backgroundColor = (bgColor);
+    // }
+
     // Конец вывод данных с локального хранилища ===================
 }
 // конец onload
