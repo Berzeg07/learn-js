@@ -1,0 +1,30 @@
+.container{
+    width: 992px;
+    margin: 0 auto;
+}
+.box-top, .box_middle, .box_bottom{
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    justify-content: space-between;
+}
+.box_middle{
+    margin-top: 50px;
+}
+.box_bottom{
+    margin-top: 50px;
+}
+.box-item{
+    padding: 10px;
+    width: 240px;
+}
+.border{
+    border:1px solid black;
+}
+
+/*Таймер*/
+.timer_box{
+    width: 200px;
+    text-align: center;
+    margin: 50px auto;
+}

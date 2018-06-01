@@ -2,101 +2,46 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<title>Задачник JavaScript от Трепачёва Дмитрия</title>
 	<meta charset="utf-8">
-	<style>
-		.container{
-			width: 992px;
-			margin: 0 auto;
-		}
-		.box-top{
-			display: -webkit-flex;
-			display: -ms-flex;
-			display: flex;
-			justify-content: space-between;
-		}
-		.box-top_item{
-			padding: 10px;
-			width: 160px;
-		}
-		.enemy{
-			margin: 100px auto;
-			padding: 10px;
-			width: 160px;
-			text-align: center;
-		}
-		.border{
-			border:1px solid black;
-		}
-
-		/*Таймер*/
-		.timer_box{
-			width: 200px;
-			text-align: center;
-			margin: 50px auto;
-		}
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>Дуэль онлайн</title>
+	<link rel="stylesheet" href="css/styleGame.css">
 	<!-- Таймер -->
-	<script>
-		 function startTimer() {
-		  var my_timer = document.getElementById("my_timer");
-		  var time = my_timer.innerHTML;
-		  var bgColor = 'white';
-		  document.body.style.backgroundColor = (bgColor);
-		  var arr = time.split(":");
-		  var m = arr[0];
-		  var s = arr[1];
-		  if (s == 0) {
-			if (m == 0) {
-				// alert("Время вышло");
-				window.location.reload();
-				return;
-			}
-			m--;
-			if (m < 10) m = "0" + m;
-			s = 59;
-		  }
-		  else s--;
-		  if (s < 10) s = "0" + s;
-		  document.getElementById("my_timer").innerHTML = m+":"+s;
-		  setTimeout(startTimer, 1000);
-		  if(s < 5){
-			  if(bgColor = 'white'){
-			  	bgColor = 'grey';
-			  	document.body.style.backgroundColor = (bgColor);
-			  }
-			  else{
-			  	bgColor = 'white';
-			  	document.body.style.backgroundColor = (bgColor);
-			  }
-		  }
-		  localStorage.setItem('backgroundColor', bgColor);
-		}
-	</script>
+	<script src="js/timer.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="timer_box border">
-			<span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">00:10</span>
+			<span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">10:00</span>
+			<!-- Вызов таймера -->
 			<script>
 				startTimer();
 			</script>
 		</div>
+
 		<div class="box-top">
-			<div class="box-top_item master border">
-				<p>Мастер меча</p>
+			<!-- Мастер меча -->
+			<div class="box-item master border">
+				<p>Ларс (Мастер меча)</p>
+				<p>Стоимость тренировки: <span>100</span></p>
 				<button id="btn_master" type="submit">Тренироваться</button>
+				<button id="btn_advice" type="submit">Спросить совет</button>
 			</div>
-			<div class="box-top_item hero border">
+			<!-- Персонаж -->
+			<div class="box-item hero border">
 				<p>Персонаж:</p>
 				<p>Сила: <span id="hero_power">1</span></p>
 				<p>Ловкость: <span id="hero_agility">1</span></p>
-				<p>Броня: <span id="hero_armor">1</span></p>
-				<p>Здоровье: <span id="hero_hp">1</span></p>
-				<p>Предметы:</p>
+				<p>Критический удар: <span id="hero_krit">10%</span></p>
+				<p>Броня: <span id="hero_armor">0</span></p>
+				<p>Здоровье: <span id="hero_hp">100</span></p>
+				<p>Золото: <span id="hero_gold">10</span></p>
+
+				<p>Экипировка:</p>
 				<p id="item">Пусто</p>
 			</div>
-			<div class="box-top_item forge border">
+			<!-- Кузница -->
+			<div class="box-item forge border">
 				<p>Кузница - выберите что ковать</p>
 				<label for="sword_forge">
 					<input id="sword_forge" type="radio"> Меч
@@ -105,88 +50,54 @@
 			</div>
 		</div>
 
-		<div class="enemy border">
-			<p>Противник</p>
-			<button id="btn_enemy">Сражаться в дуэли</button>
+		<div class="box_middle">
+			<!-- Лавка -->
+			<div class="box-item border">
+				<p>Лавка</p>
+			</div>
+			<!-- Противник -->
+			<div class="box-item enemy border">
+				<p>Локтар Черный топор (Орк-Враг)</p>
+				<p>Сила:<span>???</span></p>
+				<p>Ловкость:<span>???</span></p>
+				<p>Броня:<span>???</span></p>
+				<p>Критический удар:<span>???</span></p>
+				<p>Здоровье:<span>???</span></p>
+				<p>Экипировка:<span>???</span></p>
+
+
+				<button id="btn_enemy">Сражаться!</button>
+			</div>
+			<!-- Таверна -->
+			<div class="box-item border">
+				<p>Таверна</p>
+				<button type="button">Подкрепиться</button><br><br>
+				<button id="btn_rumors" type="button">Распросить о слухах</button>
+			</div>
+		</div>
+
+		<div class="box_bottom">
+			<!-- Лес -->
+			<div class="box-item border">
+				<p>Лес</p>
+			</div>
+			<!-- Ферма Онара -->
+			<div class="box-item border">
+				<p>Ферма Харальда</p>
+				<button id="btn_farmeGuard" type="button">Поговорить с охраной</button><br><br>
+				<button type="button">Наняться на работу</button>
+			</div>
+			<!-- Дом -->
+			<div class="box-item border">
+				<p>Дом</p>
+				<p>Сундук:</p>
+				<input type="radio"><span>Сырая сталь</span>
+			</div>
 		</div>
 
 	</div>
+	<script src="js/jquery-1.12.0.min.js"></script>
+	<script src="js/main.js"></script>
 
-	<script>
-		window.onload = function() {
-
-			// Функция тренировки ==================================
-			var HeroPowerAbility = 1;
-			var BtnMaster = document.getElementById('btn_master');
-			var HeroPower = document.getElementById('hero_power');
-			BtnMaster.addEventListener('click', training);
-
-			function training() {
-				if (HeroPowerAbility < 3 ){
-					HeroPowerAbility++;
-					HeroPower.innerHTML = HeroPowerAbility;
-					alert('Ваша сила увеличиалсь на 1')
-				}
-				else if (HeroPowerAbility == 3){
-					this.removeEventListener('click', training);
-					alert("На сегодня тренировка закончена")
-				}
-				localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
-			}
-			// Конец функции тренировок =============================
-
-			// Функция кузницы ======================================
-			var SwordForge = document.getElementById('sword_forge');
-			var BtnForge = document.getElementById('btn_forge');
-			var HeroItem = document.getElementById('item');
-			BtnForge.addEventListener('click', forge);
-
-			function forge() {
-				if (SwordForge.checked) {
-					alert("Поздравляю! Теперь у вас есть меч");
-					this.removeEventListener('click', forge);
-					HeroItem.innerHTML = 'Меч';
-				}
-				else{
-					alert('Выберите предмет для ковки!');
-				}
-			}
-			// Конец функции кузницы ==============================
-
-			// Функция дуэли ======================================
-			var BtnEnemy = document.getElementById('btn_enemy');
-			BtnEnemy.addEventListener('click', fight);
-
-			function fight() {
-				if(HeroPowerAbility < 3 || HeroItem.innerHTML != 'Меч'){
-					alert('Вы проиграли дуэль!')
-					HeroPowerAbility = 1;
-					HeroPower.innerHTML = HeroPowerAbility;
-					localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
-				}
-				else{
-					alert('Поздравляю! Вы победили в дуэли! Игра окончена')
-				}
-			}
-			// Конец функции дуэли ====================================
-
-			// Выводим данные с локального хранилища ===============
-			if (localStorage.getItem('HeroPowerAbility')!==null){
-				HeroPowerAbility = localStorage.getItem('HeroPowerAbility');
-				HeroPower.innerHTML = HeroPowerAbility;
-			}
-			if (localStorage.getItem('backgroundColor')!==null){
-				bgColor = localStorage.getItem('backgroundColor');
-				document.body.style.backgroundColor = (bgColor);
-			}
-			// Конец вывод данных с локального хранилища
-		}
-		// конец onload
-
-
-
-
-
-	</script>
 </body>
 </html>
