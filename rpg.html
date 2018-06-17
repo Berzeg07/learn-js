@@ -29,16 +29,26 @@
 			</div>
 			<!-- Персонаж -->
 			<div class="box-item hero border">
-				<p>Персонаж:</p>
-				<p>Сила: <span id="hero_power">1</span></p>
-				<p>Ловкость: <span id="hero_agility">1</span></p>
-				<p>Критический удар: <span id="hero_krit">10%</span></p>
-				<p>Броня: <span id="hero_armor">0</span></p>
-				<p>Здоровье: <span id="hero_hp">100</span></p>
-				<p>Золото: <span id="hero_gold">10</span></p>
-
-				<p>Экипировка:</p>
-				<p id="item">Пусто</p>
+				<div class="stata">
+					<p>Персонаж:</p>
+					<div class="stata_inner">
+						<p>Сила: <span id="hero_power">1</span></p>
+						<p>Ловкость: <span id="hero_agility">1</span></p>
+						<p>Критический удар: <span id="hero_krit">10%</span></p>
+						<p>Броня: <span id="hero_armor">0</span></p>
+						<p>Здоровье: <span id="hero_hp">100</span></p>
+					</div>
+				</div>
+				<div class="equip">
+					<div class="equip_innerGold">
+						<p>Золото: <span id="hero_gold"></span></p>
+					</div>
+					<p>Экипировка:</p>
+					<div class="equip_innerItems">
+						<p id="item">Пусто</p>
+					</div>
+					<button type="button" id="journal">Журнал</button>
+				</div>
 			</div>
 			<!-- Кузница -->
 			<div class="box-item forge border">
@@ -46,15 +56,36 @@
 				<label for="sword_forge">
 					<input id="sword_forge" type="radio"> Меч
 				</label><br><br>
-				<button id="btn_forge">Выковать</button>
+				<button id="btn_forge">Ковать</button>
+				<button type="button" id="btn_talkToHarald">Говорить</button>
 			</div>
 		</div>
 
 		<div class="box_middle">
+
 			<!-- Лавка -->
 			<div class="box-item border">
 				<p>Лавка</p>
+				<div class="shop_box">
+					<label>
+						<input type="radio">Кожаная броня - <span>300</span>
+					</label><br>
+					<label>
+						<input type="radio">Сырая сталь - <span>200</span>
+					</label><br>
+					<label>
+						<input type="radio">Дубинка - <span>150</span>
+					</label><br>
+					<label>
+						<input type="radio">Ржавый меч - <span>400</span>
+					</label><br>
+					<label>
+						<input type="radio">Полуторный меч - <span>800</span>
+					</label><br>
+				</div><br>
+				<button type="button">Купить</button>
 			</div>
+
 			<!-- Противник -->
 			<div class="box-item enemy border">
 				<p>Локтар Черный топор (Орк-Враг)</p>
@@ -64,10 +95,9 @@
 				<p>Критический удар:<span>???</span></p>
 				<p>Здоровье:<span>???</span></p>
 				<p>Экипировка:<span>???</span></p>
-
-
 				<button id="btn_enemy">Сражаться!</button>
 			</div>
+
 			<!-- Таверна -->
 			<div class="box-item border">
 				<p>Таверна</p>
@@ -77,10 +107,15 @@
 		</div>
 
 		<div class="box_bottom">
+
 			<!-- Лес -->
 			<div class="box-item border">
 				<p>Лес</p>
+				<button type="button">Болотные крысы</button>
+				<button type="button">Волки</button>
+				<button type="button">Мракорис</button>
 			</div>
+
 			<!-- Ферма Онара -->
 			<div class="box-item border">
 				<p>Ферма Онара</p>
@@ -92,15 +127,25 @@
 				</p>
 				<p id="stop"></p>
 			</div>
+
 			<!-- Дом -->
 			<div class="box-item border">
 				<p>Дом</p>
 				<p>Сундук:</p>
-				<input type="radio"><span>Сырая сталь</span>
+				<input type="radio"><span>Сырая сталь</span><br><br>
+				<button type="button">Спать</button>
 			</div>
 		</div>
 
 	</div>
+
+	<!-- jornal pop-up -->
+	<div class="overlay"></div>
+	<div class="journal_box">
+		<div class="close"><b>X</b></div>
+		<ul id="journal_box__inner"></ul>
+	</div>
+
 	<script src="js/jquery-1.12.0.min.js"></script>
 	<script src="js/main.js"></script>
 
