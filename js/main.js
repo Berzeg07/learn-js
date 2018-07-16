@@ -74,6 +74,8 @@ window.onload = function() {
     //   }
     // };
 
+
+
     // Тренировка
     var BtnMaster = document.getElementById('btn_master');
     BtnMaster.addEventListener('click', training);
@@ -127,7 +129,7 @@ window.onload = function() {
     // Ферма ================================================
     var BtnOnar = document.getElementById('btn_onar');
     var BtnWorkFarm = document.getElementById('btn_workFarm');
-    BtnOnar.disabled = true;
+    // BtnOnar.disabled = true;
     BtnWorkFarm.disabled = true;
 
     // Разговор с охраной
@@ -137,67 +139,36 @@ window.onload = function() {
     var dinamicTxtSenteza = document.getElementById('dinamicTxtSenteza');
     var btnNextSenteza = document.getElementById('btnNextSenteza');
 
-    // var afterDialogBull = false;
-
     // Флаг на оплату 100 зол Сентезе
     var PaySenteza = false;
     BtnFarmeGuard.addEventListener('click', FarmeGuard);
     BtnNotPaySenteza.addEventListener('click', NotPaySenteza);
     BtnPaySenteza.addEventListener('click', PaySentezaTrue);
+    // Флаг на блокировку кнопки Онара, если квест на беседу с ним еще не получен от Сентезы
+    btnOnarDisabled = false;
 
     // Разговор с Сентезой aboutMissing = false;
-    function FarmeGuardFalse(){
-        SentezaDB1();
-    }
-
-    // Разговор с Сентезой aboutMissing == false;
     function FarmeGuard() {
         FarmeGuardFalse();
+    }
+    function FarmeGuardFalse(){
+        SentezaDB1();
     }
     function afterDialog(){
         alert('Сентеза: я тебе все сказал!');
     }
 
-    // Флаг на блокировку кнопки Онара, при работе на ферме, если квест на беседу с ним еще не получен от Сентезы
-    btnOnarDisabled = false;
-
     function afterFirstDialog(){
         AfterPaySentreza();
-        i = 0;
         // Разговор с Сентезой aboutMissing == true;
         if(aboutMissing == true && PaySenteza == true){
             dialogGuard();
-            // var dialogGuard1 = confirm('Сентеза: Что тебе опять?');
-            // if (dialogGuard1 == false){
-            //     return;
-            // }
-            // var dialogGuard2 = confirm('Вы: Говорят у вас пропадают люди?');
-            // if (dialogGuard2 == false){
-            //     return;
-            // }
-            // var dialogGuard3 = confirm('Сентеза: Небось в таверне об этом только и твердят, тебе какое дело?');
-            // if (dialogGuard3 == false){
-            //     return;
-            // }
-            // var dialogGuard4 = confirm('Вы: Я могу помочь с проблемой');
-            // if (dialogGuard4 == false){
-            //     return;
-            // }
-            // var dialogGuard5 = confirm('Сентеза: Поговори с Онаром, он сейчас на складах');
-            // if (dialogGuard5 == false){
-            //     return;
-            // }
-            // else{
-            //     btnOnarDisabled = true;
-            //     BtnOnar.disabled = false;
-            //     BtnFarmeGuard.removeEventListener('click', afterFirstDialog);
-            //     BtnFarmeGuard.addEventListener('click', afterDialog);
-            // }
         }
     }
     function dialogGuard() {
         dinamicTxtSenteza.innerHTML = '<p>' + 'Что тебе опять?' + '</p>';
         btnNextSenteza.innerHTML = '<button class="btn GuardNext">' + 'Далее' + '</button>';
+        i = 0;
         $('.GuardNext').click(function() {
             i = i + 1;
             switch (i) {
@@ -214,9 +185,121 @@ window.onload = function() {
             BtnFarmeGuard.addEventListener('click', afterDialog);
             if(i == 5){
                 $('#dinamicDbSenteza').fadeOut();
+                btnOnarDisabled = true;
             }
         });
         DinamicDBSenteza();
+    }
+
+    // Диалоговые окна с Сентезой ==============================
+
+    // Сентеза требует оплатить 100 монет
+    function PaySentezaTrue() {
+        if(HeroGoldInner >= 100){
+            PaySenteza = true;
+            dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: Такой разговор мне по душе, можешь проходить :)' + '</p>';
+            HeroGoldInner = HeroGoldInner - 100;
+            HeroGold.innerHTML = HeroGoldInner;
+            DinamicDBSenteza();
+            BtnFarmeGuard.removeEventListener('click', FarmeGuard);
+            BtnFarmeGuard.addEventListener('click', afterFirstDialog);
+            BtnWorkFarm.disabled = false;
+        }
+        else if(HeroGoldInner < 100){
+            dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: У тебя и 100 монет не наберется, пошел прочь оборванец!' + '</p>';
+            DinamicDBSenteza();
+            return;
+        }
+    }
+
+    // Посылаем Сентезу к черту
+    function NotPaySenteza() {
+        PaySenteza = true;
+        messWindowInner.innerHTML = 'Сентеза избил вас и забрал все деньги...';
+        $('.farm .db_1').fadeOut();
+        $('.overlay, #messWindow').fadeIn();
+        BtnFarmeGuard.removeEventListener('click', FarmeGuard);
+        BtnFarmeGuard.addEventListener('click', afterFirstDialog);
+        HeroGoldInner = 0;
+        HeroGold.innerHTML = HeroGoldInner;
+    }
+
+    // Фраза после оплаты Сентезе
+    function AfterPaySentreza() {
+        dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: С тобой приятно иметь дело :)' + '</p>';
+        DinamicDBSenteza();
+    }
+
+    function SentezaDB1() {
+        $('.farm .db_1').fadeIn();
+    }
+    function DinamicDBSenteza() {
+        $('.farm .db_1').fadeOut();
+        $('#dinamicDbSenteza').fadeIn();
+    }
+
+    // Разговор с Онаром
+    BtnOnar.addEventListener('click', TalkToOnar);
+    document.onclick = function(event) {
+      var target = event.target;
+      if (target.className != 'btn' ){
+          $('.tooltip').fadeOut();
+      }
+    };
+    function TalkToOnarAfterQuest(){
+        alert('Удачи');
+    }
+    function TalkToOnar(){
+        if(btnOnarDisabled !== true){
+            $('.master_btn__box .tooltip').fadeIn();
+        }
+        if(btnOnarDisabled == true){
+            dinamicTxtSenteza.innerHTML = '<p>' + 'Онар: Слышал ты из тех кто решает проблемы?' + '</p>';
+            btnNextSenteza.innerHTML = '<button class="btn GuardNext">' + 'Далее' + '</button>';
+            i = 0;
+            $('.GuardNext').click(function() {
+                i = i + 1;
+                switch (i) {
+                    case 1 :  dinamicTxtSenteza.innerHTML = '<p>' + 'Вы: Да, я готов расследовать это дело, что известно о пропавших людях?' + '</p>';
+                    break;
+                    case 2 :  dinamicTxtSenteza.innerHTML = '<p>' + 'Онар: На окраинах Хориниса видели орка, может дезертир, может разведчик. В общем, теперь он обосновался не далеко от моих угодий в горах, вблизи от проезжей части. Готов поспорить это его рук дело!' + '</p>';
+                    break;
+                    case 3 :  dinamicTxtSenteza.innerHTML = '<p>' + 'Вы: Я разберусь с этим орком!' + '</p>';
+                    break;
+                    case 4 :  dinamicTxtSenteza.innerHTML = '<p>' + 'Онар: Тебе нужно подготовиться и хорошо экипироваться. Cходи ка к Ларсу, я замолвлю за тебя словечко, он поможет в этом деле' + '</p>';
+                    break;
+                }
+                if(i == 5){
+                    $('#dinamicDbSenteza').fadeOut();
+                    trainResolution = true;
+                    BtnOnar.removeEventListener('click', TalkToOnar);
+                    BtnOnar.addEventListener('click', TalkToOnarAfterQuest);
+                }
+            });
+            DinamicDBSenteza();
+        }
+        // if (dialogOnar1 == false){
+        //     return;
+        // }
+        // var dialogOnar2 = confirm('Вы: Да, я готов расследовать это дело, что известно о пропавших людях?');
+        // if (dialogOnar2 == false){
+        //     return;
+        // }
+        // var dialogOnar3 = confirm('Онар: На окраинах Хориниса видели орка, может дезертир, может разведчик. В общем, теперь он обосновался не далеко от моих угодий в горах, вблизи от проезжей части. Готов поспорить это его рук дело');
+        // if (dialogOnar3 == false){
+        //     return;
+        // }
+        // var dialogOnar4 = confirm('Вы: Я разберусь с этим орком!');
+        // if (dialogOnar4 == false){
+        //     return;
+        // }
+        // var dialogOnar5 = confirm('Онар: Тебе нужно подготовиться и хорошо экипироваться. Я замолвлю за тебя словечко, сходи ка к Ларсу, он поможет в этом деле.');
+        // if (dialogOnar5 == false){
+        //     return;
+        // }
+        // BtnOnar.removeEventListener('click', TalkToOnar);
+        // BtnOnar.addEventListener('click', TalkToOnarAfterQuest);
+        // trainResolution = true;
     }
 
     // Наняться на работу =======================================
@@ -265,84 +348,6 @@ window.onload = function() {
 			// timetStop.innerHTML = 'Вы заработали 100 золотых';
             alert('Вы заработали 100 золотых');
 	     }
-    }
-
-    // Разговор с Онаром
-    BtnOnar.addEventListener('click', TalkToOnar);
-    function TalkToOnarAfterQuest(){
-        alert('Удачи');
-    }
-    function TalkToOnar(){
-        var dialogOnar1 = confirm('Онар: Говорят ты из тех кто решает проблемы...');
-        if (dialogOnar1 == false){
-            return;
-        }
-        var dialogOnar2 = confirm('Вы: Да, я готов расследовать это дело, что известно о пропавших людях?');
-        if (dialogOnar2 == false){
-            return;
-        }
-        var dialogOnar3 = confirm('Онар: На окраинах Хориниса видели орка, может дезертир, может разведчик. В общем, теперь он обосновался не далеко от моих угодий в горах, вблизи от проезжей части. Готов поспорить это его рук дело');
-        if (dialogOnar3 == false){
-            return;
-        }
-        var dialogOnar4 = confirm('Вы: Я разберусь с этим орком!');
-        if (dialogOnar4 == false){
-            return;
-        }
-        var dialogOnar5 = confirm('Онар: Тебе нужно подготовиться и хорошо экипироваться. Я замолвлю за тебя словечко, сходи ка к Ларсу, он поможет в этом деле.');
-        if (dialogOnar5 == false){
-            return;
-        }
-        BtnOnar.removeEventListener('click', TalkToOnar);
-        BtnOnar.addEventListener('click', TalkToOnarAfterQuest);
-        trainResolution = true;
-    }
-
-    // Диалоговые окна с Сентезой ==============================
-
-    // Сентеза требует оплатить 100 монет
-    function PaySentezaTrue() {
-        if(HeroGoldInner >= 100){
-            PaySenteza = true;
-            dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: Такой разговор мне по душе, можешь проходить :)' + '</p>';
-            HeroGoldInner = HeroGoldInner - 100;
-            HeroGold.innerHTML = HeroGoldInner;
-            DinamicDBSenteza();
-            BtnFarmeGuard.removeEventListener('click', FarmeGuard);
-            BtnFarmeGuard.addEventListener('click', afterFirstDialog);
-            BtnWorkFarm.disabled = false;
-        }
-        else if(HeroGoldInner < 100){
-            dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: У тебя и 100 монет не наберется, пошел прочь оборванец!' + '</p>';
-            DinamicDBSenteza();
-            return;
-        }
-    }
-
-    // Посылаем Сентезу к черту
-    function NotPaySenteza() {
-        PaySenteza = true;
-        messWindowInner.innerHTML = 'Сентеза избил вас и забрал все деньги...';
-        $('.farm .db_1').fadeOut();
-        $('.overlay, #messWindow').fadeIn();
-        BtnFarmeGuard.removeEventListener('click', FarmeGuard);
-        BtnFarmeGuard.addEventListener('click', afterFirstDialog);
-        HeroGoldInner = 0;
-        HeroGold.innerHTML = HeroGoldInner;
-    }
-
-    // Фраза после оплаты Сентезе
-    function AfterPaySentreza() {
-        dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: С тобой приятно иметь дело :)' + '</p>';
-        DinamicDBSenteza();
-    }
-
-    function SentezaDB1() {
-        $('.farm .db_1').fadeIn();
-    }
-    function DinamicDBSenteza() {
-        $('.farm .db_1').fadeOut();
-        $('#dinamicDbSenteza').fadeIn();
     }
     // Конец ферма ======================================================
 
