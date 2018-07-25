@@ -1,94 +1,103 @@
-*{
+* {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
-body{
+li{
+    list-style: none;
+}
+
+body {
     padding-top: 20px;
     background: url(../img/big.jpg) no-repeat top center;
     background-size: cover;
+    font-family: 'Kurale', serif;
 }
 
-.container{
-    width: 930px;
+.container {
+    width: 992px;
     margin: 0 auto;
 }
 
-.enemy{
+.enemy {
     background: url(../img/ork.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.home{
+.home {
     background: url(../img/home.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.farm{
+.farm {
     background: url(../img/farm.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.wood{
+.wood {
     background: url(../img/wood.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.marketPlace{
+.marketPlace {
     background: url(../img/shop.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.taverna{
+.taverna {
     background: url(../img/taverna.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.box-top, .box_middle, .box_bottom{
+.box-top, .box_middle, .box_bottom {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
     justify-content: space-between;
 }
-.box_middle{
+
+.box_middle {
     margin: 15px 0px;
 }
-.box-item{
+
+.box-item {
     position: relative;
     padding: 10px;
-    width: 300px;
-    height: 310px;
+    width: 320px;
+    height: 340px;
     border-radius: 5px;
     overflow: hidden;
 }
-.border{
-    border:2px solid grey;
+
+.border {
+    border: 2px solid grey;
 }
-.hero{
+
+.hero {
     position: relative;
     background: url(../img/herobg.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.bg_inner{
-    background: rgba(0,0,0,.5);
+.bg_inner {
+    background: rgba(0, 0, 0, .5);
     color: white;
     border-radius: 5px;
     padding: 5px 7px;
     margin-top: 17px;
 }
 
-.bg_inner__ork{
+.bg_inner__ork {
     margin-top: 100px;
 }
 
-.dialog_box{
+.dialog_box {
     position: absolute;
     bottom: 6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 282px;
+    width: 94%;
     z-index: 9999;
     overflow: hidden;
     border-radius: 5px;
@@ -99,61 +108,65 @@ body{
     background-size: cover;
 }
 
-.dialog_box button{
+.dialog_box button {
     background: none;
     border: 1px solid black;
     color: black;
 }
 
-.dialog_box button:hover{
+.dialog_box button:hover {
     text-decoration: underline;
     background: none;
 }
 
-.db_close{
+.db_close {
     position: absolute;
-    right: 2px;
+    right: 6px;
     top: -3px;
     cursor: pointer;
 }
 
-.dialog_box p{
+.dialog_box p {
     font-weight: bold;
     border-bottom: 1px solid black;
     padding-bottom: 8px;
     margin-bottom: 8px;
 }
 
-.shop_box{
-    margin-top: 116px;
+.shop_box {
+    margin-top: 120px;
 }
 
-.hero_st{
-    color:orange;
+.hero_st {
+    color: orange;
 }
 
-.hero_img{
+.hero_st span{
+    color: white;
+}
+
+.hero_img {
     position: absolute;
-    bottom: -4px;
-    right: 10px;
+    bottom: -6px;
+    right: 0px;
 }
 
-button{
+button {
     background: black;
     border-radius: 5px;
     padding: 3px 10px;
-    color:white;
+    color: white;
     outline: none;
-    border:1px solid white;
+    border: 1px solid white;
     cursor: pointer;
-    transition:0.5s;
+    transition: 0.5s;
 }
 
-button:hover{
+button:hover {
     background: #282C34;
 }
 
-.npc_name{
+.npc_name {
     background: url(../img/bg-pop.jpg) no-repeat top center;
     background-size: cover;
     border-radius: 5px;
@@ -161,17 +174,18 @@ button:hover{
     padding: 4px 7px;
 }
 
-.npc{
+.npc {
     position: relative;
 }
 
 /* Кузница */
-.forge{
+
+.forge {
     background: url(../img/forge.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.harald{
+.harald {
     position: absolute;
     width: 250px;
     height: 220px;
@@ -179,40 +193,43 @@ button:hover{
     right: -18px;
 }
 
-.harald_btn{
+.harald_btn {
     bottom: 65px;
 }
 
-.harald img{
+.harald img {
     width: 100%;
     height: auto;
 }
 
 /* Ларс */
-.master{
+
+.master {
     background: url(../img/bg1.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.lares{
+.lares {
     width: 250px;
     height: 235px;
     margin-left: 36px;
-    bottom: -36px;
+    bottom: -59px;
     z-index: 100;
 }
-.lares img{
+
+.lares img {
     width: 100%;
     height: auto;
 }
 
-.master_btn__box{
+.master_btn__box {
     position: absolute;
     bottom: 8px;
     z-index: 200;
     text-align: center;
 }
-.tooltip {
+
+.tooltip, .tooltip2 {
     background: white;
     border-radius: 10px;
     padding: 7px 10px;
@@ -221,10 +238,15 @@ button:hover{
     bottom: 13px;
     left: 98px;
     width: fit-content;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     display: none;
 }
-.tooltip::after {
+
+.tooltip2 {
+    left: 168px;
+}
+
+.tooltip::after, .tooltip2::after {
     content: '';
     position: absolute;
     right: 99px;
@@ -233,8 +255,13 @@ button:hover{
     border-top: 10px solid white;
 }
 
+.tooltip2::after {
+    right: 28px;
+}
+
 /* Журнал */
-.messWindow{
+
+.messWindow {
     padding: 10px 15px;
     border-radius: 10px;
     border: 2px solid white;
@@ -250,7 +277,7 @@ button:hover{
     font-weight: bold;
 }
 
-.overlay{
+.overlay {
     width: 100%;
     height: 100vh;
     z-index: 9998;
@@ -262,11 +289,11 @@ button:hover{
     display: none;
 }
 
-.close b{
+.close b {
     position: relative;
 }
 
-.close{
+.close {
     position: absolute;
     top: -4px;
     right: 4px;
@@ -274,7 +301,8 @@ button:hover{
 }
 
 /* Таймер */
-.timer_box{
+
+.timer_box {
     width: 200px;
     text-align: center;
     margin: 50px auto;

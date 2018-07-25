@@ -1,14 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	<title>Дуэль онлайн</title>
 	<link rel="stylesheet" href="css/styleGame.css">
+	<link href="https://fonts.googleapis.com/css?family=Kurale&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
 	<!-- Таймер -->
 	<script src="js/timer.js"></script>
 </head>
+
 <body>
 	<div class="container">
 		<!-- <div class="timer_box border">
@@ -20,6 +22,85 @@
 		</div> -->
 
 		<div class="box-top">
+			<!-- Лавка -->
+			<div class="box-item border marketPlace">
+				<div class="npc_name">
+					<p><b>Лавка</b></p>
+				</div>
+				<div class="shop_box bg_inner">
+					<label>
+						<input class="name" type="radio" value="Кожаная броня" name="shopItem"> Кожаная броня - <span>300</span> (Броня <em>5</em>)
+					</label><br>
+					<label>
+						<input class="name" type="radio" value="Дубинка" name="shopItem"> Дубинка - <span>150</span> (Урон <em>5</em>)
+					</label><br>
+					<label>
+						<input class="name" type="radio" value="Ржавый меч" name="shopItem"> Ржавый меч - <span>400</span> (Урон <em>10</em>)
+					</label><br>
+					<label>
+						<input class="name" type="radio" value="Полуторный меч" name="shopItem"> Полуторный меч - <span>800</span> (Урон <em>15</em>)
+					</label><br>
+					<label>
+						<input class="name" type="radio" value="Сырая сталь" name="shopItem"> Сырая сталь - <span>200</span> (<em>Сырье</em>)
+					</label><br>
+				</div><br>
+				<div class="master_btn__box">
+					<button class="btn" id="bye" type="button">Купить</button>
+					<button class="btn" type="button">Говорить</button>
+				</div>
+			</div>
+
+
+			<!-- Персонаж -->
+			<div class="box-item hero border">
+				<div class="stata">
+					<div class="npc_name"><b>Персонаж</b></div>
+					<div class="bg_inner">
+						<p class="hero_st">Характеристики:</p>
+						<p>Сила: <span id="hero_power">1</span></p>
+						<p>Урон: <span id="hero_atack">0</span></p>
+						<p>Броня: <span id="hero_armor">0</span></p>
+						<!-- <p>Ловкость: <span id="hero_agility">1</span></p> -->
+						<p>Критический удар: <span id="hero_krit">10%</span></p>
+
+						<p>Здоровье: <span id="hero_hp">100</span></p>
+						<p>Золото: <span id="hero_gold"></span></p>
+						<!-- <p class="hero_st">Экипировка:</p> -->
+						<p class="hero_st" id="hero_weapon">Оружие: <span>Ржавый меч</span></p>
+						<p class="hero_st" id="hero_armor">Доспех: <span>Кожаная броня</span></p>
+
+					</div>
+				</div>
+				<div class="master_btn__box">
+					<button class="btn" type="button" class="btnJournal" id="journal">Журнал</button>
+				</div>
+				<div class="hero_img"><img src="img/hero.png" alt=""></div>
+			</div>
+
+			<!-- Дом -->
+			<div class="box-item home border">
+				<div class="npc_name"><b>Дом</b></div>
+				<div class="bg_inner">
+					<p class="hero_st">Сундук:</p>
+					<div class="inventory" id="inventory">
+						<div id="counter"></div>
+						<ul id="ul">
+
+						</ul>
+					</div>
+					<!-- <input type="radio"><span>Сырая сталь</span><br><br> -->
+				</div>
+				<div class="master_btn__box">
+					<button class="btn" type="button">Экипировать</button>
+					<button class="btn" type="button">Отдыхать</button>
+				</div>
+			</div>
+
+
+		</div>
+		<!-- end box-top -->
+
+		<div class="box_middle">
 
 			<!-- Ларес -->
 			<div class="box-item master border">
@@ -30,38 +111,89 @@
 					<button class="btn" id="btn_advice" type="submit">Спросить совет</button>
 				</div>
 
-					<div class="dialog_box db_1">
-						<div class="db_close">х</div>
-						<p>Ларс: Думаешь я раздаю советы каждому встречному?!</p>
-					</div>
-					<div class="dialog_box db_2">
-						<div class="db_close">х</div>
-						<p>Ларс: Кто ты такой? Я не тренерую всех подряд!</p>
-					</div>
+				<div class="dialog_box db">
+					<div class="db_close">х</div>
+					<div class="dinamicTxt"></div>
+				</div>
 
 			</div>
 
-			<!-- Персонаж -->
-			<div class="box-item hero border">
-				<div class="stata">
-					<div class="npc_name"><b>Персонаж</b></div>
-					<div class="bg_inner">
-						<p class="hero_st">Характеристики:</p>
-						<p>Сила: <span id="hero_power">1</span></p>
-						<p>Ловкость: <span id="hero_agility">1</span></p>
-						<p>Критический удар: <span id="hero_krit">10%</span></p>
-						<p>Броня: <span id="hero_armor">0</span></p>
-						<p>Здоровье: <span id="hero_hp">100</span></p>
-						<p>Золото: <span id="hero_gold"></span></p><br>
-						<p class="hero_st">Экипировка:</p>
-						<p id="item">Пусто</p>
-					</div>
+			<!-- Противник -->
+			<div class="box-item enemy border">
+				<div class="npc_name"><b>Локтар Черный топор (Орк-Враг)</b></div>
+				<div class="bg_inner bg_inner__ork">
+					<p>Сила:<span>???</span></p>
+					<!-- <p>Ловкость:<span>???</span></p> -->
+					<p>Броня:<span>???</span></p>
+					<p>Критический удар:<span>???</span></p>
+					<p>Здоровье:<span>???</span></p>
+					<p>Экипировка:<span>???</span></p>
 				</div>
 				<div class="master_btn__box">
-					<button class="btn" type="button" class="btnJournal" id="journal">Журнал</button>
+					<button class="btn" id="btn_enemy">Сражаться!</button>
+					<button class="btn" id="btn_enemy">Сходить на разведку</button>
+
 				</div>
-				<div class="hero_img"><img src="img/hero.png" alt=""></div>
 			</div>
+
+			<!-- Ферма Онара -->
+			<div class="box-item farm border" id="farm">
+				<div class="npc_name"><b>Ферма Онара</b></div>
+				<div class="master_btn__box" id="div">
+
+					<div class="tooltip">
+						<span>Вы не знайте где Онар</span>
+					</div>
+
+					<div class="tooltip2">
+						<span>Нет доступа</span>
+					</div>
+
+					<button class="btn" id="btn_farmeGuard" type="button">Сентеза (Охрана)</button>
+					<button class="btn" id="btn_onar" type="button">Онар</button>
+					<button class="btn" id="btn_workFarm" type="button">Работать</button>
+				</div>
+				<div class="dialog_box db_1">
+					<div class="db_close">х</div>
+					<p>Сентеза: Что тебе нужно? Хочешь пройти дальше, плати 100 монет!</p>
+					<button class="btn" id="btn_pay_senteza">Согласен</button>
+					<button class="btn" id="btn_not_pay_senteza">Послать к черту!</button>
+					<button class="btn">Уйти</button>
+				</div>
+				<div class="dialog_box" id="dinamicDbSenteza">
+					<div class="db_close">х</div>
+					<div id="dinamicTxtSenteza"></div>
+					<div class="btn" id="btnNextSenteza"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="box_bottom">
+
+			<!-- Лес -->
+			<div class="box-item border wood">
+				<div class="npc_name"><b>Лес</b></div>
+				<div class="master_btn__box">
+					<button class="btn" type="button">Болотные крысы</button>
+					<button class="btn" type="button">Волки</button>
+					<button class="btn" type="button">Мракорис</button>
+				</div>
+			</div>
+
+			<!-- Таверна -->
+			<div class="box-item taverna border">
+				<div class="npc_name"><b>Таверна</b></div>
+				<div class="master_btn__box">
+					<button class="btn" type="button">Подкрепиться</button>
+					<button class="btn" id="btn_rumors" type="button">Распросить о слухах</button>
+				</div>
+				<div class="dialog_box db_1">
+					<div class="db_close">х</div>
+					<p>Завсегдатай: На ферме Харальда пропали работники, никто не знает, что с ними. Люди обеспокоены</p>
+				</div>
+
+			</div>
+
 
 			<!-- Кузница -->
 			<div class="box-item forge border">
@@ -84,124 +216,6 @@
 				</div>
 			</div>
 
-		</div><!-- end box-top -->
-
-		<div class="box_middle">
-
-			<!-- Лавка -->
-			<div class="box-item border marketPlace">
-				<div class="npc_name"><p><b>Лавка</b></p></div>
-				<div class="shop_box bg_inner">
-					<label>
-						<input type="radio">Кожаная броня - <span>300</span>
-					</label><br>
-					<label>
-						<input type="radio">Сырая сталь - <span>200</span>
-					</label><br>
-					<label>
-						<input type="radio">Дубинка - <span>150</span>
-					</label><br>
-					<label>
-						<input type="radio">Ржавый меч - <span>400</span>
-					</label><br>
-					<label>
-						<input type="radio">Полуторный меч - <span>800</span>
-					</label><br>
-				</div><br>
-				<div class="master_btn__box">
-					<button class="btn" type="button">Купить</button>
-					<button class="btn" type="button">Показать товары</button>
-				</div>
-			</div>
-
-			<!-- Противник -->
-			<div class="box-item enemy border">
-				<div class="npc_name"><b>Локтар Черный топор (Орк-Враг)</b></div>
-				<div class="bg_inner bg_inner__ork">
-					<p>Сила:<span>???</span></p>
-					<p>Ловкость:<span>???</span></p>
-					<p>Броня:<span>???</span></p>
-					<p>Критический удар:<span>???</span></p>
-					<p>Здоровье:<span>???</span></p>
-					<p>Экипировка:<span>???</span></p>
-				</div>
-				<div class="master_btn__box">
-					<button class="btn" id="btn_enemy">Сражаться!</button>
-					<button class="btn" id="btn_enemy">Сходить на разведку</button>
-
-				</div>
-			</div>
-
-			<!-- Таверна -->
-			<div class="box-item taverna border">
-				<div class="npc_name"><b>Таверна</b></div>
-				<div class="master_btn__box">
-					<button class="btn" type="button">Подкрепиться</button>
-					<button class="btn" id="btn_rumors" type="button">Распросить о слухах</button>
-				</div>
-				<div class="dialog_box db_1">
-					<div class="db_close">х</div>
-					<p>Завсегдатай: На ферме Харальда пропали работники, никто не знает, что с ними. Люди обеспокоены</p>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="box_bottom">
-
-			<!-- Лес -->
-			<div class="box-item border wood">
-				<div class="npc_name"><b>Лес</b></div>
-				<div class="master_btn__box">
-					<button class="btn" type="button">Болотные крысы</button>
-					<button class="btn" type="button">Волки</button>
-					<button class="btn" type="button">Мракорис</button>
-				</div>
-			</div>
-
-			<!-- Ферма Онара -->
-			<div class="box-item farm border">
-				<div class="npc_name"><b>Ферма Онара</b></div>
-				<div class="master_btn__box">
-
-					<div class="tooltip">
-						<span>Вы не знайте где Онар</span>
-					</div>
-
-					<button class="btn" id="btn_farmeGuard" type="button">Сентеза (Охрана)</button>
-					<button class="btn" id="btn_onar" type="button" >Онар</button>
-					<button class="btn" id="btn_workFarm" type="button">Работать</button>
-				</div>
-				<div class="dialog_box db_1">
-					<div class="db_close">х</div>
-					<p>Сентеза: Что тебе нужно? Хочешь пройти дальше, плати 100 монет!</p>
-					<button class="btn" id="btn_pay_senteza">Согласен</button>
-					<button class="btn" id="btn_not_pay_senteza">Послать к черту!</button>
-					<button class="btn">Уйти</button>
-				</div>
-				<div class="dialog_box" id="dinamicDbSenteza">
-					<div class="db_close">х</div>
-					<div id="dinamicTxtSenteza"></div>
-					<div class="btn" id="btnNextSenteza"></div>
-				</div>
-				<p id="timeOfwork">
-					10
-				</p>
-				<p id="stop"></p>
-			</div>
-
-			<!-- Дом -->
-			<div class="box-item home border">
-				<div class="npc_name"><b>Дом</b></div>
-				<div class="bg_inner">
-					<p class="hero_st">Сундук:</p>
-					<input type="radio"><span>Сырая сталь</span><br><br>
-				</div>
-				<div class="master_btn__box">
-					<button class="btn" type="button">Экипировать</button>
-					<button class="btn" type="button">Отдыхать</button>
-				</div>
-			</div>
 		</div>
 
 	</div>
@@ -212,6 +226,8 @@
 	<div class="messWindow" id="messWindow">
 		<div class="close">x</div>
 		<p id="messWindowInner"></p>
+		<span id="stop"></span>
+		<span id="timeOfwork"></span>
 	</div>
 	<!-- Журнал -->
 	<div class="journal_box messWindow">
@@ -224,4 +240,5 @@
 	<script src="js/main.js"></script>
 
 </body>
+
 </html>
