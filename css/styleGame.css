@@ -229,11 +229,12 @@ button:hover {
     text-align: center;
 }
 
-.tooltip, .tooltip2 {
+.tooltip, .tooltip2, .HomeMessageAlert {
     background: white;
     border-radius: 10px;
     padding: 7px 10px;
     position: relative;
+    line-height: 16px;
     z-index: 500;
     bottom: 13px;
     left: 98px;
@@ -242,11 +243,15 @@ button:hover {
     display: none;
 }
 
+.HomeMessageAlert{
+    left: 3px;
+}
+
 .tooltip2 {
     left: 168px;
 }
 
-.tooltip::after, .tooltip2::after {
+.tooltip::after, .tooltip2::after, .HomeMessageAlert::after {
     content: '';
     position: absolute;
     right: 99px;
@@ -259,8 +264,11 @@ button:hover {
     right: 28px;
 }
 
-/* Журнал */
+.HomeMessageAlert::after{
+    right: 156px;
+}
 
+/* Журнал */
 .messWindow {
     padding: 10px 15px;
     border-radius: 10px;

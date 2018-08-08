@@ -1,127 +1,140 @@
 window.onload = function() {
 
     // Окно оповещений
-    var messWindow = document.getElementById('messWindow');
-    var messWindowInner = document.getElementById('messWindowInner');
-
-
-    // Персонаж ==================================
-    var HeroPowerAbility = 1;
-    var weapon = false;
-    var HeroPower = document.getElementById('hero_power');
-    var HeroGold = document.getElementById('hero_gold');
-    var HeroGoldInner = 100;
+    var messWindow = document.getElementById('messWindow'),
+        messWindowInner = document.getElementById('messWindowInner'),
+        // Персонаж ================================================================
+        HeroPowerAbility = 1,
+        weapon = false,
+        HeroPower = document.getElementById('hero_power'),
+        HeroGold = document.getElementById('hero_gold'),
+        HeroAtack = document.getElementById('hero_atack'),
+        HeroArmor = document.getElementById('hero_armor'),
+        HeroCriticalAtack = document.getElementById('hero_krit'),
+        HeroGoldInner = 100;
     HeroGold.innerHTML = HeroGoldInner;
 
-
-    // Товары в магазине
-    // var object = {
-    //     'Кожаная броня': 300,
-    //     'Дубинка': 150,
-    //     'Ржавый меч': 400,
-    //     'Полуторный меч': 800,
-    //     'Сырая сталь': 200,
-    // };
-    // console.log(object);
-
-    // var array = [{
-    //         name: "Булава",
-    //         price: 300,
-    //         damage: 200,
-    //         count: 1
-    //     },
-    //     {
-    //         name: "Платок Аслана",
-    //         count: 4
-    //     },
-    // ]
-
-    // for (var f = 0; f < array.length; f++){
-    //     console.log(array[1].name);
-    //     // array[0].name
-    // }
-
-    // Предметы в сундуке
-    // var HeroItem = [];
-    var HeroItemName = [
+    // Покупка предметов =======================================================
+    var HeroItem = [
+        [],
+        [],
         [],
         []
     ];
     var bye = document.getElementById('bye');
     bye.addEventListener('click', BuyItem);
-    // var count = 1;
+
+    // Разговор с продавцом
+    talkToSellerBtn = document.getElementById('talkToSeller');
+    talkToSellerBtn.addEventListener('click', TalkToSeller);
+    function TalkToSeller(){
+        $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Продаю по полной цене, выкупаю за половину :)' + '</p>');
+        $('.marketPlace .db').fadeIn();
+        btnDisabledTrue();
+    }
 
     function BuyItem() {
-
         var itemCheck = $('input[name=shopItem]:checked'),
             itemCheckVal = $('input[name=shopItem]:checked').val(),
             itemPrice = itemCheck.next().html(),
             damage = itemCheck.next().siblings('em').html(),
-            ul = document.getElementById('ul'),
-            // Получаем индекс названия предмета
-            HeroItemIndex = HeroItemName[0].indexOf(itemCheckVal),
-            // Обращаемся к индексу кол-ва предметов во втором подмассиве
-            HeroCountIndex = HeroItemName[1][HeroItemIndex];
-
-        if (HeroItemIndex != -1) {
-
-            alert('есть такой элемент!');
-            alert(HeroItemIndex);
-            HeroCountIndex++;
-            console.log(HeroCountIndex);
-            // HeroItemName[1][HeroItemIndex];
-            // for(var j = 0; j < HeroItemName.length; j++){
-            //     var li = document.createElement('li');
-            //     li.innerHTML = '<input type=radio>' + ' <span class="fff">' + HeroItemName[j];
-            //     ul.appendChild(li);
-            // }
-            // alert(HeroItemIndex);
-            // HeroItemName.push([]);
-            // for (var k = 0; k < HeroItem.length; k++) {
-            // HeroItem[HeroItemIndex][3]++;
-            // ul.innerHTML = '';
-            // var li = document.createElement('li');
-            // li.innerHTML = '<input type=radio>' + ' <span class="fff">' + HeroItem[k][0] + ' </span>' + '<span class="counter">' + HeroItem[0][3] + '</span>';
-            // ul.appendChild(li);
-            // }
-
-        } else {
-
-            // var arr = [
-            //     [1, 2, 3],
-            //     [4, 5, 6],
-            //     [7, 8, 9]
-            // ];
-            //
-            // for (let j = 0; j < arr.length; j++) {
-            //     for (let n = 0; n < arr.length; n++) {
-            //
-            //             console.log(arr[n][0]);
-            //
-            //     }
-            // }
-
-            // HeroItem.push(
-            //     [
-            //         itemCheckVal,
-            //         itemPrice,
-            //         damage,
-            //         1
-            //     ]
-            // );
-
-            HeroItemName[0].push(itemCheckVal);
-            HeroItemName[1].push(1);
-            // Получаем последний элемент в подмассиве названия предметов
-            var NameMassiveLastEl = HeroItemName[0][HeroItemName[0].length - 1],
-                CountMassiveLastEl = HeroItemName[1][HeroItemName[1].length - 1],
-                li = document.createElement('li');
-            li.innerHTML = '<input type=radio>' + ' <span class="fff">' + NameMassiveLastEl + ' </span>' + '<span class="counter">' + CountMassiveLastEl + '</span>';
-            ul.appendChild(li);
+            HomeInventory = document.getElementById('inventory'),
+            // Проверяем массив и получаем индекс предмета в массиве
+            HeroItemIndex = HeroItem[0].indexOf(itemCheckVal);
+        // Если не хватает золота
+        if (HeroGoldInner < itemPrice) {
+            $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Эта вещь тебе явно не по карману :)' + '</p>');
+            $('.marketPlace .db').fadeIn();
+            btnDisabledTrue();
+        }
+        // Если предмет не выбран для покупки
+        if (typeof itemCheckVal === 'undefined') {
+            $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Ты не выбрал предмет для покупки :)' + '</p>');
+            $('.marketPlace .db').fadeIn();
+            btnDisabledTrue();
+            return;
+        }
+        // Покупка
+        if (HeroGoldInner >= itemPrice) {
+            HeroGoldInner = HeroGoldInner - itemPrice;
+            HeroGold.innerHTML = HeroGoldInner;
+            // Если предмет уже куплен увеличиваем счетчик
+            if (HeroItemIndex != -1) {
+                HeroItem[1][HeroItemIndex] = +HeroItem[1][HeroItemIndex] + 1;
+                document.querySelector('.counter-' + (HeroItemIndex)).innerHTML = HeroItem[1][HeroItemIndex];
+            } else {
+                // Добавляем предметы в список
+                HeroItem[0].push(itemCheckVal);
+                HeroItem[1].push(1);
+                HeroItem[2].push(itemPrice);
+                HeroItem[3].push(damage);
+                // Цепляем последние элементы в массиве
+                var NameMassiveLastEl = HeroItem[0][HeroItem[0].length - 1],
+                    CountMassiveLastEl = HeroItem[1][HeroItem[1].length - 1],
+                    PriceMassiveLastEl = HeroItem[2][HeroItem[2].length - 1] / 2,
+                    DamageMassiveLastEl = HeroItem[3][HeroItem[3].length - 1],
+                    li = document.createElement('li');
+                li.innerHTML = '<label>' + '<input type=radio name="inventory">' + ' <span class="itemName">' + NameMassiveLastEl + '</span>' + ' <span class="counter counter-' + (HeroItem[0].length - 1) + ' ">' + CountMassiveLastEl + '</span>' + ', ' + '<span class="priceItemHero">' + PriceMassiveLastEl + '</span>' + ', ' + '<span class="damageItemHero">' + DamageMassiveLastEl + '</span>' + '</label>';
+                HomeInventory.appendChild(li);
+            }
         }
     }
 
-    // Журнал
+    // Продажа предметов =======================================================
+    var sellTheItemBtn = document.getElementById('sellItem');
+    sellTheItemBtn.addEventListener('click', SellItem);
+
+    function SellItem() {
+        var itemCheckInv = $('input[name=inventory]:checked').next().html(),
+        HeroItemPrice = $('input[name=inventory]:checked').siblings('.priceItemHero').html();
+        HeroItemIndexInv = HeroItem[0].indexOf(itemCheckInv);
+        if (HeroItemIndexInv != -1) {
+            HeroItem[1][HeroItemIndexInv] = +HeroItem[1][HeroItemIndexInv] - 1;
+            document.querySelector('.counter-' + (HeroItemIndexInv)).innerHTML = HeroItem[1][HeroItemIndexInv];
+            HeroGoldInner = HeroGoldInner + Number(HeroItemPrice);
+            HeroGold.innerHTML = HeroGoldInner;
+        }
+        if (HeroItem[1][HeroItemIndexInv] == 0) {
+            var DeleteItem = document.querySelector('.counter-' + (HeroItemIndexInv)),
+                itemCheckInvName = $('input[name=inventory]:checked').next().html(),
+                RemoveItem = $(DeleteItem).parents()[1];
+            HeroItemIndex = HeroItem[0].indexOf(itemCheckInvName);
+            delete HeroItem[0][HeroItemIndex];
+            $(RemoveItem).empty();
+        }
+
+    }
+
+    // Экипировка предметов ====================================================
+    var EquipItem = document.getElementById('equipItem');
+    EquipItem.addEventListener('click', EqipItemFunc);
+    var ItemTypesArr = [
+        ['Ржавый меч', 'Полуторный меч', 'Палаш', 'Дубинка'],
+        ['Кожаная броня', 'Тяжелый доспех'],
+        ['Сырая сталь']
+    ];
+
+    function EqipItemFunc() {
+        var itemCheckInvName = $('input[name=inventory]:checked').next().html(),
+            itemChecked = $('input[name=inventory]:checked'),
+            ItemStats = $(itemChecked).siblings(".damageItemHero").html();
+        HeroItemIndex = ItemTypesArr[1].indexOf(itemCheckInvName);
+        HeroItemWeapon = ItemTypesArr[0].indexOf(itemCheckInvName);
+        HeroItemMaterial = ItemTypesArr[2].indexOf(itemCheckInvName);
+        if (HeroItemIndex != -1) {
+            $('#hero_armor span').html(itemCheckInvName);
+            HeroArmor.innerHTML = ItemStats;
+        }
+        if (HeroItemMaterial != -1) {
+            $('.HomeMessageAlert').fadeIn();
+        }
+        if (HeroItemWeapon != -1) {
+            $('#hero_weapon span').html(itemCheckInvName);
+            HeroAtack.innerHTML = ItemStats;
+        }
+    }
+
+    // Журнал ==================================================================
     var JournalList = false;
     var JournalBox = document.getElementById('journal_box__inner');
     var quest = {};
@@ -150,7 +163,7 @@ window.onload = function() {
         $('.overlay, .messWindow').fadeOut(500);
     });
 
-    // Конец Персонаж ==================================
+    // Конец Персонаж ====================================================================
 
     // Мастер Ларс ==========================================
     // Совет
@@ -372,6 +385,9 @@ window.onload = function() {
         }
         if (target.id != 'btn_workFarm') {
             $('.tooltip2').css('display', 'none');
+        }
+        if (target.id != 'equipItem') {
+            $('.HomeMessageAlert').css('display', 'none');
         }
     };
 

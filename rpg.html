@@ -20,7 +20,6 @@
 				startTimer();
 			</script>
 		</div> -->
-
 		<div class="box-top">
 			<!-- Лавка -->
 			<div class="box-item border marketPlace">
@@ -29,10 +28,10 @@
 				</div>
 				<div class="shop_box bg_inner">
 					<label>
-						<input class="name" type="radio" value="Кожаная броня" name="shopItem"> Кожаная броня - <span>300</span> (Броня <em>5</em>)
+						<input class="name" type="radio" value="Кожаная броня" name="shopItem"> Кожаная броня - <span>50</span> (Броня <em>5</em>)
 					</label><br>
 					<label>
-						<input class="name" type="radio" value="Дубинка" name="shopItem"> Дубинка - <span>150</span> (Урон <em>5</em>)
+						<input class="name" type="radio" value="Дубинка" name="shopItem"> Дубинка - <span>50</span> (Урон <em>5</em>)
 					</label><br>
 					<label>
 						<input class="name" type="radio" value="Ржавый меч" name="shopItem"> Ржавый меч - <span>400</span> (Урон <em>10</em>)
@@ -46,10 +45,13 @@
 				</div><br>
 				<div class="master_btn__box">
 					<button class="btn" id="bye" type="button">Купить</button>
-					<button class="btn" type="button">Говорить</button>
+					<button class="btn" id="talkToSeller" type="button">Говорить</button>
+				</div>
+				<div class="dialog_box db">
+					<div class="db_close">х</div>
+					<div class="dinamicTxt"></div>
 				</div>
 			</div>
-
 
 			<!-- Персонаж -->
 			<div class="box-item hero border">
@@ -62,13 +64,10 @@
 						<p>Броня: <span id="hero_armor">0</span></p>
 						<!-- <p>Ловкость: <span id="hero_agility">1</span></p> -->
 						<p>Критический удар: <span id="hero_krit">10%</span></p>
-
 						<p>Здоровье: <span id="hero_hp">100</span></p>
 						<p>Золото: <span id="hero_gold"></span></p>
-						<!-- <p class="hero_st">Экипировка:</p> -->
-						<p class="hero_st" id="hero_weapon">Оружие: <span>Ржавый меч</span></p>
-						<p class="hero_st" id="hero_armor">Доспех: <span>Кожаная броня</span></p>
-
+						<p class="hero_st" id="hero_weapon">Оружие: <span>Пусто</span></p>
+						<p class="hero_st" id="hero_armor">Доспех: <span>Пусто</span></p>
 					</div>
 				</div>
 				<div class="master_btn__box">
@@ -84,24 +83,24 @@
 					<p class="hero_st">Сундук:</p>
 					<div class="inventory" id="inventory">
 						<div id="counter"></div>
-						<ul id="ul">
+						<ul id="inventory">
 
 						</ul>
 					</div>
 					<!-- <input type="radio"><span>Сырая сталь</span><br><br> -->
 				</div>
 				<div class="master_btn__box">
-					<button class="btn" type="button">Экипировать</button>
-					<button class="btn" type="button">Отдыхать</button>
+					<div class="HomeMessageAlert">Невозможно экипировать</div>
+					<button class="btn" id="equipItem" type="button">Экипировать</button>
+					<button class="btn" id="sellItem" type="button">Продать</button>
+					<button class="btn" id="toRest" type="button">Отдыхать</button>
 				</div>
 			</div>
-
 
 		</div>
 		<!-- end box-top -->
 
 		<div class="box_middle">
-
 			<!-- Ларес -->
 			<div class="box-item master border">
 				<div class="npc_name"><b>Ларес (Мастер меча)</b></div>
@@ -110,12 +109,10 @@
 					<button class="btn" id="btn_master" type="submit">Тренироваться</button>
 					<button class="btn" id="btn_advice" type="submit">Спросить совет</button>
 				</div>
-
 				<div class="dialog_box db">
 					<div class="db_close">х</div>
 					<div class="dinamicTxt"></div>
 				</div>
-
 			</div>
 
 			<!-- Противник -->
@@ -132,7 +129,6 @@
 				<div class="master_btn__box">
 					<button class="btn" id="btn_enemy">Сражаться!</button>
 					<button class="btn" id="btn_enemy">Сходить на разведку</button>
-
 				</div>
 			</div>
 
@@ -140,15 +136,12 @@
 			<div class="box-item farm border" id="farm">
 				<div class="npc_name"><b>Ферма Онара</b></div>
 				<div class="master_btn__box" id="div">
-
 					<div class="tooltip">
 						<span>Вы не знайте где Онар</span>
 					</div>
-
 					<div class="tooltip2">
 						<span>Нет доступа</span>
 					</div>
-
 					<button class="btn" id="btn_farmeGuard" type="button">Сентеза (Охрана)</button>
 					<button class="btn" id="btn_onar" type="button">Онар</button>
 					<button class="btn" id="btn_workFarm" type="button">Работать</button>
@@ -194,7 +187,6 @@
 
 			</div>
 
-
 			<!-- Кузница -->
 			<div class="box-item forge border">
 				<div class="npc_name"><b>Харальд (Кузнец)</b></div>
@@ -217,7 +209,6 @@
 			</div>
 
 		</div>
-
 	</div>
 
 	<!-- Всплывающие окна ============== -->
@@ -234,7 +225,6 @@
 		<div class="close">x</div>
 		<ul id="journal_box__inner"></ul>
 	</div>
-
 	<!-- Скрипты и либы -->
 	<script src="js/jquery-1.12.0.min.js"></script>
 	<script src="js/main.js"></script>
