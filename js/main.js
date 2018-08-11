@@ -27,7 +27,8 @@ window.onload = function() {
     // Разговор с продавцом
     talkToSellerBtn = document.getElementById('talkToSeller');
     talkToSellerBtn.addEventListener('click', TalkToSeller);
-    function TalkToSeller(){
+
+    function TalkToSeller() {
         $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Продаю по полной цене, выкупаю за половину :)' + '</p>');
         $('.marketPlace .db').fadeIn();
         btnDisabledTrue();
@@ -82,11 +83,12 @@ window.onload = function() {
 
     // Продажа предметов =======================================================
     var sellTheItemBtn = document.getElementById('sellItem');
+
     sellTheItemBtn.addEventListener('click', SellItem);
 
     function SellItem() {
         var itemCheckInv = $('input[name=inventory]:checked').next().html(),
-        HeroItemPrice = $('input[name=inventory]:checked').siblings('.priceItemHero').html();
+            HeroItemPrice = $('input[name=inventory]:checked').siblings('.priceItemHero').html();
         HeroItemIndexInv = HeroItem[0].indexOf(itemCheckInv);
         if (HeroItemIndexInv != -1) {
             HeroItem[1][HeroItemIndexInv] = +HeroItem[1][HeroItemIndexInv] - 1;
@@ -101,8 +103,19 @@ window.onload = function() {
             HeroItemIndex = HeroItem[0].indexOf(itemCheckInvName);
             delete HeroItem[0][HeroItemIndex];
             $(RemoveItem).empty();
-        }
 
+            var HeroArmorEquiped = $('#hero_armor_equiped span').html(),
+                HeroWeaponEquiped = $('#hero_weapon span').html();
+
+            if (HeroArmorEquiped == itemCheckInvName) {
+                $('#hero_armor_equiped span').html('Пусто');
+                $('#hero_armor').html(0);
+            }
+            if (HeroWeaponEquiped == itemCheckInvName) {
+                $('#hero_weapon span').html('Пусто');
+                $('#hero_atack').html(0);
+            }
+        }
     }
 
     // Экипировка предметов ====================================================
@@ -122,7 +135,7 @@ window.onload = function() {
         HeroItemWeapon = ItemTypesArr[0].indexOf(itemCheckInvName);
         HeroItemMaterial = ItemTypesArr[2].indexOf(itemCheckInvName);
         if (HeroItemIndex != -1) {
-            $('#hero_armor span').html(itemCheckInvName);
+            $('#hero_armor_equiped span').html(itemCheckInvName);
             HeroArmor.innerHTML = ItemStats;
         }
         if (HeroItemMaterial != -1) {
@@ -183,35 +196,57 @@ window.onload = function() {
         btnDisabledFalse();
     });
 
-    // document.onclick = function(event) {
-    //   var target = event.target;
-    //   if (target.className != 'btn' ){
-    //       $('.dialog_box').fadeOut();
-    //       btnDisabledFalse();
-    //   }
-    // };
-
     // Тренировка
     var BtnMaster = document.getElementById('btn_master');
     BtnMaster.addEventListener('click', training);
     // var trainResolution = false;
     var trainResolution = true;
-
-    var haveWeapon = false;
-
+    function MasterDb() {
+        $('.master .db').fadeIn();
+    }
     function training() {
+        function TimeOfTraining() {
+            var timeOfwork = document.getElementById('timeOfwork');
+            var number = parseInt(timeOfwork.innerHTML) - 1;
+            timeOfwork.innerHTML = number;
+            if (number == 0) {
+                stop();
+                HeroGoldInner = HeroGoldInner - 100;
+                HeroGold.innerHTML = HeroGoldInner;
+                timeOfwork.innerHTML = '';
+                timeStop.innerHTML = 'Ваша сила увеличилась на 1';
+                $('.close').html('x');
+            }
+        }
+        HeroWeaponEquiped = $('#hero_weapon span').html();
         if (trainResolution == false) {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Кто ты такой? Я не тренерую всех подряд!' + '</p>');
             $('.master .db').fadeIn();
             btnDisabledTrue();
-        } else if (haveWeapon == false && trainResolution == true) {
+        } else if (trainResolution == true && HeroWeaponEquiped == 'Пусто') {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Онар хорошо отзывался о тебе. У тебя есть оружие? возвращайся когда будет с чем тренироваться!' + '</p>');
-            $('.master .db').fadeIn();
+            MasterDb();
             btnDisabledTrue();
-        } else if (haveWeapon == true && trainResolution == true) {
-
-            alert('есть оружие');
+        } else if (trainResolution == true && HeroWeaponEquiped !== 'Пусто') {
+            if (HeroWeaponEquiped == 'Дубинка') {
+                $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Дубинкой можешь крыс в лесу погонять! Возвращайся с достойным оружием!' + '</p>');
+                MasterDb();
+                btnDisabledTrue();
+            } else if (HeroWeaponEquiped == 'Ржавый меч') {
+                $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Какой болван приходит тренироваться с ржавым мечом!' + '</p>');
+                MasterDb();
+                btnDisabledTrue();
+            } else if (HeroWeaponEquiped !== 'Ржавый меч' && HeroWeaponEquiped !== 'Дубинка') {
+                alert('кач');
+                $('.overlay, #messWindow').fadeIn();
+                $('.close').html('');
+                messWindowInner.innerHTML = '';
+                timeOfwork.innerHTML = 10;
+                window.timerId = window.setInterval(TimeOfTraining, 300);
+                timeStop.innerHTML = 'Вы тренеруйтесь: ';
+            }
         }
+
         // if (HeroPowerAbility < 3 ){
         //     HeroPowerAbility++;
         //     HeroPower.innerHTML = HeroPowerAbility;
@@ -460,7 +495,7 @@ window.onload = function() {
             $('.close').html('');
             messWindowInner.innerHTML = '';
             timeOfwork.innerHTML = 10;
-            window.timerId = window.setInterval(timer, 300);
+            window.timerId = window.setInterval(TimeOfWork, 300);
             timeStop.innerHTML = 'Вы работайте в поле: ';
         }
     }
@@ -472,8 +507,8 @@ window.onload = function() {
         timeOfwork.innerHTML = number;
     }
 
-    // Таймер
-    function timer() {
+    // Время работы
+    function TimeOfWork() {
         var timeOfwork = document.getElementById('timeOfwork');
         var number = parseInt(timeOfwork.innerHTML) - 1;
         timeOfwork.innerHTML = number;
