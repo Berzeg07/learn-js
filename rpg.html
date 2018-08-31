@@ -64,7 +64,7 @@
 						<p>Броня: <span id="hero_armor">0</span></p>
 						<!-- <p>Ловкость: <span id="hero_agility">1</span></p> -->
 						<p>Критический удар: <span id="hero_krit">10%</span></p>
-						<p>Здоровье: <span id="hero_hp">100</span></p>
+						<p>Здоровье: <span id="hero_hp"></span></p>
 						<p>Золото: <span id="hero_gold"></span></p>
 						<p class="hero_st hero_item__eqiped" id="hero_weapon">Оружие: <span>Пусто</span></p>
 						<p class="hero_st hero_item__eqiped" id="hero_armor_equiped">Доспех: <span>Пусто</span></p>
@@ -192,19 +192,20 @@
 				<div class="npc_name"><b>Харальд (Кузнец)</b></div>
 				<div class="bg_inner">
 					<label for="shortSword">
-						<input id="shortSword" name="1" type="radio"> Длинный Меч
-					</label><br>
-					<label for="palash">
-						<input id="palash" name="1" type="radio"> Палаш
+						<input id="shortSword" name="forgeItem" value="Доспех Ворона" type="radio"> Доспех Ворона - <span>5</span> (Броня <em>55</em>)
 					</label><br>
 					<label for="dragonSword">
-						<input id="dragonSword" name="1" type="radio"> Потрошитель дракона
+						<input id="dragonSword" name="forgeItem" value="Потрошитель Дракона" type="radio"> Потрошитель Дракона - <span>5</span> (Урон <em>45</em>)
 					</label>
 				</div>
 				<div class="npc harald"><img src="img/harald.png" alt=""></div>
 				<div class="master_btn__box harald_btn">
 					<button class="btn" id="btn_forge">Ковать</button>
 					<button class="btn" type="button" id="btn_talkToHarald">Говорить</button>
+				</div>
+				<div class="dialog_box db" id="db_forge">
+					<div class="db_close">х</div>
+					<div class="dinamicTxt"></div>
 				</div>
 			</div>
 

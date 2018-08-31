@@ -121,8 +121,8 @@ body {
 
 .db_close {
     position: absolute;
-    right: 6px;
-    top: -3px;
+    right: 3px;
+    top: -6px;
     cursor: pointer;
 }
 

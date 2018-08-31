@@ -11,8 +11,14 @@ window.onload = function() {
         HeroAtack = document.getElementById('hero_atack'),
         HeroArmor = document.getElementById('hero_armor'),
         HeroCriticalAtack = document.getElementById('hero_krit'),
+        HeroHP = document.getElementById('hero_hp'),
+        HeroHPInner = 10;
         HeroGoldInner = 100;
+    HeroPowerInner = 1;
+    HeroPower.innerHTML = HeroPowerInner;
     HeroGold.innerHTML = HeroGoldInner;
+    HeroHP.innerHTML = HeroHPInner;
+
 
     // Покупка предметов =======================================================
     var HeroItem = [
@@ -22,7 +28,7 @@ window.onload = function() {
         []
     ];
     var bye = document.getElementById('bye');
-    bye.addEventListener('click', BuyItem);
+    bye.addEventListener('click', BuyFromSeller);
 
     // Разговор с продавцом
     talkToSellerBtn = document.getElementById('talkToSeller');
@@ -34,14 +40,20 @@ window.onload = function() {
         btnDisabledTrue();
     }
 
-    function BuyItem() {
+    function BuyFromSeller() {
         var itemCheck = $('input[name=shopItem]:checked'),
-            itemCheckVal = $('input[name=shopItem]:checked').val(),
-            itemPrice = itemCheck.next().html(),
-            damage = itemCheck.next().siblings('em').html(),
+            itemCheckVal = $('input[name=shopItem]:checked').val();
+        BuyItem(itemCheck, itemCheckVal);
+    }
+
+    function BuyItem(parameter1, parameter2) {
+        // var itemCheck = $('input[name=shopItem]:checked'),
+        //     itemCheckVal = $('input[name=shopItem]:checked').val(),
+            var itemPrice = parameter1.next().html(),
+            damage = parameter1.next().siblings('em').html(),
             HomeInventory = document.getElementById('inventory'),
             // Проверяем массив и получаем индекс предмета в массиве
-            HeroItemIndex = HeroItem[0].indexOf(itemCheckVal);
+            HeroItemIndex = HeroItem[0].indexOf(parameter2);
         // Если не хватает золота
         if (HeroGoldInner < itemPrice) {
             $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Эта вещь тебе явно не по карману :)' + '</p>');
@@ -49,7 +61,7 @@ window.onload = function() {
             btnDisabledTrue();
         }
         // Если предмет не выбран для покупки
-        if (typeof itemCheckVal === 'undefined') {
+        if (typeof parameter2 === 'undefined') {
             $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Ты не выбрал предмет для покупки :)' + '</p>');
             $('.marketPlace .db').fadeIn();
             btnDisabledTrue();
@@ -65,7 +77,7 @@ window.onload = function() {
                 document.querySelector('.counter-' + (HeroItemIndex)).innerHTML = HeroItem[1][HeroItemIndex];
             } else {
                 // Добавляем предметы в список
-                HeroItem[0].push(itemCheckVal);
+                HeroItem[0].push(parameter2);
                 HeroItem[1].push(1);
                 HeroItem[2].push(itemPrice);
                 HeroItem[3].push(damage);
@@ -80,6 +92,53 @@ window.onload = function() {
             }
         }
     }
+    //
+    // function BuyItem() {
+    //     var itemCheck = $('input[name=shopItem]:checked'),
+    //         itemCheckVal = $('input[name=shopItem]:checked').val(),
+    //         var = itemPrice = itemCheck.next().html(),
+    //         damage = itemCheck.next().siblings('em').html(),
+    //         HomeInventory = document.getElementById('inventory'),
+    //         // Проверяем массив и получаем индекс предмета в массиве
+    //         HeroItemIndex = HeroItem[0].indexOf(itemCheckVal);
+    //     // Если не хватает золота
+    //     if (HeroGoldInner < itemPrice) {
+    //         $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Эта вещь тебе явно не по карману :)' + '</p>');
+    //         $('.marketPlace .db').fadeIn();
+    //         btnDisabledTrue();
+    //     }
+    //     // Если предмет не выбран для покупки
+    //     if (typeof itemCheckVal === 'undefined') {
+    //         $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Ты не выбрал предмет для покупки :)' + '</p>');
+    //         $('.marketPlace .db').fadeIn();
+    //         btnDisabledTrue();
+    //         return;
+    //     }
+    //     // Покупка
+    //     if (HeroGoldInner >= itemPrice) {
+    //         HeroGoldInner = HeroGoldInner - itemPrice;
+    //         HeroGold.innerHTML = HeroGoldInner;
+    //         // Если предмет уже куплен увеличиваем счетчик
+    //         if (HeroItemIndex != -1) {
+    //             HeroItem[1][HeroItemIndex] = +HeroItem[1][HeroItemIndex] + 1;
+    //             document.querySelector('.counter-' + (HeroItemIndex)).innerHTML = HeroItem[1][HeroItemIndex];
+    //         } else {
+    //             // Добавляем предметы в список
+    //             HeroItem[0].push(itemCheckVal);
+    //             HeroItem[1].push(1);
+    //             HeroItem[2].push(itemPrice);
+    //             HeroItem[3].push(damage);
+    //             // Цепляем последние элементы в массиве
+    //             var NameMassiveLastEl = HeroItem[0][HeroItem[0].length - 1],
+    //                 CountMassiveLastEl = HeroItem[1][HeroItem[1].length - 1],
+    //                 PriceMassiveLastEl = HeroItem[2][HeroItem[2].length - 1] / 2,
+    //                 DamageMassiveLastEl = HeroItem[3][HeroItem[3].length - 1],
+    //                 li = document.createElement('li');
+    //             li.innerHTML = '<label>' + '<input type=radio name="inventory">' + ' <span class="itemName">' + NameMassiveLastEl + '</span>' + ' <span class="counter counter-' + (HeroItem[0].length - 1) + ' ">' + CountMassiveLastEl + '</span>' + ', ' + '<span class="priceItemHero">' + PriceMassiveLastEl + '</span>' + ', ' + '<span class="damageItemHero">' + DamageMassiveLastEl + '</span>' + '</label>';
+    //             HomeInventory.appendChild(li);
+    //         }
+    //     }
+    // }
 
     // Продажа предметов =======================================================
     var sellTheItemBtn = document.getElementById('sellItem');
@@ -103,10 +162,8 @@ window.onload = function() {
             HeroItemIndex = HeroItem[0].indexOf(itemCheckInvName);
             delete HeroItem[0][HeroItemIndex];
             $(RemoveItem).empty();
-
             var HeroArmorEquiped = $('#hero_armor_equiped span').html(),
                 HeroWeaponEquiped = $('#hero_weapon span').html();
-
             if (HeroArmorEquiped == itemCheckInvName) {
                 $('#hero_armor_equiped span').html('Пусто');
                 $('#hero_armor').html(0);
@@ -179,18 +236,24 @@ window.onload = function() {
     // Конец Персонаж ====================================================================
 
     // Мастер Ларс ==========================================
+    var trainResolution = false;
+    // var trainResolution = true;
     // Совет
     var BtnAdvice = document.getElementById('btn_advice');
     BtnAdvice.addEventListener('click', masterAdvice);
-
     function masterAdvice() {
-        $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Думаешь я раздаю советы каждому встречному!' + '</p>');
-        $('.master .db').fadeIn();
-        btnDisabledTrue();
+        if (trainResolution == true) {
+            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Сила увеличит мощь твоих ударов!' + '</p>');
+            $('.master .db').fadeIn();
+            btnDisabledTrue();
+        } else {
+            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Думаешь я раздаю советы каждому встречному!' + '</p>');
+            $('.master .db').fadeIn();
+            btnDisabledTrue();
+        }
     }
 
     // Показ/Скрытие диалоговых окон
-
     $('.db_close').click(function() {
         $('.dialog_box').fadeOut();
         btnDisabledFalse();
@@ -199,31 +262,22 @@ window.onload = function() {
     // Тренировка
     var BtnMaster = document.getElementById('btn_master');
     BtnMaster.addEventListener('click', training);
-    // var trainResolution = false;
-    var trainResolution = true;
+
     function MasterDb() {
         $('.master .db').fadeIn();
     }
+
     function training() {
-        function TimeOfTraining() {
-            var timeOfwork = document.getElementById('timeOfwork');
-            var number = parseInt(timeOfwork.innerHTML) - 1;
-            timeOfwork.innerHTML = number;
-            if (number == 0) {
-                stop();
-                HeroGoldInner = HeroGoldInner - 100;
-                HeroGold.innerHTML = HeroGoldInner;
-                timeOfwork.innerHTML = '';
-                timeStop.innerHTML = 'Ваша сила увеличилась на 1';
-                $('.close').html('x');
-            }
-        }
         HeroWeaponEquiped = $('#hero_weapon span').html();
         if (trainResolution == false) {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Кто ты такой? Я не тренерую всех подряд!' + '</p>');
             $('.master .db').fadeIn();
             btnDisabledTrue();
-        } else if (trainResolution == true && HeroWeaponEquiped == 'Пусто') {
+        } else if(HeroPowerInner >= 5){
+            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Ты достаточно силен, мне больше нечему тебя учить!' + '</p>');
+            MasterDb();
+            btnDisabledTrue();
+        }else if (trainResolution == true && HeroWeaponEquiped == 'Пусто') {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Онар хорошо отзывался о тебе. У тебя есть оружие? возвращайся когда будет с чем тренироваться!' + '</p>');
             MasterDb();
             btnDisabledTrue();
@@ -236,27 +290,16 @@ window.onload = function() {
                 $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Какой болван приходит тренироваться с ржавым мечом!' + '</p>');
                 MasterDb();
                 btnDisabledTrue();
-            } else if (HeroWeaponEquiped !== 'Ржавый меч' && HeroWeaponEquiped !== 'Дубинка') {
-                alert('кач');
-                $('.overlay, #messWindow').fadeIn();
-                $('.close').html('');
-                messWindowInner.innerHTML = '';
-                timeOfwork.innerHTML = 10;
-                window.timerId = window.setInterval(TimeOfTraining, 300);
-                timeStop.innerHTML = 'Вы тренеруйтесь: ';
+            } else if (HeroGoldInner < 200) {
+                $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Тренировка стоит 200 монет, возваращайся когда будет чем платить!' + '</p>');
+                MasterDb();
+                btnDisabledTrue();
+            } else if (HeroWeaponEquiped !== 'Ржавый меч' && HeroWeaponEquiped !== 'Дубинка' && HeroGoldInner >= 200) {
+                TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner - 200, 'Вы тренеруйтесь: ', 'Ваша сила увеличилась на 1');
+                HeroPowerInner = HeroPowerInner + 1;
+                HeroPower.innerHTML = HeroPowerInner;
             }
         }
-
-        // if (HeroPowerAbility < 3 ){
-        //     HeroPowerAbility++;
-        //     HeroPower.innerHTML = HeroPowerAbility;
-        //     alert('Ваша сила увеличиалсь на 1')
-        // }
-        // else if (HeroPowerAbility == 3){
-        //     this.removeEventListener('click', training);
-        //     alert("На сегодня тренировка закончена")
-        // }
-        // localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
     }
     // Конец мастер Ларс ==============================================
 
@@ -356,7 +399,7 @@ window.onload = function() {
         DinamicDBSenteza();
     }
 
-    // Диалоговые окна с Сентезой ==============================
+    // Диалоговые окна с Сентезой ==============================================
 
     // Сентеза требует оплатить 100 монет
     function PaySentezaTrue() {
@@ -461,6 +504,13 @@ window.onload = function() {
         }
     }
 
+    // Отдых ===================================================================
+    var rest = document.getElementById('toRest');
+    rest.addEventListener('click', ToRest);
+    function ToRest(){
+        TimerFunc(15, HeroHP, 100, 'Вы спите: ', 'Здоровье восстановлено!');
+    }
+
     // Наняться на работу =======================================
     var timeOfwork = document.getElementById('timeOfwork');
     BtnWorkFarm.addEventListener('click', GoToWork);
@@ -488,57 +538,59 @@ window.onload = function() {
             timeStop.innerHTML = ' ';
             timeOfwork.innerHTML = ' ';
             messWindowInner.innerHTML = 'На данный момент нет работы';
-            $('.overlay, #messWindow').fadeIn();
+            Overlay();
         }
         if (PaySenteza == true && HeroGoldInner < 200) {
-            $('.overlay, #messWindow').fadeIn();
-            $('.close').html('');
-            messWindowInner.innerHTML = '';
-            timeOfwork.innerHTML = 10;
-            window.timerId = window.setInterval(TimeOfWork, 300);
-            timeStop.innerHTML = 'Вы работайте в поле: ';
+            TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner + 100, 'Вы работайте в поле: ', 'Вы заработали 100 монет');
         }
     }
 
-    //Останавливает таймер
-    function stop() {
-        window.clearInterval(window.timerId);
-        number = 10;
-        timeOfwork.innerHTML = number;
-    }
-
-    // Время работы
-    function TimeOfWork() {
-        var timeOfwork = document.getElementById('timeOfwork');
-        var number = parseInt(timeOfwork.innerHTML) - 1;
-        timeOfwork.innerHTML = number;
-        if (number == 0) {
-            stop();
-            HeroGoldInner = HeroGoldInner + 100;
-            HeroGold.innerHTML = HeroGoldInner;
-            timeOfwork.innerHTML = '';
-            timeStop.innerHTML = 'Вы заработали 100 золотых';
-            $('.close').html('x');
+    // Функция обратного отсчета ===============================================
+    function TimerFunc(time, parameter1, parameter2, messBefore, messAfter){
+        function TimeFuncInner() {
+            var number = parseInt(timeOfwork.innerHTML) - 1;
+            timeOfwork.innerHTML = number;
+            if (number == 0) {
+                window.clearInterval(window.timerId);
+                parameter1.innerHTML = parameter2;
+                timeOfwork.innerHTML = '';
+                timeStop.innerHTML = messAfter;
+                $('.close').html('x');
+                console.log(parameter2);
+            }
         }
+        Overlay();
+        $('.close').html('');
+        messWindowInner.innerHTML = '';
+        timeOfwork.innerHTML = time;
+        window.timerId = window.setInterval(TimeFuncInner, 300);
+        timeStop.innerHTML = messBefore;
     }
-    // Конец ферма ======================================================
 
-    // Кузница =============================================
-    // var SwordForge = document.getElementById('sword_forge');
-    // var BtnForge = document.getElementById('btn_forge');
-    // var HeroItem = document.getElementById('item');
-    // BtnForge.addEventListener('click', forge);
+    //Затемнение экрана
+    function Overlay() {
+        $('.overlay, #messWindow').fadeIn();
+    }
+    // Конец ферма =============================================================
 
-    // function forge() {
-    //     if (SwordForge.checked) {
-    //         alert("Поздравляю! Теперь у вас есть меч");
-    //         this.removeEventListener('click', forge);
-    //         HeroItem.innerHTML = 'Меч';
-    //     } else {
-    //         alert('Выберите предмет для ковки!');
-    //     }
-    // }
-    // Конец функции кузницы =================================
+    // Кузница =================================================================
+    var btn_talkToHarald = document.getElementById('btn_talkToHarald');
+    var BtnForge = document.getElementById('btn_forge');
+    btn_talkToHarald.addEventListener('click', TalkToHarald);
+    BtnForge.addEventListener('click', Forge);
+
+    function Forge(){
+        var itemCheck = $('input[name=forgeItem]:checked'),
+            itemCheckVal = $('input[name=forgeItem]:checked').val();
+        BuyItem(itemCheck, itemCheckVal);
+    }
+
+    function TalkToHarald(){
+        $('#db_forge .dinamicTxt').html('<p>Ищешь лучшее оружие!? Ты зашел в правильное место!</p>');
+        $('#db_forge').fadeIn();
+        btnDisabledTrue();
+    }
+    // Конец кузница ===========================================================
 
     // Битва =================================================
     // var BtnEnemy = document.getElementById('btn_enemy');
