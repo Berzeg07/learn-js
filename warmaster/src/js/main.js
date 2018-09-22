@@ -134,12 +134,21 @@ window.onload = function() {
     }
 
     // Вспомогательные функции =================================================
-    function IndexOf(string){
+    function IndexOf(string) {
         HeroItemIndexInv = HeroItem[0].indexOf(string);
     }
-    function CounterMinus(){
+
+    function CounterMinus() {
         HeroItem[1][HeroItemIndexInv] = +HeroItem[1][HeroItemIndexInv] - 1;
         document.querySelector('.counter-' + (HeroItemIndexInv)).innerHTML = HeroItem[1][HeroItemIndexInv];
+    }
+
+    function TalkToHaraldTxt(text) {
+        $('#db_forge .dinamicTxt').html(text);
+    }
+
+    function FadeInForgeDB() {
+        $('#db_forge').fadeIn();
     }
     // Конец Вспомогательные функции ===========================================
 
@@ -151,29 +160,51 @@ window.onload = function() {
 
     function Forge() {
         var itemCheck = $('input[name=forgeItem]:checked'),
-            HeroItemPrice = $('input[name=forgeItem]:checked').siblings('.priceItemHero').html(),
+            flagg = false;
+        // flagg = true;
+
+        HeroItemPrice = $('input[name=forgeItem]:checked').siblings('.priceItemHero').html(),
             itemCheckVal = $('input[name=forgeItem]:checked').val();
 
-        IndexOf('Сырая сталь');
-
-        if (HeroItemIndexInv != -1) {
-            CounterMinus();
-            BuyItem(itemCheck, itemCheckVal);
-        }
-        if (HeroItem[1][HeroItemIndexInv] == 0) {
-            var DeleteItem = document.querySelector('.counter-' + (HeroItemIndexInv)),
-                RemoveItem = $(DeleteItem).parents()[1];
-            HeroItemIndex = HeroItem[0].indexOf('Сырая сталь');
-            delete HeroItem[0][HeroItemIndex];
-            $(RemoveItem).empty();
+        if (flagg == true) {
+            IndexOf('Сырая сталь');
+            if (typeof itemCheckVal === 'undefined') {
+                TalkToHaraldTxt('<p>Выберите предмет!</p>');
+                FadeInForgeDB();
+            }
+            if (HeroGoldInner < HeroItemPrice) {
+                TalkToHaraldTxt('<p>Не достаточно денег!</p>');
+                FadeInForgeDB();
+            }
+            if (HeroItemIndexInv != -1 && HeroGoldInner >= HeroItemPrice) {
+                CounterMinus();
+                BuyItem(itemCheck, itemCheckVal);
+                TalkToHaraldTxt('<p>' + itemCheckVal + ' в вашем инвентаре!' + '</p>');
+                FadeInForgeDB();
+            }
+            if (HeroItemIndexInv == -1 && typeof itemCheckVal != 'undefined') {
+                TalkToHaraldTxt('<p>У вас нет нужного сырья! </p>');
+                FadeInForgeDB();
+            }
+            if (HeroItem[1][HeroItemIndexInv] == 0) {
+                var DeleteItem = document.querySelector('.counter-' + (HeroItemIndexInv)),
+                    RemoveItem = $(DeleteItem).parents()[1];
+                HeroItemIndex = HeroItem[0].indexOf('Сырая сталь');
+                delete HeroItem[0][HeroItemIndex];
+                $(RemoveItem).empty();
+            }
+        } else{
+            TalkToHaraldTxt('<p>Харальд: Наша кузница производит снаряжение только для ополчения и паладинов короля! Тебя я не знаю.</p>');
+            FadeInForgeDB();
         }
     }
 
     function TalkToHarald() {
-        $('#db_forge .dinamicTxt').html('<p>Ищешь лучшее оружие!? Ты зашел в правильное место!</p>');
-        $('#db_forge').fadeIn();
+        TalkToHaraldTxt('<p>Харальд: Лучшее оружие и броня!</p>');
+        FadeInForgeDB();
         btnDisabledTrue();
     }
+
     // Конец кузница ===========================================================
 
     // Экипировка предметов ====================================================
