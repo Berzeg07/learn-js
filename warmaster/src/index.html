@@ -24,7 +24,7 @@
 			<!-- Лавка -->
 			<div class="box-item border marketPlace">
 				<div class="npc_name">
-					<p><b>Лавка</b></p>
+					<p><b>Сантино (Торговец)</b></p>
 				</div>
 				<div class="shop_box bg_inner">
 					<label>
@@ -119,17 +119,16 @@
 			<!-- Противник -->
 			<div class="box-item enemy border">
 				<div class="npc_name"><b>Локтар Черный топор (Орк-Враг)</b></div>
-				<div class="bg_inner bg_inner__ork">
+				<!-- <div class="bg_inner bg_inner__ork">
 					<p>Сила:<span>???</span></p>
-					<!-- <p>Ловкость:<span>???</span></p> -->
 					<p>Броня:<span>???</span></p>
 					<p>Критический удар:<span>???</span></p>
 					<p>Здоровье:<span>???</span></p>
 					<p>Экипировка:<span>???</span></p>
-				</div>
+				</div> -->
 				<div class="master_btn__box">
 					<button class="btn" id="btn_enemy">Сражаться!</button>
-					<button class="btn" id="btn_enemy">Сходить на разведку</button>
+					<!-- <button class="btn" id="btn_enemy">Сходить на разведку</button> -->
 				</div>
 			</div>
 
@@ -168,9 +167,9 @@
 			<div class="box-item border wood">
 				<div class="npc_name"><b>Лес</b></div>
 				<div class="master_btn__box">
-					<button class="btn" type="button">Болотные крысы</button>
-					<button class="btn" type="button">Волки</button>
-					<button class="btn" type="button">Мракорис</button>
+					<button class="btn enemyes_btn" type="button" name="rat">Болотные крысы</button>
+					<button class="btn enemyes_btn" type="button" name="woolf">Волки</button>
+					<button class="btn enemyes_btn" type="button" name="mrakoris">Мракорис</button>
 				</div>
 			</div>
 
@@ -183,7 +182,7 @@
 				</div>
 				<div class="dialog_box db_1">
 					<div class="db_close">х</div>
-					<p>Завсегдатай: На ферме Харальда пропали работники, никто не знает, что с ними. Люди обеспокоены</p>
+					<p>Завсегдатай: На ферме Онара пропали работники, никто не знает, что с ними. Люди обеспокоены</p>
 				</div>
 
 			</div>
@@ -226,6 +225,44 @@
 	<div class="journal_box messWindow">
 		<div class="close">x</div>
 		<ul id="journal_box__inner"></ul>
+	</div>
+	<!-- Окно боя -->
+	<div class="fight-box">
+		<div class="fight-box__inner">
+			<div class="hero_avatar" id="hero_avatar"><img src="img/avatar.png" alt=""></div>
+			<div class="stat-box">
+				<div class="stat-box_list stat-box__left">
+					<ul>
+						<li>Герой</li>
+						<li><span>Сила: </span><span>10</span></li>
+						<li><span>Урон: </span><span>10</span></li>
+						<li><span>Крит: </span><span>10</span></li>
+						<li><span>Броня: </span><span>10</span></li>
+						<li><span>Здоровье: </span><span>10</span></li>
+					</ul>
+				</div>
+				<div class="stat-box_list stat-box__right">
+					<ul>
+						<li id="enemy_name"></li>
+						<li><span>Сила:</span> <span>???</span></li>
+						<li><span>Урон:</span> <span>???</span></li>
+						<li><span>Крит:</span> <span>???</span></li>
+						<li><span>Броня:</span> <span>???</span></li>
+						<li><span>Здоровье:</span> <span>???</span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="enemy_avatar" id="enemy_avatar"></div>
+			<div class="dialog_box db db_fight" id="db_fight">
+				<div class="db_close">х</div>
+				<div class="dinamicTxt">ddd</div>
+			</div>
+			<div class="fight-buttons">
+				<button type="button" id="atack">Атаковать</button>
+				<button type="button" id="retreat">Отступить</button>
+			</div>
+		</div>
+
 	</div>
 
 	<!-- Скрипты и либы ============================ -->

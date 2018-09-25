@@ -12,7 +12,7 @@ window.onload = function() {
         HeroArmor = document.getElementById('hero_armor'),
         HeroCriticalAtack = document.getElementById('hero_krit'),
         HeroHP = document.getElementById('hero_hp'),
-        HeroHPInner = 10;
+        HeroHPInner = 100;
     HeroGoldInner = 100;
     HeroPowerInner = 1;
     HeroPower.innerHTML = HeroPowerInner;
@@ -158,15 +158,16 @@ window.onload = function() {
     btn_talkToHarald.addEventListener('click', TalkToHarald);
     BtnForge.addEventListener('click', Forge);
 
+    // Флаг доступа к кузнице
+    var AccessToTheForge = false;
+
     function Forge() {
         var itemCheck = $('input[name=forgeItem]:checked'),
-            flagg = false;
-        // flagg = true;
 
-        HeroItemPrice = $('input[name=forgeItem]:checked').siblings('.priceItemHero').html(),
+            HeroItemPrice = $('input[name=forgeItem]:checked').siblings('.priceItemHero').html(),
             itemCheckVal = $('input[name=forgeItem]:checked').val();
 
-        if (flagg == true) {
+        if (AccessToTheForge == true) {
             IndexOf('Сырая сталь');
             if (typeof itemCheckVal === 'undefined') {
                 TalkToHaraldTxt('<p>Выберите предмет!</p>');
@@ -193,8 +194,8 @@ window.onload = function() {
                 delete HeroItem[0][HeroItemIndex];
                 $(RemoveItem).empty();
             }
-        } else{
-            TalkToHaraldTxt('<p>Харальд: Наша кузница производит снаряжение только для ополчения и паладинов короля! Тебя я не знаю.</p>');
+        } else {
+            TalkToHaraldTxt('<p>Харальд: Наша кузница производит снаряжение только для ополчения и граждан этого города! Тебя я не знаю.</p>');
             FadeInForgeDB();
         }
     }
@@ -268,17 +269,28 @@ window.onload = function() {
     // Конец Персонаж ====================================================================
 
     // Мастер Ларс ==========================================
-    var trainResolution = false;
-    // var trainResolution = true;
+    // Флаги для доступа к Ларсу
+    // var trainResolution = false;
+    var trainResolution = true;
     // Совет
     var BtnAdvice = document.getElementById('btn_advice');
     BtnAdvice.addEventListener('click', masterAdvice);
 
     function masterAdvice() {
         if (trainResolution == true) {
-            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Сила увеличит мощь твоих ударов!' + '</p>');
+            $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt" id="QuestionToLars-2">' + 'Как стать гражданином этого города?' + '</p>');
             $('.master .db').fadeIn();
             btnDisabledTrue();
+            $('#QuestionToLars-1').click(function() {
+                $('.master .db .dinamicTxt').html('<p>' + 'Сила увеличивает мощь твоих ударов!' + '</p>');
+            });
+            $('#QuestionToLars-2').click(function() {
+                $('.master .db .dinamicTxt').html('<p>' + 'Чтобы стать гражданином, кто то из влиятельных жителей города должен за тебя поручиться!' + '</p>' + '<button class="btn LaresQuest">' + 'Помоги стать гражданином...' + '</button>');
+                $('.LaresQuest').click(function() {
+                    $('.master .db .dinamicTxt').html('<p>' + 'Ты должен проявить себя в каком либо деле, скажем охотничем... Добудь мне три хвоста болотной крысы и две волчьи шкуры.' + '</p>');
+                });
+            });
+
         } else {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Думаешь я раздаю советы каждому встречному!' + '</p>');
             $('.master .db').fadeIn();
@@ -346,7 +358,6 @@ window.onload = function() {
     // Слухи с таверны активируем возможность разговора с Онаром в aboutMissing
     function rumors() {
         $('.taverna .db_1').fadeIn();
-        // alert('На ферме Харальда пропали два работника, никто не знает, что с ними. Люди обеспокоены ');
         aboutMissing = true;
         quest.name = 'Где все пропавшие люди?';
         questList = ' В таверне говорят о пропавших людях с фермы Онара, нужно разобраться ';
@@ -607,23 +618,51 @@ window.onload = function() {
     }
     // Конец ферма =============================================================
 
-
-
     // Битва =================================================
-    // var BtnEnemy = document.getElementById('btn_enemy');
-    // BtnEnemy.addEventListener('click', fight);
-    //
-    // function fight() {
-    //     if (HeroPowerAbility < 3 || HeroItem.innerHTML != 'Меч') {
-    //         alert('Вы убиты!')
-    //         HeroPowerAbility = 1;
-    //         HeroPower.innerHTML = HeroPowerAbility;
-    //         // localStorage.setItem('HeroPowerAbility', HeroPowerAbility);
-    //     } else {
-    //         alert('Поздравляю! Вы победили в дуэли! Игра окончена')
-    //     }
-    // }
-    // Конец функции дуэли ====================================
+    function ShowFightBox() {
+        $('.overlay, .fight-box').fadeIn(1500);
+    }
+
+    function ShowEnemyImg(string, img) {
+        var EnemyName = document.getElementById('enemy_name'),
+            EnemyAvatar = document.getElementById('enemy_avatar');
+        EnemyAvatar.innerHTML = img;
+        EnemyName.innerHTML = string;
+    }
+    $('.enemyes_btn').click(function(event) {
+        var btn = $('.enemyes_btn'),
+            target = event.target,
+            name = $('.enemyes_btn').attr('name');
+        if (target.name == 'rat') {
+            ShowEnemyImg('Крыса', '<img class="rat_img" src="img/rat.png" alt="">');
+            ShowFightBox();
+        }
+        if (target.name == 'woolf') {
+            ShowEnemyImg('Волк', '<img class="woolf_img" src="img/woolf.png" alt="">');
+            ShowFightBox();
+        }
+        if (target.name == 'mrakoris') {
+            ShowEnemyImg('Мракорис', '<img class="mrakoris_img" src="img/mrakoris.png" alt="">');
+            ShowFightBox();
+        }
+    });
+    var Retreat = document.getElementById('retreat');
+    retreat.addEventListener('click', RetreatFunc);
+
+    function RetreatFunc(){
+        $('.overlay, .fight-box').fadeOut(1000);
+    }
+
+
+
+
+
+
+
+
+
+
+    // Конец Битва ====================================
 
     // Выводим данные с локального хранилища ======================
     // if (localStorage.getItem('HeroPowerAbility')!==null){
