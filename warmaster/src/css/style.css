@@ -374,6 +374,7 @@ button:hover {
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
     display: none;
+    z-index: 1;
 }
 
 .hero_avatar{
@@ -476,4 +477,11 @@ button:hover {
 /*battle*/
 .db_fight{
     display: none;
+}
+.RunAway{
+    display: flex;
+    justify-content: center;
+}
+.DbBtn{
+    margin: 0 5px;
 }

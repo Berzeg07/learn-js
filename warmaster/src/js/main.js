@@ -13,14 +13,15 @@ window.onload = function() {
         HeroArmor = document.getElementById('hero_armor'),
         HeroCriticalAtack = document.getElementById('hero_krit'),
         HeroHP = document.getElementById('hero_hp'),
-        HeroGoldInner = 500;
-    HeroHPInner = 100;
-    HeroPowerInner = 1;
-    HeroDamageInner = 5;
-    HeroCritInner = 10;
-    HeroArmorInner = 5;
+        HeroGoldInner = 500,
+        HeroHPInner = 100,
+        HeroPowerInner = 15,
+        HeroDamageInner = 5,
+        HeroAtackInner = HeroDamageInner + HeroPowerInner,
+        HeroCritInner = 10,
+        HeroArmorInner = 5;
     HeroArmor.innerHTML = HeroArmorInner;
-    HeroAtack.innerHTML = HeroDamageInner;
+    HeroAtack.innerHTML = HeroAtackInner;
     HeroCriticalAtack.innerHTML = HeroCritInner + '%';
     HeroPower.innerHTML = HeroPowerInner;
     HeroGold.innerHTML = HeroGoldInner;
@@ -441,7 +442,7 @@ window.onload = function() {
             ReturnToSelinasQuestions();
         });
         $('.QuestionToSelina-4').click(function() {
-            SelinaAnswers('Селина: Опасное место, смертельные болота, жуткие твари.' + BackToQuestions);
+            SelinaAnswers('Селина: Опасное место, непроходимые топи, жуткие твари. Те кто уходил в те края несколько лет назад не вернулся никто.' + BackToQuestions);
             ReturnToSelinasQuestions();
         });
     }
@@ -654,6 +655,7 @@ window.onload = function() {
 
     function ToRest() {
         TimerFunc(15, HeroHP, 100, 'Вы спите: ', 'Здоровье восстановлено!');
+        HeroHPInner = 100;
     }
 
     // Наняться на работу =======================================
@@ -698,6 +700,7 @@ window.onload = function() {
             if (number == 0) {
                 window.clearInterval(window.timerId);
                 parameter1.innerHTML = parameter2;
+                // $('.HeroHP').html(parameter2);
                 timeOfwork.innerHTML = '';
                 timeStop.innerHTML = messAfter;
                 $('.close').html('x');
@@ -724,7 +727,7 @@ window.onload = function() {
 
     function HeroParamInner() {
         $('.HeroPower').html(HeroPowerInner);
-        $('.HeroDamage').html(HeroDamageInner);
+        $('.HeroDamage').html(HeroAtackInner);
         $('.HeroCrit').html(HeroCritInner + '%');
         $('.HeroArmor').html(HeroArmorInner);
         $('.HeroHP').html(HeroHPInner);
@@ -746,57 +749,74 @@ window.onload = function() {
         return rand;
     }
 
-    var RatHP = 150,
+    var RatHPBase = 60,
+        RatHP = RatHPBase,
         RatPower = 10,
         RatDamage = RatPower + 10,
         RatCrit = 10,
-        RatArmor = 2;
+        RatArmor = 0;
 
     function Atack(BattleEnemyHP, BattleEnemyCrit, BattleEnemyDamage, BattleEnemyArmor) {
 
-        // if(HeroHPInner == 1){
-        //     alert(1);
-        //     // BattleMess('<p>' + 'Вы не в состояние продолжать бой!' + '</p>');
+        // var HeroCrit = CritChance();
+        // var EnemyCrit = CritChance();
+        //
+        // if (HeroCrit <= HeroCritInner) {
+        //     var HeroDamageCrit = HeroAtackInner;
+        //     HeroDamageCrit = HeroAtackInner * 2;
+        // }
+        // if (EnemyCrit <= BattleEnemyCrit) {
+        //     var RatDamageCrit = BattleEnemyDamage;
+        //     RatDamageCrit = BattleEnemyDamage * 2;
         // }
 
-        var HeroCrit = CritChance();
-        var EnemyCrit = CritChance();
-
-        if (HeroCrit <= HeroCritInner) {
-            var HeroDamageCrit = HeroDamageInner;
-            HeroDamageCrit = HeroDamageInner * 2;
-        }
-        if (EnemyCrit <= BattleEnemyCrit) {
-            var RatDamageCrit = BattleEnemyDamage;
-            RatDamageCrit = BattleEnemyDamage * 2;
-        }
-
         HeroHPInner = HeroHPInner - (BattleEnemyDamage - HeroArmorInner);
-
+        HeroHP.innerHTML = HeroHPInner;
         $('.HeroHP').html(HeroHPInner);
-        BattleEnemyHP = BattleEnemyHP - (HeroDamageInner - BattleEnemyArmor);
+        BattleEnemyHP = BattleEnemyHP - (HeroAtackInner - BattleEnemyArmor);
 
+        // подумать как это реализовать в виде параметра
         RatHP = BattleEnemyHP;
+        // -================================
 
-        if (HeroHPInner <= 0 && BattleEnemyHP >= 1) {
-
-            HeroHpAfterFight();
+        if (HeroHPInner <= 10 && BattleEnemyHP >= 1) {
 
             var HeroWeaponBattle = $('#hero_weapon span').html(),
                 HeroArmorBattle = $('#hero_armor_equiped span').html();
-            if(HeroWeaponBattle != 'Пусто'){
+            if (HeroWeaponBattle != 'Пусто') {
                 LostTheItem(HeroWeaponBattle);
             }
-            if(HeroArmorBattle != 'Пусто'){
+            if (HeroArmorBattle != 'Пусто') {
                 LostTheItem(HeroArmorBattle);
             }
-            if(HeroWeaponBattle != 'Пусто' || HeroArmorBattle != 'Пусто'){
-                BattleMess('<p>' + 'Вас почти загрызли живьем! Вы еле унесли ноги побросав все снаряжение!' + '</p>');
-            }else{
-                BattleMess('<p>' + 'Вас почти загрызли живьем! Вы еле унесли ноги!' + '</p>');
+            if (HeroWeaponBattle != 'Пусто' || HeroArmorBattle != 'Пусто') {
+                BattleMess('<p>' + 'Вас почти загрызли живьем! Вы еле унесли ноги побросав все снаряжение!' + '</p>' + '<div class="RunAway">' + '>> ' + ' &npbsp; <button class="RunAwayBtn DbBtn">' + 'Бежать со всех ног!' + '</button> ' + ' <<' + '</div>');
+                CloseTheBattleWindow();
+            } else {
+                BattleMess('<p>' + 'Вас почти загрызли живьем! Вы еле унесли ноги!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Бежать со всех ног!' + '</button> ' + ' <<' + '</div>');
+                CloseTheBattleWindow();
             }
+
         }
         console.log(BattleEnemyHP);
+        if (HeroHPInner >= 10 && BattleEnemyHP <= 0) {
+            BattleMess('<p>' + 'Вы победили!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+            CloseTheBattleWindow();
+        }
+        if (HeroHPInner <= 10 && BattleEnemyHP <= 0) {
+            BattleMess('<p>' + 'Вы победили с большим трудом и истекли кровью, срочно восполните здоровье!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+            CloseTheBattleWindow();
+        }
+        if (HeroHPInner <= 0) {
+            HeroHpAfterFight();
+        }
+    }
+
+    // var RunAwayBtn = document.getElementsByClassName('className');
+    function CloseTheBattleWindow() {
+        $('.RunAwayBtn').click(function() {
+            RetreatFunc();
+        });
     }
 
     function HeroHpAfterFight() {
@@ -810,13 +830,13 @@ window.onload = function() {
     //     WoolfHPTag.innerHTML = 'Здоровье: ' + WoolfHP;
     // }
 
-    function BattleMess(TextMess){
+    function BattleMess(TextMess) {
         $('.db_fight .dinamicTxt').html(TextMess);
         $('.db_fight').fadeIn(500);
         $('.fb_overlay').fadeIn(500);
     }
 
-    function LostTheItem(heroItem){
+    function LostTheItem(heroItem) {
         IndexOf(heroItem);
         if (HeroItemIndexInv != -1) {
             CounterMinus();
@@ -838,6 +858,8 @@ window.onload = function() {
         HeroParamInner();
         ShowEnemyImg('Крыса', '<img class="rat_img" src="img/rat.png" alt="">');
         ShowFightBox();
+        RatHP = RatHPBase;
+        console.log(RatHP);
         $('#AtackToBattle').click(function() {
             Atack(RatHP, RatCrit, RatDamage, RatArmor);
         });
@@ -849,6 +871,7 @@ window.onload = function() {
     function RetreatFunc() {
         $('.overlay, .fight-box').fadeOut(1000);
         $('.db_fight').fadeOut();
+        $('.fb_overlay').fadeOut(500);
     }
 
 
