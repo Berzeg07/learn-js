@@ -13,13 +13,15 @@ window.onload = function() {
         HeroArmor = document.getElementById('hero_armor'),
         HeroCriticalAtack = document.getElementById('hero_krit'),
         HeroHP = document.getElementById('hero_hp'),
+
         HeroGoldInner = 500,
         HeroHPInner = 100,
-        HeroPowerInner = 15,
-        HeroDamageInner = 5,
+        HeroPowerInner = 10,
+        HeroDamageInner = 10,
         HeroAtackInner = HeroDamageInner + HeroPowerInner,
-        HeroCritInner = 50,
+        HeroCritInner = 0,
         HeroArmorInner = 5;
+
     HeroArmor.innerHTML = HeroArmorInner;
     HeroAtack.innerHTML = HeroAtackInner;
     HeroCriticalAtack.innerHTML = HeroCritInner + '%';
@@ -27,30 +29,29 @@ window.onload = function() {
     HeroGold.innerHTML = HeroGoldInner;
     HeroHP.innerHTML = HeroHPInner;
 
-
-
     // Волк ============================================================
     var WoolfHPBase = 200,
-	WoolfHP = WoolfHPBase,
-    WoolfPower = 15,
-    WoolfDamage = WoolfPower + 10,
-    WoolfCrit = 20,
-    WoolfArmor = 10,
+        WoolfHP = WoolfHPBase,
+        WoolfPower = 15,
+        WoolfDamage = WoolfPower + 10,
+        WoolfCrit = 20,
+        WoolfArmor = 10,
 
-    // Мракорис ============================================================
-    MrakHPBase = 400,
-	MrakHP = MrakHPBase,
-    MrakPower = 0,
-    MrakDamage = MrakPower + 20,
-    MrakCrit = 10,
-    MrakArmor = 0,
+        // Мракорис ============================================================
+        MrakHPBase = 400,
+        MrakHP = MrakHPBase,
+        MrakPower = 0,
+        MrakDamage = MrakPower + 20,
+        MrakCrit = 10,
+        MrakArmor = 50,
 
-    // Орк ============================================================
-    OrkHP = 500,
-    OrkPower = 40,
-    OrkDamage = OrkPower + 15,
-    OrkCrit = 50,
-    OrkArmor = 45;
+        // Орк ============================================================
+		OrkHPBase = 500,
+        OrkHP = OrkHPBase,
+        OrkPower = 40,
+        OrkDamage = OrkPower + 15,
+        OrkCrit = 50,
+        OrkArmor = 45;
 
     // Покупка предметов =======================================================
     var HeroItem = [
@@ -723,8 +724,6 @@ window.onload = function() {
     // Конец ферма =============================================================
 
     // Битва ===================================================================
-    // var ToAtack = document.getElementById('AtackToBattle');
-    // ToAtack.addEventListener('click', Atack(RatHP, RatCrit, RatDamage, RatArmor));
     function ShowFightBox() {
         $('.overlay, .fight-box').fadeIn(1500);
     }
@@ -736,8 +735,6 @@ window.onload = function() {
         $('.HeroArmor').html(HeroArmorInner);
         $('.HeroHP').html(HeroHPInner);
     }
-
-
 
     function ShowEnemyImg(string, img) {
         var EnemyName = document.getElementById('enemy_name'),
@@ -753,49 +750,49 @@ window.onload = function() {
         return rand;
     }
 
-    var RatHPBase = 60,
-        RatHP = RatHPBase,
-        RatPower = 10,
-        RatDamage = RatPower + 10,
-        RatCrit = 50,
-        RatArmor = 0;
-
     function Atack(BattleEnemyHP, BattleEnemyCrit, BattleEnemyDamage, BattleEnemyArmor) {
 
         var HeroCrit = CritChance();
         var EnemyCrit = CritChance();
         // console.log('Крит героя ' + HeroCrit);
         // console.log('Крит врага ' + EnemyCrit);
-        var HeroAtackInnerNew = HeroAtackInner;
-        var BattleEnemyDamageNew = BattleEnemyDamage;
+        var HeroAtackInnerNew = HeroAtackInner - BattleEnemyArmor;
+        var BattleEnemyDamageNew = BattleEnemyDamage - HeroArmorInner;
+
+        if (Math.sign(HeroAtackInnerNew) == -1) {
+            HeroAtackInnerNew = 0;
+        }
+
+        if (Math.sign(BattleEnemyDamageNew) == -1) {
+            BattleEnemyDamageNew = 0;
+        }
+
         if (HeroCrit <= HeroCritInner) {
-            HeroAtackInnerNew = HeroAtackInner * 2;
+            HeroAtackInnerNew = HeroAtackInnerNew * 2;
             // console.log('Урон героя ' + HeroAtackInnerNew);
         }
         if (EnemyCrit <= BattleEnemyCrit) {
-            BattleEnemyDamageNew = BattleEnemyDamage * 2;
+            BattleEnemyDamageNew = BattleEnemyDamageNew * 2;
             // console.log('Урон врага ' + HeroAtackInnerNew);
         }
 
-        HeroHPInner = HeroHPInner - (BattleEnemyDamageNew - HeroArmorInner);
+        HeroHPInner = HeroHPInner - BattleEnemyDamageNew;
         HeroHP.innerHTML = HeroHPInner;
         $('.HeroHP').html(HeroHPInner);
-        BattleEnemyHP = BattleEnemyHP - (HeroAtackInnerNew - BattleEnemyArmor);
+        BattleEnemyHP = BattleEnemyHP - HeroAtackInnerNew;
 
-        // подумать как это реализовать в виде параметра
+        console.log('Атака героя ' + HeroAtackInnerNew);
+
         var EnemyAttr = $('#AtackToBattle').attr('name');
-        if(EnemyAttr == 'rat'){
+        if (EnemyAttr == 'rat') {
             RatHP = BattleEnemyHP;
         }
-        if(EnemyAttr == 'woolf'){
+        if (EnemyAttr == 'woolf') {
             WoolfHP = BattleEnemyHP;
         }
-        if(EnemyAttr == 'mrakoris'){
+        if (EnemyAttr == 'mrakoris') {
             MrakHP = BattleEnemyHP;
         }
-        // BattleEnemyHP = BattleEnemyHP;
-
-        // -================================
 
         if (HeroHPInner <= 10 && BattleEnemyHP >= 1) {
 
@@ -814,7 +811,6 @@ window.onload = function() {
                 BattleMess('<p>' + 'Вас почти загрызли живьем! Вы еле унесли ноги!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Бежать со всех ног!' + '</button> ' + ' <<' + '</div>');
                 CloseTheBattleWindow();
             }
-
         }
         console.log(BattleEnemyHP);
         if (HeroHPInner >= 10 && BattleEnemyHP <= 0) {
@@ -854,25 +850,24 @@ window.onload = function() {
         MrakHP = MrakHPBase;
     });
 
-    // Кнопка атаки ----
+    // Кнопка атаки
     $('#AtackToBattle').click(function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         console.log('Атрибут врага ' + EnemyAttr);
-        if(EnemyAttr == 'rat'){
+        if (EnemyAttr == 'rat') {
             Atack(RatHP, RatCrit, RatDamage, RatArmor);
             console.log('HP крысы ' + RatHP);
         }
-        if(EnemyAttr == 'woolf'){
+        if (EnemyAttr == 'woolf') {
             Atack(WoolfHP, WoolfCrit, WoolfDamage, WoolfArmor);
             console.log('HP волка ' + WoolfHP);
         }
-        if(EnemyAttr == 'mrakoris'){
+        if (EnemyAttr == 'mrakoris') {
             Atack(MrakHP, MrakCrit, MrakDamage, MrakArmor);
             console.log('HP мракориса ' + MrakHP);
         }
     });
 
-    // var RunAwayBtn = document.getElementsByClassName('className');
     function CloseTheBattleWindow() {
         $('.RunAwayBtn').click(function() {
             RetreatFunc();
@@ -884,11 +879,6 @@ window.onload = function() {
         $('.HeroHP').html(HeroHPInner);
         HeroHP.innerHTML = HeroHPInner;
     }
-    //
-    // function EnemyHpAfterFight() {
-    //     WoolfHP = 100;
-    //     WoolfHPTag.innerHTML = 'Здоровье: ' + WoolfHP;
-    // }
 
     function BattleMess(TextMess) {
         $('.db_fight .dinamicTxt').html(TextMess);
@@ -914,10 +904,6 @@ window.onload = function() {
         }
     }
 
-
-
-
-
     var Retreat = document.getElementById('RetreatFromBattle');
     Retreat.addEventListener('click', RetreatFunc);
 
@@ -926,15 +912,6 @@ window.onload = function() {
         $('.db_fight').fadeOut();
         $('.fb_overlay').fadeOut(500);
     }
-
-
-
-
-
-
-
-
-
     // Конец Битва ====================================
 
     // Выводим данные с локального хранилища ======================
