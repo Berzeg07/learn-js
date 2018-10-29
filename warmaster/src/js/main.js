@@ -29,31 +29,38 @@ window.onload = function() {
     HeroGold.innerHTML = HeroGoldInner;
     HeroHP.innerHTML = HeroHPInner;
 
-    // Волк ============================================================
-    var WoolfHPBase = 200,
+    // Крыса ============================================================
+    var RatHPBase = 100,
+        RatHP = RatHPBase,
+        RatPower = 10,
+        RatDamage = RatPower + 5,
+        RatCrit = 10,
+        RatArmor = 5,
+        // Волк ============================================================
+        WoolfHPBase = 10,
         WoolfHP = WoolfHPBase,
         WoolfPower = 15,
         WoolfDamage = WoolfPower + 10,
         WoolfCrit = 20,
         WoolfArmor = 10,
 
-        // Мракорис ============================================================
-        MrakHPBase = 400,
+        // Мракорис ====================================================
+        MrakHPBase = 5,
         MrakHP = MrakHPBase,
         MrakPower = 0,
         MrakDamage = MrakPower + 20,
         MrakCrit = 10,
-        MrakArmor = 50,
+        MrakArmor = 5,
 
-        // Орк ============================================================
-		OrkHPBase = 500,
+        // Орк =========================================================
+        OrkHPBase = 500,
         OrkHP = OrkHPBase,
         OrkPower = 40,
         OrkDamage = OrkPower + 15,
         OrkCrit = 50,
         OrkArmor = 45;
 
-    // Покупка предметов =======================================================
+    // Покупка предметов ===============================================
     var HeroItem = [
         [],
         [],
@@ -123,6 +130,8 @@ window.onload = function() {
             }
         }
     }
+
+
 
     // Продажа предметов =======================================================
     var sellTheItemBtn = document.getElementById('sellItem');
@@ -251,7 +260,7 @@ window.onload = function() {
     var ItemTypesArr = [
         ['Ржавый меч', 'Полуторный меч', 'Палаш', 'Дубинка', 'Потрошитель Дракона'],
         ['Кожаная броня', 'Тяжелый доспех', 'Доспех Ворона'],
-        ['Сырая сталь']
+        ['Сырая сталь', 'Охотничий нож']
     ];
 
     function EqipItemFunc() {
@@ -263,7 +272,6 @@ window.onload = function() {
         HeroItemMaterial = ItemTypesArr[2].indexOf(itemCheckInvName);
         if (HeroItemIndex != -1) {
             $('#hero_armor_equiped span').html(itemCheckInvName);
-            HeroArmorInner = 5;
             HeroArmorInner = HeroArmorInner + Number(ItemStats);
             HeroArmor.innerHTML = HeroArmorInner;
         }
@@ -275,43 +283,49 @@ window.onload = function() {
             console.log(checkWeapon);
             if (checkWeapon != itemCheckInvName) {
                 $('#hero_weapon span').html(itemCheckInvName);
-                HeroDamageInner = 5;
-                HeroDamageInner = HeroDamageInner + Number(ItemStats);
-                HeroAtack.innerHTML = HeroDamageInner;
+                HeroAtackInner = HeroAtackInner + Number(ItemStats);
+                HeroAtack.innerHTML = HeroAtackInner;
             }
-
-            //HeroAtack.innerHTML = ItemStats;
         }
     }
 
     // Журнал ==================================================================
-    var JournalList = false;
+    // var JournalList = false;
     var JournalBox = document.getElementById('journal_box__inner');
-    var quest = {};
-    var Btnjournal = document.getElementById('journal');
-
-    if (JournalList == false) {
-        Btnjournal.addEventListener('click', journalOpenEmpty);
-    }
-
-    // Открываем пустой журнал
-    function journalOpenEmpty() {
-        var li = document.createElement('li');
-        li.innerHTML = '<p>' + 'Ваш журнал пуст' + '</p>';
-        JournalBox.appendChild(li);
-        JournalList = true;
-        Btnjournal.removeEventListener('click', journalOpenEmpty);
-        Btnjournal.addEventListener('click', journalOpenFull);
+    var QuestList = [];
+    // var Btnjournal = document.getElementById('journal');
+    $('#journal').click(function(){
+        var JournalHtml = $('#journal_box__inner').html();
+        if(JournalHtml == ''){
+            $('#journal_box__inner').html('- Опросите жителей, наверняка в Хоринисе есть чем заняться...');
+        }
+        // $('#journal_box__inner').append('<li>Продвижение по сюжету<li>');
         $('.overlay, .journal_box').fadeIn(500);
-    }
-
-    function journalOpenFull() {
-        $('.overlay, .journal_box').fadeIn(500);
-    }
-
+    });
     $('.close').click(function journalClose() {
         $('.overlay, .messWindow').fadeOut(500);
     });
+
+    // if (JournalList == false) {
+    //     Btnjournal.addEventListener('click', journalOpenEmpty);
+    // }
+    //
+    // // Открываем пустой журнал
+    // function journalOpenEmpty() {
+    //     var li = document.createElement('li');
+    //     li.innerHTML = '<p>' + 'Ваш журнал пуст' + '</p>';
+    //     JournalBox.appendChild(li);
+    //     JournalList = true;
+    //     Btnjournal.removeEventListener('click', journalOpenEmpty);
+    //     Btnjournal.addEventListener('click', journalOpenFull);
+    //     $('.overlay, .journal_box').fadeIn(500);
+    // }
+    //
+    // function journalOpenFull() {
+    //     $('.overlay, .journal_box').fadeIn(500);
+    // }
+    //
+
 
     // Конец Персонаж ====================================================================
 
@@ -407,6 +421,12 @@ window.onload = function() {
         $('.taverna .db_1 .DialogWithSelina').html('Селина: Неделю назад на ферме Онара пропал работник, два дня назад пропал еще один. Никто не знает, что с ними. Люди обеспокоены...');
         $('.taverna .db_1').fadeIn();
         aboutMissing = true;
+        var SelinasQuest = 'Где все пропавшие люди?';
+        var HeroQuestIndex = QuestList.indexOf(SelinasQuest);
+        if(HeroQuestIndex == -1){
+            QuestList.push(SelinasQuest);
+            $('#journal_box__inner').append('<li>' + SelinasQuest + '<br>' + ' - С фермы Онара пропадают люди, надо разобраться' + '</li>');
+        }
         // quest.name = 'Где все пропавшие люди?';
         // questList = ' В таверне говорят о пропавших людях с фермы Онара, нужно разобраться ';
         // JournalBox.firstElementChild.remove();
@@ -751,7 +771,6 @@ window.onload = function() {
     }
 
     function Atack(BattleEnemyHP, BattleEnemyCrit, BattleEnemyDamage, BattleEnemyArmor) {
-
         var HeroCrit = CritChance();
         var EnemyCrit = CritChance();
         // console.log('Крит героя ' + HeroCrit);
@@ -784,18 +803,23 @@ window.onload = function() {
         console.log('Атака героя ' + HeroAtackInnerNew);
 
         var EnemyAttr = $('#AtackToBattle').attr('name');
-        if (EnemyAttr == 'rat') {
-            RatHP = BattleEnemyHP;
-        }
-        if (EnemyAttr == 'woolf') {
-            WoolfHP = BattleEnemyHP;
-        }
-        if (EnemyAttr == 'mrakoris') {
-            MrakHP = BattleEnemyHP;
+
+        switch (EnemyAttr) {
+            case 'rat':
+                RatHP = BattleEnemyHP;
+                break;
+            case 'woolf':
+                WoolfHP = BattleEnemyHP;
+                break;
+            case 'mrakoris':
+                MrakHP = BattleEnemyHP;
+                break;
+            case 'ork':
+                OrkHP = BattleEnemyHP;
+                break;
         }
 
         if (HeroHPInner <= 10 && BattleEnemyHP >= 1) {
-
             var HeroWeaponBattle = $('#hero_weapon span').html(),
                 HeroArmorBattle = $('#hero_armor_equiped span').html();
             if (HeroWeaponBattle != 'Пусто') {
@@ -814,7 +838,25 @@ window.onload = function() {
         }
         console.log(BattleEnemyHP);
         if (HeroHPInner >= 10 && BattleEnemyHP <= 0) {
-            BattleMess('<p>' + 'Вы победили!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+            var HeroItemIndex = HeroItem[0].indexOf('Охотничий нож');
+            if (HeroItemIndex != -1) {
+                switch (EnemyAttr) {
+                    case 'rat':
+                        DropItem(50, 'Хвост крысы');
+                        BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Хвост крысы</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        break;
+                    case 'woolf':
+                        DropItem(150, 'Волчья Шкура');
+                        BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Волчья шкура</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        break;
+                    case 'mrakoris':
+                        DropItem(300, 'Рог Мракориса');
+                        BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Рог Мракориса</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        break;
+                }
+            }else{
+                BattleMess('<p>' + 'Вы победили!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+            }
             CloseTheBattleWindow();
         }
         if (HeroHPInner <= 10 && BattleEnemyHP <= 0) {
@@ -826,45 +868,51 @@ window.onload = function() {
         }
     }
 
-    $('#rat').click(function() {
+    function BeastInner(BeastName, BeastImg, BeastAttrName) {
         HeroParamInner();
-        ShowEnemyImg('Крыса', '<img class="rat_img" src="img/rat.png" alt="">');
+        ShowEnemyImg(BeastName, BeastImg);
         ShowFightBox();
-        $('#AtackToBattle').attr('name', 'rat');
-        RatHP = RatHPBase;
-    });
+        $('#AtackToBattle').attr('name', BeastAttrName);
+    }
 
+    $('#rat').click(function() {
+        BeastInner('Крыса', '<img class="rat_img" src="img/rat.png" alt="">', 'rat');
+        RatHP = RatHPBase;
+        console.log(RatHP);
+    });
     $('#woolf').click(function() {
-        HeroParamInner();
-        ShowEnemyImg('Крыса', '<img class="woolf_img" src="img/woolf.png" alt="">');
-        ShowFightBox();
-        $('#AtackToBattle').attr('name', 'woolf');
+        BeastInner('Волк', '<img class="woolf_img" src="img/woolf.png" alt="">', 'woolf');
         WoolfHP = WoolfHPBase;
     });
-
     $('#mrakoris').click(function() {
-        HeroParamInner();
-        ShowEnemyImg('Крыса', '<img class="mrakoris_img" src="img/mrakoris.png" alt="">');
-        ShowFightBox();
-        $('#AtackToBattle').attr('name', 'mrakoris');
+        BeastInner('Мракорис', '<img class="mrakoris_img" src="img/mrakoris.png" alt="">', 'mrakoris');
         MrakHP = MrakHPBase;
+    });
+    $('#ork').click(function() {
+        BeastInner('Орк', '<img class="ork_img" src="img/orkavatar.png" alt="">', 'ork');
+        OrkHP = OrkHPBase;
     });
 
     // Кнопка атаки
     $('#AtackToBattle').click(function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         console.log('Атрибут врага ' + EnemyAttr);
-        if (EnemyAttr == 'rat') {
-            Atack(RatHP, RatCrit, RatDamage, RatArmor);
-            console.log('HP крысы ' + RatHP);
-        }
-        if (EnemyAttr == 'woolf') {
-            Atack(WoolfHP, WoolfCrit, WoolfDamage, WoolfArmor);
-            console.log('HP волка ' + WoolfHP);
-        }
-        if (EnemyAttr == 'mrakoris') {
-            Atack(MrakHP, MrakCrit, MrakDamage, MrakArmor);
-            console.log('HP мракориса ' + MrakHP);
+        switch (EnemyAttr) {
+            case 'rat':
+                Atack(RatHP, RatCrit, RatDamage, RatArmor);
+                console.log('HP крысы ' + RatHP);
+                break;
+            case 'woolf':
+                Atack(WoolfHP, WoolfCrit, WoolfDamage, WoolfArmor);
+                console.log('HP волка ' + WoolfHP);
+                break;
+            case 'mrakoris':
+                Atack(MrakHP, MrakCrit, MrakDamage, MrakArmor);
+                break;
+            case 'ork':
+                Atack(OrkHP, OrkCrit, OrkDamage, OrkArmor);
+                console.log('HP Орка ' + OrkHP);
+                break;
         }
     });
 
@@ -911,6 +959,27 @@ window.onload = function() {
         $('.overlay, .fight-box').fadeOut(1000);
         $('.db_fight').fadeOut();
         $('.fb_overlay').fadeOut(500);
+    }
+
+    // Дроп предметов с мобов ==================================================
+    function DropItem(parameter1, parameter2) {
+        var itemPrice = parameter1,
+            HomeInventory = document.getElementById('inventory'),
+            HeroItemIndex = HeroItem[0].indexOf(parameter2);
+        if (HeroItemIndex != -1) {
+            HeroItem[1][HeroItemIndex] = +HeroItem[1][HeroItemIndex] + 1;
+            document.querySelector('.counter-' + (HeroItemIndex)).innerHTML = HeroItem[1][HeroItemIndex];
+        } else {
+            HeroItem[0].push(parameter2);
+            HeroItem[1].push(1);
+            HeroItem[2].push(itemPrice);
+            var NameMassiveLastEl = HeroItem[0][HeroItem[0].length - 1],
+                CountMassiveLastEl = HeroItem[1][HeroItem[1].length - 1],
+                PriceMassiveLastEl = HeroItem[2][HeroItem[2].length - 1],
+                li = document.createElement('li');
+            li.innerHTML = '<label>' + '<input class="inp_radio" type=radio name="inventory">' + ' <span class="itemName">' + NameMassiveLastEl + '</span>' + ' <span class="counter counter-' + (HeroItem[0].length - 1) + ' ">' + CountMassiveLastEl + '</span>' + ', ' + '<span class="priceItemHero">' + PriceMassiveLastEl + '</span>';
+            HomeInventory.appendChild(li);
+        }
     }
     // Конец Битва ====================================
 
