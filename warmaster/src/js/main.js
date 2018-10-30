@@ -203,9 +203,7 @@ window.onload = function() {
     BtnForge.addEventListener('click', Forge);
 
     // Флаг доступа к кузнице
-    // var AccessToTheForge = false;
-    var AccessToTheForge = true;
-
+    var AccessToTheForge = false;
 
     function Forge() {
         var itemCheck = $('input[name=forgeItem]:checked'),
@@ -242,6 +240,9 @@ window.onload = function() {
             }
         } else {
             TalkToHaraldTxt('<p>Харальд: Наша кузница производит снаряжение только для ополчения и граждан этого города! Тебя я не знаю.</p>');
+            var HaraldQuest = '<span class="QuestTitle">' + 'Кузнец Харальд' + '</span>';
+            var HaraldQuestTxt = '<ul class="HaraldQuest">' + '<li>' + HaraldQuest + '<br>' + ' - Чтобы Харальд выковал мне хорошее оружие, мне нужно стать гражданином Хориниса' + '</li>' + '</ul>';
+            QuestListArr(HaraldQuest, HaraldQuestTxt, '#journal_box__inner');
             FadeInForgeDB();
         }
     }
@@ -290,42 +291,25 @@ window.onload = function() {
     }
 
     // Журнал ==================================================================
-    // var JournalList = false;
     var JournalBox = document.getElementById('journal_box__inner');
     var QuestList = [];
-    // var Btnjournal = document.getElementById('journal');
-    $('#journal').click(function(){
-        var JournalHtml = $('#journal_box__inner').html();
-        if(JournalHtml == ''){
-            $('#journal_box__inner').html('- Опросите жителей, наверняка в Хоринисе есть чем заняться...');
+
+    function QuestListArr(QuestName, QuestArticle, QuestClass) {
+        var QuestNameIn = QuestName;
+        var QuestArticleIn = QuestArticle;
+        var HeroQuestIndex = QuestList.indexOf(QuestName);
+        var QuestClassIn = QuestClass;
+        if (HeroQuestIndex == -1) {
+            QuestList.push(QuestNameIn);
+            $(QuestClassIn).append(QuestArticleIn);
         }
-        // $('#journal_box__inner').append('<li>Продвижение по сюжету<li>');
+    }
+    $('#journal').click(function() {
         $('.overlay, .journal_box').fadeIn(500);
     });
     $('.close').click(function journalClose() {
         $('.overlay, .messWindow').fadeOut(500);
     });
-
-    // if (JournalList == false) {
-    //     Btnjournal.addEventListener('click', journalOpenEmpty);
-    // }
-    //
-    // // Открываем пустой журнал
-    // function journalOpenEmpty() {
-    //     var li = document.createElement('li');
-    //     li.innerHTML = '<p>' + 'Ваш журнал пуст' + '</p>';
-    //     JournalBox.appendChild(li);
-    //     JournalList = true;
-    //     Btnjournal.removeEventListener('click', journalOpenEmpty);
-    //     Btnjournal.addEventListener('click', journalOpenFull);
-    //     $('.overlay, .journal_box').fadeIn(500);
-    // }
-    //
-    // function journalOpenFull() {
-    //     $('.overlay, .journal_box').fadeIn(500);
-    // }
-    //
-
 
     // Конец Персонаж ====================================================================
 
@@ -349,6 +333,9 @@ window.onload = function() {
                 $('.master .db .dinamicTxt').html('<p>' + 'Чтобы стать гражданином, кто то из влиятельных жителей города должен за тебя поручиться!' + '</p>' + '<button class="btn LaresQuest">' + 'Помоги стать гражданином...' + '</button>');
                 $('.LaresQuest').click(function() {
                     $('.master .db .dinamicTxt').html('<p>' + 'Ты должен проявить себя в каком либо деле, скажем охотничем... Добудь мне три хвоста болотной крысы и две волчьи шкуры.' + '</p>');
+                    var LaresQuest = '<span>' + 'Задание Лареса' + '</span>';
+                    var LaresQuestTxt = '<li>' + '- Ларес поможет мне стать гражданином, но для этого я должен добыть для него 2 хвоста болотной крысы и 3 волчьи шкуры' + '</li>';
+                    QuestListArr(LaresQuest, LaresQuestTxt, '.HaraldQuest');
                 });
             });
 
@@ -416,24 +403,15 @@ window.onload = function() {
     // Значение для активации разговора с Онаром
     var aboutMissing = false;
 
+
     // Слухи с таверны активируем возможность разговора с Онаром в aboutMissing
     function rumors() {
         $('.taverna .db_1 .DialogWithSelina').html('Селина: Неделю назад на ферме Онара пропал работник, два дня назад пропал еще один. Никто не знает, что с ними. Люди обеспокоены...');
         $('.taverna .db_1').fadeIn();
         aboutMissing = true;
-        var SelinasQuest = 'Где все пропавшие люди?';
-        var HeroQuestIndex = QuestList.indexOf(SelinasQuest);
-        if(HeroQuestIndex == -1){
-            QuestList.push(SelinasQuest);
-            $('#journal_box__inner').append('<li>' + SelinasQuest + '<br>' + ' - С фермы Онара пропадают люди, надо разобраться' + '</li>');
-        }
-        // quest.name = 'Где все пропавшие люди?';
-        // questList = ' В таверне говорят о пропавших людях с фермы Онара, нужно разобраться ';
-        // JournalBox.firstElementChild.remove();
-        // var li = document.createElement('li');
-        // li.innerHTML = '<p>' + '<b>' + quest.name + '</b>' + '</p>' + '<p>' + questList + '</p>';
-        // JournalBox.appendChild(li);
-        // BtnRumors.removeEventListener('click', rumors);
+        var SelinasQuest = '<span class="QuestTitle">' + 'Где все пропавшие люди?' + '</span>';
+        var SelinasQuestTxt = '<ul class="LostPeopleQuest">' + '<li>' + SelinasQuest + '<br>' + ' - С фермы Онара пропадают люди, надо разобраться' + '</li>' + '</ul>';
+        QuestListArr(SelinasQuest, SelinasQuestTxt, '#journal_box__inner');
     }
     var BackToQuestions = '<br>' + '<button class="BackToQuestions">' + 'Назад' + '</button>';
     var btn_talkToSelina = document.getElementById('btn_talkToSelina');
@@ -465,7 +443,7 @@ window.onload = function() {
             ReturnToSelinasQuestions();
         });
         $('.QuestionToSelina-4').click(function() {
-            SelinaAnswers('Селина: Опасное место, непроходимые топи, жуткие твари. Те кто уходил в те края несколько лет назад не вернулся никто.' + BackToQuestions);
+            SelinaAnswers('Селина: Опасное место, непроходимые топи, жуткие твари.' + BackToQuestions);
             ReturnToSelinasQuestions();
         });
     }
@@ -579,6 +557,9 @@ window.onload = function() {
             BtnFarmeGuard.removeEventListener('click', FarmeGuard);
             BtnFarmeGuard.addEventListener('click', afterFirstDialog);
             BtnWorkFarm.disabled = false;
+            var FarmQuest = '<span class="QuestTitle">' + 'Ферма Онара' + '</span>';
+            var FarmQuestTxt = '<ul class="OnarsFarm">' + '<li>' + FarmQuest + '<br>' + ' - Меня пропустили на ферму, теперь я могу заработать не много денег в полях. Но для этого пришлось отвалить Сентезе 100 золотых (Надо будет с ним разобраться попозже!)' + '</li>' + '</ul>';
+            QuestListArr(FarmQuest, FarmQuestTxt, '#journal_box__inner');
         } else if (HeroGoldInner < 100) {
             dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: У тебя и 100 монет не наберется, пошел прочь оборванец!' + '</p>';
             DinamicDBSenteza();
@@ -597,6 +578,9 @@ window.onload = function() {
         BtnFarmeGuard.addEventListener('click', afterFirstDialog);
         HeroGoldInner = 0;
         HeroGold.innerHTML = HeroGoldInner;
+        var FarmQuest = '<span class="QuestTitle">' + 'Ферма Онара' + '</span>';
+        var FarmQuestTxt = '<ul class="OnarsFarm">' + '<li>' + FarmQuest + '<br>' + ' - Меня пропустили на ферму, теперь я могу заработать не много денег в полях. Этот ублюдок, Сентеза навалял мне по полной и отжал все бабло, он еще поплатится!)' + '</li>' + '</ul>';
+        QuestListArr(FarmQuest, FarmQuestTxt, '#journal_box__inner');
     }
 
     // Фраза после оплаты Сентезе
@@ -652,10 +636,10 @@ window.onload = function() {
                         dinamicTxtSenteza.innerHTML = '<p>' + 'Вы: Да, я готов расследовать это дело, что известно о пропавших людях?' + '</p>';
                         break;
                     case 2:
-                        dinamicTxtSenteza.innerHTML = '<p>' + 'Онар: На окраинах Хориниса видели орка, может дезертир, может разведчик. В общем, теперь он обосновался не далеко от моих угодий в горах, вблизи от проезжей части. Готов поспорить это его рук дело!' + '</p>';
+                        dinamicTxtSenteza.innerHTML = '<p>' + 'Онар: Можно сказать ничего, правда Борка как то обмолвился, что собирался наведаться в туманную лощину. Дерек его закадычный друг, может они и вправду туда направились и не вернулись, в любом случае если они мертвы, мне нужно подтверждение. Борка заправлял частью моей казны, сундук с золотом тоже пропал, ему повезет если он мертв!' + '</p>';
                         break;
                     case 3:
-                        dinamicTxtSenteza.innerHTML = '<p>' + 'Вы: Я разберусь с этим орком!' + '</p>';
+                        dinamicTxtSenteza.innerHTML = '<p>' + 'Вы: Я разберусь с этим делом!' + '</p>';
                         break;
                     case 4:
                         dinamicTxtSenteza.innerHTML = '<p>' + 'Онар: Тебе нужно подготовиться и хорошо экипироваться. Cходи ка к Ларсу, я замолвлю за тебя словечко, он поможет в этом деле' + '</p>';
@@ -666,6 +650,9 @@ window.onload = function() {
                     trainResolution = true;
                     BtnOnar.removeEventListener('click', TalkToOnar);
                     BtnOnar.addEventListener('click', TalkToOnarAfterQuest);
+                    var OnarQuest = '<span>' + 'Задание Онара' + '</span>';
+                    var OnarQuestTxt = '<li>' + ' - Пропавшие Борка и Дерек захватили с собой сундук с золотом Онара, может они вовсе не пропали? Нужно найти их живыми или мертвыми.' + '</li>' + '<li>' + ' - Онар за меня поручился, теперь я могу тренироваться у Лареса' + '</li>';
+                    QuestListArr(OnarQuest, OnarQuestTxt, '.LostPeopleQuest');
                 }
             });
             DinamicDBSenteza();
@@ -854,7 +841,7 @@ window.onload = function() {
                         BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Рог Мракориса</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
                         break;
                 }
-            }else{
+            } else {
                 BattleMess('<p>' + 'Вы победили!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
             }
             CloseTheBattleWindow();

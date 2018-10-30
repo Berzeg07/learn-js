@@ -80,8 +80,6 @@ body {
     background-size: cover;
 }
 
-
-
 .bg_inner {
     background: rgba(0, 0, 0, .5);
     color: white;
@@ -90,7 +88,7 @@ body {
     margin-top: 17px;
 }
 
-.bg_inner__forge{
+.bg_inner__forge {
     margin-top: 56%;
     position: relative;
     z-index: 1;
@@ -305,7 +303,12 @@ button:hover {
     background-size: cover;
     z-index: 9999;
     display: none;
+}
+
+.QuestTitle {
     font-weight: bold;
+    padding-top: 8px;
+    display: inline-block;
 }
 
 .overlay {
@@ -366,7 +369,7 @@ button:hover {
     justify-content: space-between;
 }
 
-.fb_overlay{
+.fb_overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -377,7 +380,7 @@ button:hover {
     z-index: 1;
 }
 
-.hero_avatar{
+.hero_avatar {
     padding-top: 36px;
 }
 
@@ -392,16 +395,16 @@ button:hover {
     padding-left: 15px;
 }
 
-.enemy_avatar{
+.enemy_avatar {
     padding-top: 33px;
 }
 
-.enemy_avatar img{
+.enemy_avatar img {
     width: 280px;
     height: auto;
 }
 
-.stat-box{
+.stat-box {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
@@ -417,25 +420,25 @@ button:hover {
     border-radius: 5px;
 }
 
-.stat-box_list ul li:first-child{
+.stat-box_list ul li:first-child {
     color: orange;
     padding-bottom: 10px;
     font-size: 20px;
 }
 
-.stat-box_list li{
+.stat-box_list li {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
     justify-content: space-between;
 }
 
-.stat-box_list li span:first-child{
+.stat-box_list li span:first-child {
     display: inline-block;
     padding-right: 15px;
 }
 
-.fight-buttons{
+.fight-buttons {
     text-align: center;
     position: absolute;
     left: 50%;
@@ -443,7 +446,7 @@ button:hover {
     transform: translate(-50%, -95%);
 }
 
-.db_fight{
+.db_fight {
     width: unset;
     display: block;
     top: 60%;
@@ -451,37 +454,43 @@ button:hover {
     padding: 10px 10px 5px 7px;
 }
 
-.rat_img{
+.rat_img {
     padding-top: 100%;
     margin-top: 67px;
 }
-.woolf_img{
+
+.woolf_img {
     padding-top: 100%;
 }
 
-.mrakoris_img{
+.mrakoris_img {
     padding-top: 57%;
 }
 
 /* Таверна */
-.DialogWithSelina{
+
+.DialogWithSelina {
     border-bottom: 1px solid black;
     padding-bottom: 5px;
     margin-bottom: 5px;
 }
-.DialogWithSelina ul li:hover{
+
+.DialogWithSelina ul li:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
 /*battle*/
-.db_fight{
+
+.db_fight {
     display: none;
 }
-.RunAway{
+
+.RunAway {
     display: flex;
     justify-content: center;
 }
-.DbBtn{
+
+.DbBtn {
     margin: 0 5px;
 }
