@@ -334,6 +334,10 @@ button:hover {
     cursor: pointer;
 }
 
+.LarsTxtDNone{
+    display: none;
+}
+
 /* Таймер */
 
 .timer_box {

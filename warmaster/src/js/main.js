@@ -20,7 +20,8 @@ window.onload = function() {
         HeroDamageInner = 10,
         HeroAtackInner = HeroDamageInner + HeroPowerInner,
         HeroCritInner = 0,
-        HeroArmorInner = 5;
+		HeroArmorBase = 5,
+        HeroArmorInner = HeroArmorBase;
 
     HeroArmor.innerHTML = HeroArmorInner;
     HeroAtack.innerHTML = HeroAtackInner;
@@ -30,14 +31,14 @@ window.onload = function() {
     HeroHP.innerHTML = HeroHPInner;
 
     // Крыса ============================================================
-    var RatHPBase = 100,
+    var RatHPBase = 5,
         RatHP = RatHPBase,
         RatPower = 10,
         RatDamage = RatPower + 5,
         RatCrit = 10,
         RatArmor = 5,
         // Волк ============================================================
-        WoolfHPBase = 10,
+        WoolfHPBase = 5,
         WoolfHP = WoolfHPBase,
         WoolfPower = 15,
         WoolfDamage = WoolfPower + 10,
@@ -45,10 +46,10 @@ window.onload = function() {
         WoolfArmor = 10,
 
         // Мракорис ====================================================
-        MrakHPBase = 5,
+        MrakHPBase = 500,
         MrakHP = MrakHPBase,
         MrakPower = 0,
-        MrakDamage = MrakPower + 20,
+        MrakDamage = MrakPower + 200,
         MrakCrit = 10,
         MrakArmor = 5,
 
@@ -164,14 +165,14 @@ window.onload = function() {
                 HeroWeaponEquiped = $('#hero_weapon span').html();
             if (HeroArmorEquiped == itemCheckInvName) {
                 $('#hero_armor_equiped span').html('Пусто');
-                HeroArmorInner = 5;
+                HeroArmorInner = HeroArmorBase;
                 HeroArmor.innerHTML = HeroArmorInner;
                 //$('#hero_armor').html(0);
             }
             if (HeroWeaponEquiped == itemCheckInvName) {
                 $('#hero_weapon span').html('Пусто');
-                HeroDamageInner = 5;
-                HeroAtack.innerHTML = HeroDamageInner;
+                HeroAtackInner = HeroDamageInner + HeroPowerInner;
+                HeroAtack.innerHTML = HeroAtackInner;
                 //$('#hero_atack').html(0);
             }
         }
@@ -204,6 +205,8 @@ window.onload = function() {
 
     // Флаг доступа к кузнице
     var AccessToTheForge = false;
+    //Не забыть поменять значение на продакшене
+    var HaraldMission = true;
 
     function Forge() {
         var itemCheck = $('input[name=forgeItem]:checked'),
@@ -240,6 +243,7 @@ window.onload = function() {
             }
         } else {
             TalkToHaraldTxt('<p>Харальд: Наша кузница производит снаряжение только для ополчения и граждан этого города! Тебя я не знаю.</p>');
+            HaraldMission = true;
             var HaraldQuest = '<span class="QuestTitle">' + 'Кузнец Харальд' + '</span>';
             var HaraldQuestTxt = '<ul class="HaraldQuest">' + '<li>' + HaraldQuest + '<br>' + ' - Чтобы Харальд выковал мне хорошее оружие, мне нужно стать гражданином Хориниса' + '</li>' + '</ul>';
             QuestListArr(HaraldQuest, HaraldQuestTxt, '#journal_box__inner');
@@ -323,7 +327,11 @@ window.onload = function() {
 
     function masterAdvice() {
         if (trainResolution == true) {
-            $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt" id="QuestionToLars-2">' + 'Как стать гражданином этого города?' + '</p>');
+            if (HaraldMission == true) {
+                $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt" id="QuestionToLars-2">' + 'Как стать гражданином этого города?' + '</p>');
+            } else {
+                $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>');
+            }
             $('.master .db').fadeIn();
             btnDisabledTrue();
             $('#QuestionToLars-1').click(function() {
@@ -336,6 +344,31 @@ window.onload = function() {
                     var LaresQuest = '<span>' + 'Задание Лареса' + '</span>';
                     var LaresQuestTxt = '<li>' + '- Ларес поможет мне стать гражданином, но для этого я должен добыть для него 2 хвоста болотной крысы и 3 волчьи шкуры' + '</li>';
                     QuestListArr(LaresQuest, LaresQuestTxt, '.HaraldQuest');
+
+                    $('.lares_btn').append('<button class="btn" id="PassLarsQuest">Сдать задание</button>');
+                    $('#PassLarsQuest').click(function() {
+                        // Идут работы ====================================
+                        var ItemIndexRatTail = HeroItem[0].indexOf('Хвост крысы');
+                        var ItemIndexWoolfSkin = HeroItem[0].indexOf('Волчья шкура');
+
+                        if (ItemIndexRatTail != -1 && ItemIndexWoolfSkin != -1) {
+                            var CountTail = $('.counter-' + (ItemIndexRatTail)).html();
+                            var CountSkin = $('.counter-' + (ItemIndexRatTail)).html();
+                            if (CountTail == 2 & CountSkin == 2) {
+                                $('.master .db .dinamicTxt').html('Есть предметы');
+                                $('.db_lares').fadeIn();
+                            } else {
+                                $('.master .db .dinamicTxt').html('Недобор кол-ва');
+                                $('.db_lares').fadeIn();
+                            }
+                        } else {
+                            $('.master .db .dinamicTxt').html('Условие не выполнено');
+                            $('.db_lares').fadeIn();
+
+                        }
+                        // Идут работы конец ==============================
+                    });
+
                 });
             });
 
@@ -345,6 +378,8 @@ window.onload = function() {
             btnDisabledTrue();
         }
     }
+
+
 
     // Показ/Скрытие диалоговых окон
     $('.db_close').click(function() {
@@ -833,7 +868,7 @@ window.onload = function() {
                         BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Хвост крысы</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
                         break;
                     case 'woolf':
-                        DropItem(150, 'Волчья Шкура');
+                        DropItem(150, 'Волчья шкура');
                         BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Волчья шкура</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
                         break;
                     case 'mrakoris':
