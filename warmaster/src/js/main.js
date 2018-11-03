@@ -20,7 +20,7 @@ window.onload = function() {
         HeroDamageInner = 10,
         HeroAtackInner = HeroDamageInner + HeroPowerInner,
         HeroCritInner = 0,
-		HeroArmorBase = 5,
+        HeroArmorBase = 5,
         HeroArmorInner = HeroArmorBase;
 
     HeroArmor.innerHTML = HeroArmorInner;
@@ -325,6 +325,19 @@ window.onload = function() {
     var BtnAdvice = document.getElementById('btn_advice');
     BtnAdvice.addEventListener('click', masterAdvice);
 
+    function PassTheItems(ItemName) {
+        if (ItemName != -1) {
+            HeroItem[1][ItemName] = +HeroItem[1][ItemName] - 2;
+            document.querySelector('.counter-' + (ItemName)).innerHTML = HeroItem[1][ItemName];
+        }
+        if (HeroItem[1][ItemName] == 0) {
+            var DeleteItem = document.querySelector('.counter-' + (ItemName));
+            var RemoveItem = $(DeleteItem).parents()[1];
+            delete HeroItem[0][ItemName];
+            $(RemoveItem).empty();
+        }
+    }
+
     function masterAdvice() {
         if (trainResolution == true) {
             if (HaraldMission == true) {
@@ -344,34 +357,37 @@ window.onload = function() {
                     var LaresQuest = '<span>' + 'Задание Лареса' + '</span>';
                     var LaresQuestTxt = '<li>' + '- Ларес поможет мне стать гражданином, но для этого я должен добыть для него 2 хвоста болотной крысы и 3 волчьи шкуры' + '</li>';
                     QuestListArr(LaresQuest, LaresQuestTxt, '.HaraldQuest');
-
                     $('.lares_btn').append('<button class="btn" id="PassLarsQuest">Сдать задание</button>');
+
                     $('#PassLarsQuest').click(function() {
-                        // Идут работы ====================================
                         var ItemIndexRatTail = HeroItem[0].indexOf('Хвост крысы');
                         var ItemIndexWoolfSkin = HeroItem[0].indexOf('Волчья шкура');
-
                         if (ItemIndexRatTail != -1 && ItemIndexWoolfSkin != -1) {
                             var CountTail = $('.counter-' + (ItemIndexRatTail)).html();
                             var CountSkin = $('.counter-' + (ItemIndexRatTail)).html();
-                            if (CountTail == 2 & CountSkin == 2) {
+                            // Number(CountTail);
+                            // Number(CountSkin);
+
+                            if (CountTail >= 2 && CountSkin >= 2) {
                                 $('.master .db .dinamicTxt').html('Есть предметы');
                                 $('.db_lares').fadeIn();
-                            } else {
+                                PassTheItems(ItemIndexRatTail);
+                                PassTheItems(ItemIndexWoolfSkin);
+                            }
+
+                            else {
                                 $('.master .db .dinamicTxt').html('Недобор кол-ва');
                                 $('.db_lares').fadeIn();
+                                console.log('Хвосты' + CountTail + '<br>' + 'Шкуры' + CountSkin);
                             }
                         } else {
                             $('.master .db .dinamicTxt').html('Условие не выполнено');
                             $('.db_lares').fadeIn();
-
                         }
-                        // Идут работы конец ==============================
                     });
 
                 });
             });
-
         } else {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Думаешь я раздаю советы каждому встречному!' + '</p>');
             $('.master .db').fadeIn();
