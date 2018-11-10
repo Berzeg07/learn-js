@@ -9,10 +9,40 @@ li {
 }
 
 body {
-    padding-top: 20px;
+    padding: 30px 0px;
     background: url(../img/big.jpg) no-repeat top center;
     background-size: cover;
+    background-attachment: fixed;
     font-family: 'Kurale', serif;
+}
+
+.Hero_Armor {
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+
+.armor-crow {
+    width: 162px;
+    top: 51px;
+    right: -13px;
+}
+
+.heavy-armor {
+    width: 147px;
+    top: 76px;
+    right: -6px;
+}
+
+.leather-armor {
+    width: 120px;
+    top: 73px;
+    right: 6px;
+}
+
+img {
+    width: 100%;
+    height: auto;
 }
 
 .container {
@@ -58,20 +88,20 @@ body {
 }
 
 .box_middle {
-    margin: 15px 0px;
+    margin: 7px 0px;
 }
 
 .box-item {
     position: relative;
     padding: 10px;
-    width: 320px;
+    width: 326px;
     height: 340px;
     border-radius: 5px;
     overflow: hidden;
 }
 
 .border {
-    border: 2px solid grey;
+    border: 2px solid #F8F7EB;
 }
 
 .hero {
@@ -89,9 +119,10 @@ body {
 }
 
 .bg_inner__forge {
-    margin-top: 56%;
+    margin-top: 64%;
     position: relative;
     z-index: 1;
+    display: none;
 }
 
 .bg_inner__ork {
@@ -114,6 +145,31 @@ body {
     background-size: cover;
 }
 
+.tab li a {
+    color: black;
+}
+
+.db-bandits {
+    width: 75%;
+}
+
+.db-bandits a, .db-bandits i {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.db-bandits b {
+    font-weight: bold;
+}
+
+.tab__box {
+    display: none;
+}
+
+.db-bandits a:hover, .db-bandits i:hover {
+    text-decoration: underline;
+}
+
 .dialog_box button {
     background: none;
     border: 1px solid black;
@@ -133,14 +189,24 @@ body {
 }
 
 .dialog_box p {
-    /*font-weight: bold;*/
-    border-bottom: 1px solid black;
     padding-bottom: 8px;
-    margin-bottom: 8px;
+}
+
+.display-none {
+    display: none;
+}
+
+.dialog_box p:last-child {
+    border-bottom: 1px solid black;
 }
 
 .shop_box {
-    margin-top: 100px;
+    position: absolute;
+    top: 90px;
+    left: 3px;
+    width: 315px;
+    text-align: left;
+    display: none;
 }
 
 .hero_st {
@@ -152,6 +218,7 @@ body {
 }
 
 .hero_img {
+    width: 138px;
     position: absolute;
     bottom: -6px;
     right: 0px;
@@ -163,7 +230,7 @@ button {
     padding: 3px 10px;
     color: white;
     outline: none;
-    border: 1px solid white;
+    border: 2px solid #F8F7EB;
     cursor: pointer;
     transition: 0.5s;
 }
@@ -230,10 +297,10 @@ button:hover {
 }
 
 .lares {
-    width: 250px;
-    height: 235px;
-    margin-left: 36px;
-    bottom: -59px;
+    width: 290px;
+    /* height: 235px; */
+    margin-left: 17px;
+    bottom: -22px;
     z-index: 100;
 }
 
@@ -293,7 +360,7 @@ button:hover {
 .messWindow {
     padding: 10px 15px;
     border-radius: 10px;
-    border: 2px solid white;
+    border: 3px solid white;
     background: white;
     position: absolute;
     left: 50%;
@@ -303,6 +370,10 @@ button:hover {
     background-size: cover;
     z-index: 9999;
     display: none;
+}
+
+.HollowDB {
+    position: fixed;
 }
 
 .QuestTitle {
@@ -334,7 +405,7 @@ button:hover {
     cursor: pointer;
 }
 
-.LarsTxtDNone{
+.LarsTxtDNone {
     display: none;
 }
 
@@ -348,7 +419,7 @@ button:hover {
 
 /* Окно боя */
 
-.fight-box {
+.fight-box, .BanditsDialogBox {
     width: 830px;
     height: 540px;
     background: url(../img/bgfight.jpg) no-repeat top center;
@@ -362,6 +433,11 @@ button:hover {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
+}
+
+.BanditsDialogBox {
+    background: url(../img/warmaster.jpg) no-repeat top center;
+    background-size: cover;
 }
 
 .fight-box__inner {
