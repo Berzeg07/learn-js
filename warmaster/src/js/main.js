@@ -179,10 +179,17 @@ window.onload = function() {
                 HeroBaseAtack();
             }
         }
-        var EquipArmor = $('#hero_armor_equiped span').html();
+        ItemImgFadeOut();
+    }
 
-        if (EquipArmor = 'Пусто') {
-            $('.Hero_Armor').fadeOut(300);
+    function ItemImgFadeOut(){
+        var EquipArmor = $('#hero_armor_equiped span').html();
+        var EquipWeapon = $('#hero_weapon span').html();
+        if (EquipArmor == 'Пусто') {
+            $('.Hero_Armor').css('display','none');
+        }
+        if (EquipWeapon == 'Пусто') {
+            $('.Hero_Weapon').css('display','none');
         }
     }
 
@@ -313,22 +320,58 @@ window.onload = function() {
                 HeroAtack.innerHTML = HeroAtackInner;
             }
         }
+        ItemsImg();
+    }
 
+    function ItemsImg() {
         var EquipArmor = $('#hero_armor_equiped span').html();
+        var EquipWeapon = $('#hero_weapon span').html();
+        if (EquipArmor != 'Пусто') {
+            switch (EquipArmor) {
+                case 'Кожаная броня':
+                    HeroItemImgDN('.Hero_Armor');
+                    $('.leather-armor').css('display','block');
+                    break;
 
-        if (EquipArmor == 'Кожаная броня') {
-            $('.Hero_Armor').css('display', 'none');
-            $('.leather-armor').fadeIn(300);
-        } else if (EquipArmor == 'Пластинчатый доспех') {
-            $('.Hero_Armor').css('display', 'none');
-            $('.heavy-armor').fadeIn(300);
-        } else if (EquipArmor == 'Доспех ворона') {
-            $('.Hero_Armor').css('display', 'none');
-            $('.armor-crow').fadeIn(300);
+                case 'Пластинчатый доспех':
+                    HeroItemImgDN('.Hero_Armor');
+                    $('.heavy-armor').css('display','block');
+                    break;
+
+                case 'Доспех ворона':
+                    HeroItemImgDN('.Hero_Armor');
+                    $('.armor-crow').css('display','block');
+                    break;
+            }
+        }
+        if (EquipWeapon != 'Пусто') {
+            switch (EquipWeapon) {
+                case 'Дубинка':
+                    HeroItemImgDN('.Hero_Weapon');
+                    $('.stick').css('display','block');
+                    break;
+
+                case 'Полуторный меч':
+                    HeroItemImgDN('.Hero_Weapon');
+                    $('.sword').css('display','block');
+                    break;
+
+                case 'Двуручный меч':
+                    HeroItemImgDN('.Hero_Weapon');
+                    $('.long-sword').css('display','block');
+                    break;
+
+                case 'Потрошитель дракона':
+                    HeroItemImgDN('.Hero_Weapon');
+                    $('.ripper').css('display','block');
+                    break;
+            }
         }
     }
 
-
+    function HeroItemImgDN(ItemImgClassName) {
+        $(ItemImgClassName).css('display', 'none');
+    }
 
     // Журнал ==================================================================
     var JournalBox = document.getElementById('journal_box__inner');
@@ -704,7 +747,7 @@ window.onload = function() {
     }
 
     // Работа с объектом event
-    function ProductfadeOut(class_1, class_2){
+    function ProductfadeOut(class_1, class_2) {
         if ($(event.target).closest(class_1).length)
             return;
         $(class_2).fadeOut("300");
@@ -1056,6 +1099,7 @@ window.onload = function() {
             HeroBaseAtack();
             HeroBaseArmor();
         }
+        ItemImgFadeOut();
     }
 
     var Retreat = document.getElementById('RetreatFromBattle');

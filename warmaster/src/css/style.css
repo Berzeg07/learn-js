@@ -16,10 +16,42 @@ body {
     font-family: 'Kurale', serif;
 }
 
-.Hero_Armor {
+.Hero_Armor, .Hero_Weapon {
     position: absolute;
     z-index: 1;
     display: none;
+}
+
+.Hero_Weapon {
+    display: none;
+    z-index: 0;
+    /*display: block;*/
+}
+
+.stick {
+    width: 100px;
+    bottom: -9px;
+    right: -6px;
+    z-index: 2;
+}
+
+.sword {
+    width: 127px;
+    right: -35px;
+    bottom: -88px;
+    z-index: 1;
+}
+
+.long-sword {
+    width: 299px;
+    right: -77px;
+    bottom: -49px;
+}
+
+.ripper{
+    width: 307px;
+    right: -70px;
+    bottom: -9px;
 }
 
 .armor-crow {
