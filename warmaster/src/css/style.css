@@ -173,12 +173,9 @@ img {
     padding: 5px 10px 5px 7px;
     display: none;
     text-align: left;
-    background: url(../img/bg-pop.jpg) no-repeat top center;
+    /*background: url(../img/bg-pop.jpg) no-repeat top center;*/
+    background: rgba(18,18,18,0.5);
     background-size: cover;
-}
-
-.tab li a {
-    color: black;
 }
 
 .db-bandits {
@@ -229,7 +226,7 @@ img {
 }
 
 .dialog_box p:last-child {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
 }
 
 .shop_box {
@@ -317,6 +314,12 @@ button:hover {
 .dinamicTxt .LarsTxtFirst {
     border-bottom: none;
     margin-bottom: 0px;
+}
+.dinamicTxt{
+    color:white;
+}
+.dinamicTxt a{
+    color:white;
 }
 
 .LarsTxt:hover {
@@ -451,7 +454,7 @@ button:hover {
 
 /* Окно боя */
 
-.fight-box, .BanditsDialogBox {
+.fight-box, .BanditsDialogBox, .OnarDialogBox{
     width: 830px;
     height: 540px;
     background: url(../img/bgfight.jpg) no-repeat top center;
@@ -469,6 +472,19 @@ button:hover {
 
 .BanditsDialogBox {
     background: url(../img/warmaster.jpg) no-repeat top center;
+    background-size: cover;
+}
+
+.HeroQuestionsList a{
+    text-decoration: none;
+}
+
+.HeroQuestionsList a:hover{
+    text-decoration: underline;
+}
+
+.OnarDialogBox{
+    background: url(../img/onar.jpg) no-repeat top center;
     background-size: cover;
 }
 
