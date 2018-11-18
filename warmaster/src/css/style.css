@@ -16,6 +16,31 @@ body {
     font-family: 'Kurale', serif;
 }
 
+.stata_inner{
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+}
+
+.stata_left{
+    border-right:1px solid white;
+    padding-right: 5px;
+}
+
+.stata_right{
+    padding-left: 7px;
+}
+
+.stata span{
+    /*color:#239AD6;*/
+    color:orange;
+
+}
+
+#hero_gold{
+    color:yellow;
+}
+
 .Hero_Armor, .Hero_Weapon {
     position: absolute;
     z-index: 1;
@@ -143,7 +168,7 @@ img {
 }
 
 .bg_inner {
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, .7);
     color: white;
     border-radius: 5px;
     padding: 5px 7px;
@@ -176,6 +201,10 @@ img {
     /*background: url(../img/bg-pop.jpg) no-repeat top center;*/
     background: rgba(18,18,18,0.5);
     background-size: cover;
+}
+
+.min_db{
+    background: url(../img/bg-pop.jpg) no-repeat top center;
 }
 
 .db-bandits {
@@ -227,6 +256,10 @@ img {
 
 .dialog_box p:last-child {
     border-bottom: 1px solid white;
+}
+
+.min_db p:last-child{
+    border-bottom: 1px solid black;
 }
 
 .shop_box {

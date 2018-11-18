@@ -82,14 +82,20 @@
 					<div class="npc_name"><b>Персонаж</b></div>
 					<div class="bg_inner">
 						<p class="hero_st">Характеристики:</p>
-						<p>Сила: <span id="hero_power"></span></p>
-						<p>Урон: <span id="hero_atack"></span></p>
-						<p>Броня: <span id="hero_armor"></span></p>
-						<p>Крит: <span id="hero_krit"></span></p>
+						<div class="stata_inner">
+							<div class="stata_left">
+								<p>Сила: <span id="hero_power"></span></p>
+								<p>Урон: <span id="hero_atack"></span></p>
+							</div>
+							<div class="stata_right">
+								<p>Броня: <span id="hero_armor"></span></p>
+								<p>Крит: <span id="hero_krit"></span></p>
+							</div>
+						</div>
 						<p>Здоровье: <span id="hero_hp"></span></p>
 						<p>Золото: <span id="hero_gold"></span></p>
-						<p class="hero_st hero_item__eqiped" id="hero_weapon">Оружие: <span>Пусто</span></p>
-						<p class="hero_st hero_item__eqiped" id="hero_armor_equiped">Доспех: <span>Пусто</span></p>
+						<p class="hero_st hero_item__eqiped" id="hero_weapon">Оружие: <br> <span>Пусто</span></p>
+						<p class="hero_st hero_item__eqiped" id="hero_armor_equiped">Доспех: <br> <span>Пусто</span></p>
 					</div>
 				</div>
 				<div class="armor-crow Hero_Armor"><img src="img/crow-armor.png" alt=""></div>
@@ -182,14 +188,14 @@
 					<button class="btn" id="btn_onar" type="button">Онар</button>
 					<button class="btn" id="btn_workFarm" type="button">Работать</button>
 				</div>
-				<div class="dialog_box db_1">
+				<div class="dialog_box db_1 min_db">
 					<div class="db_close">х</div>
 					<p>Сентеза: Что тебе нужно? Хочешь пройти дальше, плати 100 монет!</p>
 					<button class="btn" id="btn_pay_senteza">Согласен</button>
 					<button class="btn" id="btn_not_pay_senteza">Послать к черту!</button>
 					<button class="btn">Уйти</button>
 				</div>
-				<div class="dialog_box" id="dinamicDbSenteza">
+				<div class="dialog_box min_db" id="dinamicDbSenteza">
 					<div class="db_close">х</div>
 					<div id="dinamicTxtSenteza"></div>
 					<div class="btn" id="btnNextSenteza"></div>

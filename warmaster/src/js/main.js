@@ -50,6 +50,7 @@ window.onload = function() {
         RatDamage = RatPower + 5,
         RatCrit = 10,
         RatArmor = 5,
+
         // Волк ============================================================
         WoolfHPBase = 5,
         WoolfHP = WoolfHPBase,
@@ -228,7 +229,7 @@ window.onload = function() {
     BtnForge.addEventListener('click', Forge);
 
     // Флаг доступа к кузнице
-    // Не забыт ьпоменять значение
+    // Не забыть поменять значение
     var AccessToTheForge = false;
     var HaraldMission = false;
     var HornOfMrakoris = false;
