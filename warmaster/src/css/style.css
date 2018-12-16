@@ -16,29 +16,28 @@ body {
     font-family: 'Kurale', serif;
 }
 
-.stata_inner{
+.stata_inner {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
 }
 
-.stata_left{
-    border-right:1px solid white;
+.stata_left {
+    border-right: 1px solid white;
     padding-right: 5px;
 }
 
-.stata_right{
+.stata_right {
     padding-left: 7px;
 }
 
-.stata span{
+.stata span {
     /*color:#239AD6;*/
-    color:orange;
-
+    color: orange;
 }
 
-#hero_gold{
-    color:yellow;
+#hero_gold {
+    color: yellow;
 }
 
 .Hero_Armor, .Hero_Weapon {
@@ -73,7 +72,7 @@ body {
     bottom: -49px;
 }
 
-.ripper{
+.ripper {
     width: 307px;
     right: -70px;
     bottom: -9px;
@@ -199,11 +198,11 @@ img {
     display: none;
     text-align: left;
     /*background: url(../img/bg-pop.jpg) no-repeat top center;*/
-    background: rgba(18,18,18,0.5);
+    background: rgba(18, 18, 18, 0.8);
     background-size: cover;
 }
 
-.min_db{
+.min_db {
     background: url(../img/bg-pop.jpg) no-repeat top center;
 }
 
@@ -228,15 +227,14 @@ img {
     text-decoration: underline;
 }
 
-.dialog_box button {
+/*.dialog_box button {
     background: none;
     border: 1px solid black;
     color: black;
-}
-
+}*/
 .dialog_box button:hover {
     text-decoration: underline;
-    background: none;
+    /*background: none;*/
 }
 
 .db_close {
@@ -258,7 +256,7 @@ img {
     border-bottom: 1px solid white;
 }
 
-.min_db p:last-child{
+.min_db p:last-child {
     border-bottom: 1px solid black;
 }
 
@@ -314,7 +312,6 @@ button:hover {
 }
 
 /* Кузница */
-
 .forge {
     background: url(../img/forge.jpg) no-repeat top center;
     background-size: cover;
@@ -338,7 +335,6 @@ button:hover {
 }
 
 /* Ларс */
-
 .dinamicTxt .LarsTxt {
     cursor: pointer;
     padding-bottom: 0px;
@@ -348,11 +344,13 @@ button:hover {
     border-bottom: none;
     margin-bottom: 0px;
 }
-.dinamicTxt{
-    color:white;
+
+.dinamicTxt {
+    color: white;
 }
-.dinamicTxt a{
-    color:white;
+
+.dinamicTxt a {
+    color: white;
 }
 
 .LarsTxt:hover {
@@ -424,7 +422,6 @@ button:hover {
 }
 
 /* Журнал */
-
 .messWindow {
     padding: 10px 15px;
     border-radius: 10px;
@@ -438,6 +435,10 @@ button:hover {
     background-size: cover;
     z-index: 9999;
     display: none;
+}
+
+.messWindow .dinamicTxt {
+    color: black;
 }
 
 .HollowDB {
@@ -478,7 +479,6 @@ button:hover {
 }
 
 /* Таймер */
-
 .timer_box {
     width: 200px;
     text-align: center;
@@ -486,11 +486,9 @@ button:hover {
 }
 
 /* Окно боя */
-
-.fight-box, .BanditsDialogBox, .OnarDialogBox{
+.fight-box, .BanditsDialogBox, .OnarDialogBox, .FarmWorker, .KillersDialogBox {
     width: 830px;
     height: 540px;
-    background: url(../img/bgfight.jpg) no-repeat top center;
     background-size: cover;
     overflow: hidden;
     border-radius: 5px;
@@ -503,20 +501,50 @@ button:hover {
     z-index: 9999;
 }
 
+.fight-box {
+    height: unset;
+    background: url(../img/bgfight.jpg) no-repeat top center;
+}
+
+.KillersDialogBox{
+    background: url(../img/killers.jpg) no-repeat top center;
+    background-size: cover;
+}
+
+.derekHelp{
+    background: url(../img/derekHelp.jpg) no-repeat top center;
+    background-size: cover;
+}
+
+.derekHelpNext{
+    background: url(../img/derekHelp2.jpg) no-repeat top center;
+    background-size: cover;
+}
+
+.heads{
+    background: url(../img/heads.jpg) no-repeat top center;
+    background-size: cover;
+}
+
+.FarmWorker {
+    background: url(../img/farmworker.jpg) no-repeat top center;
+    background-size: cover;
+}
+
 .BanditsDialogBox {
     background: url(../img/warmaster.jpg) no-repeat top center;
     background-size: cover;
 }
 
-.HeroQuestionsList a{
+.HeroQuestionsList a {
     text-decoration: none;
 }
 
-.HeroQuestionsList a:hover{
+.HeroQuestionsList a:hover {
     text-decoration: underline;
 }
 
-.OnarDialogBox{
+.OnarDialogBox {
     background: url(../img/onar.jpg) no-repeat top center;
     background-size: cover;
 }
@@ -613,6 +641,11 @@ button:hover {
     top: 60%;
     bottom: unset;
     padding: 10px 10px 5px 7px;
+    background: url(../img/bg-pop.jpg) no-repeat top center;
+}
+
+.db_fight .dinamicTxt {
+    color: black;
 }
 
 .rat_img {
@@ -628,8 +661,11 @@ button:hover {
     padding-top: 57%;
 }
 
-/* Таверна */
+.enemy_avatar .derek_img {
+    width: 212px;
+}
 
+/* Таверна */
 .DialogWithSelina {
     border-bottom: 1px solid black;
     padding-bottom: 5px;
@@ -642,7 +678,6 @@ button:hover {
 }
 
 /*battle*/
-
 .db_fight {
     display: none;
 }

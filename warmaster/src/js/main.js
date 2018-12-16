@@ -1,8 +1,5 @@
 window.onload = function() {
 
-    // Баг - экипировка брони все плюсуется (исправлен)
-    // Баг - исчезает окно предметов у продавца при клике на товар (исправлен)
-
     // Окно оповещений
     var messWindow = document.getElementById('messWindow'),
         messWindowInner = document.getElementById('messWindowInner'),
@@ -17,7 +14,7 @@ window.onload = function() {
         HeroCriticalAtack = document.getElementById('hero_krit'),
         HeroHP = document.getElementById('hero_hp'),
 
-        HeroGoldInner = 500,
+        HeroGoldInner = 100,
         HeroHPInner = 100,
         HeroPowerInner = 10,
         HeroDamageInner = 10,
@@ -43,7 +40,7 @@ window.onload = function() {
         HeroArmor.innerHTML = HeroArmorInner;
     }
 
-    // Крыса ============================================================
+    // Крыса ===================================================================
     var RatHPBase = 5,
         RatHP = RatHPBase,
         RatPower = 10,
@@ -51,7 +48,7 @@ window.onload = function() {
         RatCrit = 10,
         RatArmor = 5,
 
-        // Волк ============================================================
+        // Волк ================================================================
         WoolfHPBase = 5,
         WoolfHP = WoolfHPBase,
         WoolfPower = 15,
@@ -59,7 +56,7 @@ window.onload = function() {
         WoolfCrit = 20,
         WoolfArmor = 10,
 
-        // Мракорис ====================================================
+        // Мракорис ============================================================
         MrakHPBase = 10,
         MrakHP = MrakHPBase,
         MrakPower = 0,
@@ -67,7 +64,7 @@ window.onload = function() {
         MrakCrit = 10,
         MrakArmor = 5,
 
-        // Орк =========================================================
+        // Орк =================================================================
         OrkHPBase = 10,
         OrkHP = OrkHPBase,
         OrkPower = 10,
@@ -75,15 +72,25 @@ window.onload = function() {
         OrkCrit = 10,
         OrkArmor = 1;
 
-    // Покупка предметов ===============================================
+    // Борка ===============================================================
+    DerekHPBase = 10,
+        DerekHP = DerekHPBase,
+        DerekPower = 10,
+        DerekDamage = DerekPower + 5,
+        DerekCrit = 10,
+        DerekArmor = 1;
 
-    // Работа с объектом event
+
+
+    // Работа с объектом event =================================================
     function ProductfadeOut(class_1, class_2) {
         if ($(event.target).closest(class_1).length)
             return;
         $(class_2).fadeOut("300");
         event.stopPropagation();
     }
+
+    // Покупка предметов =======================================================
 
     $('#ShowTheProduct').click(function() {
         $(".shop_box").slideToggle(300);
@@ -220,7 +227,6 @@ window.onload = function() {
     function FadeInForgeDB() {
         $('#db_forge').fadeIn();
     }
-    // Конец Вспомогательные функции ===========================================
 
     // Кузница =================================================================
     var btn_talkToHarald = document.getElementById('btn_talkToHarald');
@@ -299,6 +305,7 @@ window.onload = function() {
     // Экипировка предметов ====================================================
     var EquipItem = document.getElementById('equipItem');
     EquipItem.addEventListener('click', EqipItemFunc);
+    // Тип предметов - оружие, броня, сырье
     var ItemTypesArr = [
         ['Полуторный меч', 'Двуручный меч', 'Дубинка', 'Потрошитель Дракона'],
         ['Кожаная броня', 'Пластинчатый доспех', 'Доспех Ворона'],
@@ -403,8 +410,6 @@ window.onload = function() {
     $('.close').click(function journalClose() {
         $('.overlay, .messWindow').fadeOut(500);
     });
-
-    // Конец Персонаж ====================================================================
 
     // Мастер Ларс ==========================================
     // Флаги для доступа к Ларсу
@@ -773,7 +778,7 @@ window.onload = function() {
         // if (btnOnarDisabled !== true) {
         //     $('.master_btn__box .tooltip').fadeIn();
         // }
-        if(OnarQuestTaken == true){
+        if (OnarQuestTaken == true) {
             $('.db-onar .dinamicTxt').html('');
             $('.db-onar .dinamicTxt').html(
                 '<div class="BanditsAnswears ba-1"><p><b>Онар:</b> Удачи! </p></div>' +
@@ -782,7 +787,7 @@ window.onload = function() {
             $('.OnarDialogBox').fadeIn();
             $('.overlay').fadeIn();
 
-            $('.leave').click(function(){
+            $('.leave').click(function() {
                 $('.OnarDialogBox').fadeOut();
                 $('.overlay').fadeOut();
             });
@@ -795,29 +800,29 @@ window.onload = function() {
                 '<div class="tab__box" id="tab-2"><p><b>Онар:</b> Ты не должен об этом никому говорить, пропал мой сундук с золотом. Борка заправлял частью моей казны, Дерек его давнешний телохранитель, вместе они и провернули это дельце.</p></div>' +
                 '<div class="tab__box" id="tab-3"><p><b>Онар:</b> Кругом отвесные скалы, из этой долины только два выхода, по морю или через перевал. Ни там, ни там муха не пролезет без моего ведома. Мои люди обшарили все окрестности, есть только одно место где они могли спрятаться и куда мне не добраться, туманная лощина! Туда я своих людей не пошлю, в этих топях сгинуло не мало народу.</p></div>' +
                 '<div class="tab__box" id="tab-4"><p><b>Онар:</b> Они хорошо экипированы, Дерек искусен в обращении с двуручным мечом, ты должен быть хорошо подготовлен, если конечно не передумал браться за это дело. Я замолвлю за тебя словечко, Ларес тебя потренерует.</p></div>' +
-                '<div class="tab__box" id="tab-5"><p><b>Онар:</b> В обиде не останешься, 2000 золотых за их головы и еще 5000 за возврат сундука с содержимым.</p></div>' +
+                '<div class="tab__box" id="tab-5"><p><b>Онар:</b> В обиде не останешься, 1000 золотых за их головы и еще 2000 за возврат сундука с содержимым.</p></div>' +
                 '<div class="tab__box" id="tab-6"><p><b>Онар:</b> (Усмехается) Как я и сказал, в этой долине ничего не происходит без моего ведома, король слаб, мои люди повсюду, я все вижу :)</p> </div>' +
                 '<ul class="HeroQuestionsList tab">' +
                 '<li> > <i class="HeroAnswear-2"><a href="#tab-1">Я готов расследовать это дело, что известно о пропавших людях?</i></a></li>' +
-                    '<ul class="toogleHeroQuestions" style="display:none;">'+
-                        '<li> > <i class="HeroAnswear-3"><a href="#tab-2">Они ушли с пустыми руками?</a></i></li>' +
-                        '<li> > <i class="HeroAnswear-4"><a href="#tab-3">Есть предположения куда они могли податься?</a></i></li>' +
-                        '<li> > <i class="HeroAnswear-5"><a href="#tab-4">Чего мне стоит ожидать?</a></i></li>' +
-                        '<li> > <i class="HeroAnswear-6"><a href="#tab-5">Сколько я получу за это дело?</a></i></li>' +
-                        '<li> > <i class="HeroAnswear-7"><a href="#tab-6">Почему ты уверен, что я не сбегу с твоим золотом в случае успеха?</a></i></li>' +
-                        '<li> > <i class="HeroAnswear-8"> <a style="cursor:pointer;">Покинуть ферму</a></i></li>' +
-                    '</ul>'+
+                '<ul class="toogleHeroQuestions" style="display:none;">' +
+                '<li> > <i class="HeroAnswear-3"><a href="#tab-2">Они ушли с пустыми руками?</a></i></li>' +
+                '<li> > <i class="HeroAnswear-4"><a href="#tab-3">Есть предположения куда они могли податься?</a></i></li>' +
+                '<li> > <i class="HeroAnswear-5"><a href="#tab-4">Чего мне стоит ожидать?</a></i></li>' +
+                '<li> > <i class="HeroAnswear-6"><a href="#tab-5">Сколько я получу за это дело?</a></i></li>' +
+                '<li> > <i class="HeroAnswear-7"><a href="#tab-6">Почему ты уверен, что я не сбегу с твоим золотом в случае успеха?</a></i></li>' +
+                '<li> > <i class="HeroAnswear-8"> <a style="cursor:pointer;">Покинуть ферму</a></i></li>' +
+                '</ul>' +
                 '</ul>'
             );
 
-            $('.HeroAnswear-2').click(function(){
+            $('.HeroAnswear-2').click(function() {
                 trainResolution = true;
                 var OnarQuest = '<span>' + 'Задание Онара' + '</span>';
                 var OnarQuestTxt = '<li>' + ' - Пропавшие Борка и Дерек вовсе не пропали, захватили с собой сундук с золотом Онара и скрылись. Онар уверен, что они прячутся в туманной лощине. Нужно найти их живыми или мертвыми и вернуть сундук с золотом' + '</li>' + '<li>' + ' - Онар за меня поручился, теперь я могу тренироваться у Лареса' + '</li>';
                 QuestListArr(OnarQuest, OnarQuestTxt, '.LostPeopleQuest');
             });
 
-            $('.HeroAnswear-8').click(function(){
+            $('.HeroAnswear-8').click(function() {
                 $('.OnarDialogBox').fadeOut();
                 $('.overlay').fadeOut();
                 OnarQuestTaken = true;
@@ -878,7 +883,8 @@ window.onload = function() {
             Overlay();
         }
         if (PaySenteza == true && HeroGoldInner < 200) {
-            TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner + 100, 'Вы работайте в поле: ', 'Вы заработали 100 монет');
+            TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner + 100, 'Ты работаешь в поле: ', 'Ты заработал 100 монет');
+            $('.FarmWorker').fadeIn();
         }
     }
 
@@ -910,14 +916,24 @@ window.onload = function() {
     // Конец ферма =============================================================
 
     // Битва ===================================================================
-    // не забыть поменять значение
+    // не забыть поменять значение у орка
     var DefeatOrk = true;
+    var DefeatDerek = false;
+    var AgreementWithBorka = false;
 
     function DefeatTheOrk() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         if (EnemyAttr == 'ork') {
             DefeatOrk = true;
             console.log(DefeatOrk);
+        }
+    }
+
+    function DefeatTheDerek() {
+        var EnemyAttr = $('#AtackToBattle').attr('name');
+        if (EnemyAttr == 'derek') {
+            DefeatDerek = true;
+            console.log(DefeatDerek);
         }
     }
 
@@ -990,6 +1006,9 @@ window.onload = function() {
             case 'ork':
                 OrkHP = BattleEnemyHP;
                 break;
+            case 'derek':
+                DerekHP = BattleEnemyHP;
+                break;
         }
 
         if (HeroHPInner <= 10 && BattleEnemyHP >= 1) {
@@ -1017,35 +1036,41 @@ window.onload = function() {
                 switch (EnemyAttr) {
                     case 'rat':
                         DropItem(50, 'Хвост крысы');
-                        BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Хвост крысы</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Хвост крысы</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
                         break;
                     case 'woolf':
                         DropItem(150, 'Волчья шкура');
-                        BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Волчья шкура</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Волчья шкура</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
                         break;
                     case 'mrakoris':
                         DropItem(300, 'Рог Мракориса');
-                        BattleMess('<p>' + 'Вы победили! Добыча: ' + '<span style="font-weight:bold;">Рог Мракориса</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Рог Мракориса</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
                         break;
                     case 'ork':
                         DefeatTheOrk();
+                        break;
+                    case 'derek':
+                        DefeatTheDerek();
                         break;
                 }
             } else {
                 BattleMess('<p>' + 'Ты победил!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
                 DefeatTheOrk();
+                DefeatTheDerek();
             }
             CloseTheBattleWindow();
         }
         if (HeroHPInner <= 10 && BattleEnemyHP <= 0) {
             BattleMess('<p>' + 'Ты победил с большим трудом и истек кровью, здоровье на минимуме!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
             DefeatTheOrk();
+            DefeatTheDerek();
             CloseTheBattleWindow();
         }
         if (HeroHPInner <= 0) {
             HeroHpAfterFight();
         }
     }
+    // Конец функции Atack =====================================================
 
     function BeastInner(BeastName, BeastImg, BeastAttrName) {
         HeroParamInner();
@@ -1054,11 +1079,11 @@ window.onload = function() {
         $('#AtackToBattle').attr('name', BeastAttrName);
     }
 
+    // Инициализация врагов ====================================================
     $('#rat').click(function() {
         BeastInner('Крыса', '<img class="rat_img" src="img/rat.png" alt="">', 'rat');
         $('#RetreatFromBattle').css('display', 'inline-block');
         RatHP = RatHPBase;
-        console.log(RatHP);
     });
     $('#woolf').click(function() {
         BeastInner('Волк', '<img class="woolf_img" src="img/woolf.png" alt="">', 'woolf');
@@ -1075,7 +1100,8 @@ window.onload = function() {
         OrkHP = OrkHPBase;
     });
 
-    // Кнопка атаки
+    // Кнопка атаки ============================================================
+    // Ставим в параметрах хар-ки врагов
     $('#AtackToBattle').click(function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         console.log('Атрибут врага ' + EnemyAttr);
@@ -1095,13 +1121,27 @@ window.onload = function() {
                 Atack(OrkHP, OrkCrit, OrkDamage, OrkArmor);
                 console.log('HP Орка ' + OrkHP);
                 break;
+            case 'derek':
+                Atack(DerekHP, DerekCrit, DerekDamage, DerekArmor);
+                console.log('HP Дерека ' + DerekHP);
+                break;
         }
     });
 
     function CloseTheBattleWindow() {
         $('.RunAwayBtn').click(function() {
             RetreatFunc();
+            if (DefeatDerek == true) {
+                DerekIsDead();
+            }
         });
+    }
+
+    function DerekIsDead() {
+        $('.enemy .master_btn__box').html('');
+        $('.HollowDB .dinamicTxt').html('<p>На месте тебе пришлось убить и Борку, который пытался помочь своему товарищу. Сундук с золотом Онара ты нашел внутри хижины. Пора возвращаться к Онару за наградой.</p> <button class="btn LeaveTheHollow">Покинуть лощину</button>');
+        DialogBox('.HollowDB');
+        OnarsMercenaries();
     }
 
     function HeroHpAfterFight() {
@@ -1164,8 +1204,7 @@ window.onload = function() {
             HomeInventory.appendChild(li);
         }
     }
-    // Конец Битва ====================================
-
+    // Конец Битва =============================================================
 
     // Туманная Лощина =========================================================
     var MapHollow = true;
@@ -1235,8 +1274,8 @@ window.onload = function() {
                         '<div class="BanditsAnswears tab__box" id="tab-2"><p><b>Борка:</b> Онар кинул нас на одном крупном деле, эти деньги ему не принадлежат, мы лишь забрали свое</p></div>' +
                         '<div class="BanditsAnswears tab__box" id="tab-3"><p><b>Борка:</b> Нам лучше, если для всех будем мертвы и ты сообщишь об этом. Все знают, что ты пришел сюда, если ты не вернешься, Онар наверняка пошлет по твоему следу отряд наемников, если уже этого не сделал. Тем более ты лишил нас единственной защиты, бедный Орк (Ухмыляется)</p></div>' +
                         '<div class="BanditsAnswears tab__box" id="tab-4"><p><b>Борка:</b> Мы ожидаем нашего человека, проводника, он выведет нас отсюда другим путем</p></div>' +
-                        '<div class="BanditsAnswears tab__box" id="tab-5"><p><b>Борка:</b> Хорошее решение, в долгу не останемся. Держи (Кидает кошелек с золотом)</p></div>' +
-                        '<div class="BanditsAnswears tab__box" id="tab-6"><p><b>Борка:</b> Зря ты так... </p> <button class="btn AtackTheBandits">В атаку!</button></div>' +
+                        '<div class="BanditsAnswears tab__box" id="tab-5"><p><b>Борка:</b> Хорошее решение, в долгу не останемся. Держи (Кидает кошелек с золотом)</p> <button class="btn GoAwayFromBorka" style="border:1px solid white; background:black; color:white;">Покинуть лощину</button></div>' +
+                        '<div class="BanditsAnswears tab__box" id="tab-6"><p><b>Борка:</b> Зря ты пошел этим путем! </p> <button class="btn AtackTheBandits" id="derek" style="border:1px solid white; background:black; color:white;">В АТАКУ!</button></div>' +
                         '<ul class="HeroQuestionsList tab">' +
                         '<li> > <i class="HeroAnswear-2"><a href="#tab-1">Что будет если я откажусь?</i></a></li>' +
                         '<li> > <i class="HeroAnswear-3"><a href="#tab-2">Онара больше заботит его сундук с золотом, чем  ваша судьба</a></i></li>' +
@@ -1254,14 +1293,37 @@ window.onload = function() {
                             'display': 'none'
                         });
                         $(tab).fadeIn(400);
+                        $('.HeroAnswear-7').click(function() {
+                            $('.HeroQuestionsList').css('display', 'none');
+                        });
+                    });
+                    // Инициализация сцены боя
+                    $('#derek').click(function() {
+                        $('.BanditsDialogBox').css('display', 'none');
+                        BeastInner('Дерек', '<img class="derek_img" src="img/derek.png" alt="">', 'derek');
+                        $('#RetreatFromBattle').css('display', 'none');
                     });
                     var HeroGoldCurrent = $('#hero_gold').html();
                     $('.HeroAnswear-6').click(function() {
+                        $('.HeroQuestionsList').css('display', 'none');
                         HeroGoldCurrent = Number(HeroGoldCurrent) + 1000;
                         HeroGold.innerHTML = HeroGoldCurrent;
                         console.log(HeroGoldCurrent);
                         $('.tab').html('<li> > <i class="LeaveTheHollow">Покинуть лощину</i></li>');
                     });
+                    // Принимаем предложение Борки, берем золото и уходим ======
+                    $('.GoAwayFromBorka').click(function() {
+                        AgreementWithBorka = true;
+                        $('.BanditsDialogBox').fadeOut();
+                        AgreementWithDerek();
+                    });
+
+                    function AgreementWithDerek() {
+                        $('.enemy .master_btn__box').html('');
+                        $('.HollowDB .dinamicTxt').html('<p>Ты принял предложение воров, теперь нужно придумать способ валить из долины, подальше от глаз Онара!</p> <button class="btn LeaveTheHollow">Далее</button>');
+                        DialogBox('.HollowDB');
+                        OnarsMercenaries();
+                    }
                 });
                 $('.db-bandits').fadeIn();
                 DialogBox('.BanditsDialogBox');
@@ -1269,6 +1331,95 @@ window.onload = function() {
             })
         }
     });
+
+    // Продолжаем сюжет после главы с Боркой ===================================
+    function OnarsMercenaries() {
+        $(".LeaveTheHollow").click(function() {
+            $('.HollowDB .dinamicTxt').html('<p>Через час ты был уже у выхода из болотистой местности. Возле узкого прохода между скалами стояли лошади на привязи и горел костер, тебя ждали и это место нельзя было обойти...</p> <button class="btn TalkToKillers">Далее</button>');
+            $('.TalkToKillers').click(function() {
+                $('.HollowDB').fadeOut();
+                $('.KillersDialogBox').fadeIn();
+                $('.db-killers').fadeIn();
+                var textAfterChoise = '';
+                var textAfterChoise2 = '';
+                if (AgreementWithBorka == true) {
+                    textAfterChoise = '<div class="BanditsAnswears tab__box" id="tab-9"><p><b>Наемник:</b> Мы уже узнали все, что нужно, ты чертов ублюдок, который решил, что умнее всех и заключил сделку с этими болванами! Думал перехитрить Онара? </p></div>';
+                    textAfterChoise2 = '<div class="BanditsAnswears tab__box" id="tab-10"><p><b>Наемник:</b> У тебя простой выбор - отдать сундук и умереть легко, потом мы займемся теми придурками. Второй вариант - мы забираем сундук сами и ты умираешь в страшных муках, решать тебе...</p></div>';
+                }
+                if (AgreementWithBorka == false) {
+                    textAfterChoise = '<div class="BanditsAnswears tab__box" id="tab-9"><p><b>Наемник:</b> Нам нужен сундук. Ничего личного, мы лишь выполняем то за что нам платят... </p></div>';
+                    textAfterChoise2 = '<div class="BanditsAnswears tab__box" id="tab-10"><p><b>Наемник:</b> У тебя простой выбор - отдать сундук и умереть легко. Второй вариант - мы забираем сундук сами и ты умираешь в страшных муках, решать тебе...</p></div>';
+                }
+                $('.db-killers .dinamicTxt').append(
+                    '<div class="BanditsAnswears ba-1"><p><b>Наемник:</b> Тебя то мы и ждем герой ;) </p></div>' +
+                    '<div class="BanditsAnswears tab__box" id="tab-8"><p><b>Наемник:</b> Нас послал Онар, мы то думали уже не дождемся тебя, думал сгинул в болотах</p></div>' +
+                    textAfterChoise +
+                    textAfterChoise2 +
+                    '<ul class="HeroQuestionsList tab">' +
+                    '<li class="HeroAnswear-2"> > <i><a href="#tab-8">Кто вы такие?</i></a></li>' +
+                    '<li class="HeroAnswear-3"> > <i><a href="#tab-9">Что вам нужно?</a></i></li>' +
+                    '<li class="HeroAnswear-4"> > <i><a href="#tab-10">Что дальше?</a></i></li>' +
+                    '<li class="HeroAnswear-5" style="display:none;"> > <i><a href="#tab-10">У меня есть третий вариант - почему бы вам не бежать отсюда галопом, сверкая пятками, пока я не разрубил вас на куски!</a></i></li>' +
+                    '</ul>'
+                );
+                $('.tab a').click(function(e) {
+                    e.preventDefault();
+                    $('.ba-1').css('display', 'none');
+                    var tab = $(this).attr('href');
+                    $('.tab__box').not(tab).css({
+                        'display': 'none'
+                    });
+                    $(tab).fadeIn(400);
+                });
+                $('.HeroAnswear-4').click(function() {
+                    $('.HeroAnswear-2, .HeroAnswear-3, .HeroAnswear-4').css('display', 'none');
+                    $('.HeroAnswear-5').css('display', 'inline-block');
+                });
+                $('.HeroAnswear-5').click(function() {
+                    $(this).css('display', 'none');
+                    $('.db-killers .dinamicTxt').html('');
+                    if (AgreementWithBorka == true) {
+                        $('.KillersDialogBox').addClass('derekHelp');
+                        $('.db-killers .dinamicTxt').html(
+                            '<p>В этот момент со спины наемников бесшумной тенью возник Дерек и отточеным движением воткнул нож в затылок говорившего. Опешивший второй убийца замешкался пытаясь достать меч, твой клинок не заставил себя ждать, молниеносным движением ты разрубил его голову как тыкву! <button class="btn TalkToDerek">Далее</button></p>'
+                        );
+                        $('.TalkToDerek').click(function() {
+                            $('.KillersDialogBox').removeClass('derekHelp');
+                            $('.KillersDialogBox').addClass('derekHelpNext');
+                            $('.db-killers .dinamicTxt').html(
+                                '<p> Дерек: Мы квиты дружище! И ты же не думаешь, что Онар просто так послал этих головорезов, даже если бы ты выполнил все как он хотел тебя бы не оставили в живых. Онар не стал бы тебе платить ни при каком раскладе, поэтому он решил тебя устранить после того как ты сделаешь все грязное дело. Онар тот еще ублюдок! Хорошо, что ты на нашей стороне. Наш человек будет сегодня вечером, он выведет нас из этого проклятого места, если хочешь жить, у тебя только один выход - следуй за мной. Вместе мы выберемся отсюда, дальше наши пути разойдутся.</p> <button class="btn TalkToDerek">Далее</button>'
+                            );
+                            $('.TalkToDerek').click(function() {
+                                $('.KillersDialogBox').fadeOut();
+                                $('.HollowDB .dinamicTxt').html('<p>Ты и Дерек вернулись в хижину, где уже ждал Борка, который во всю готовил телятину на вертеле и разливал пиво. Вы пол дня предавались веселью, уничтожая запасы мяса и спиртного, вечером, как и говорил Дерек явился таинственный проводник, звали его Нагур. Вы собрали остатки припасов и двинулись в путь, в глубь болот. Через эти смертельные топи Нагур вел вас уверенно, пока вы не вышли из топей с южной стороны, к отдаленной части  дикого пляжа, где на причале стояла не большая лодка.</p><p>- Вот мы и на месте! - с улыбкой проговорил Борка.<p><p>- Наш путь к свободе! - Вторил ему Дерек.</p><p>  Нагуру отстегнули 1000 золотых, после чего он молча удалился обратно в болота. Вы сели на посудину и отплыли к континенту.</p><p>В этом приключении ты остался жив сделав правильный выбор, выкарабкался из тяжелой ситуации и даже поимел на этом 1000 золотых! На этом игра окончена игрок!</p>' +
+                                '<button class="btn LeaveTheHollow">Далее</button>');
+                                DialogBox('.HollowDB');
+                            });
+                        });
+                    }
+                    if (AgreementWithBorka == false) {
+                        $('.KillersDialogBox').addClass('heads');
+                        $('.db-killers .dinamicTxt').html(
+                            '<p>Ты был быстр в этом бою, слишком быстр и силен для своих противников, на столько что их головы поотлетали в разные стороны, ты убил их обоих. Но и они тебя зацепили, тебе пробили печень, при таком ранении жить осталось совсем не долго. Легкий ветерок овевал приятной прохладой после тяжелого боя, ты присел под деревом прижимая рану в боку, кровь не останавливалась, в глазах темнело... </p> <button class="btn TalkToDerek">Далее</button>'
+                        );
+                        $('.TalkToDerek').click(function() {
+                            $('.KillersDialogBox').fadeOut();
+                            $('.HollowDB .dinamicTxt').html('<p>Нагур шел быстрым шагом, он опаздывал к условленному времени. Борка и Дерек ждали его в топях, только Нагур знал топь вдоль и поперек, чтобы провести их по тайной тропе и вывести с южной стороны болот. За это он получит 1000 золотых, вполне не плохо за то, чтобы прогуляться по болоту и вернуться домой. Главное, чтобы об этом походе не узнал Онар, ведь тогда с него точно шкуру спустят.</p>' +
+                            '<p> Нагур прошел узкое ущелье, ведущее в топь и остановился в оцепенении. На траве лежали обезглавленные тела двух наемников, их головы валялись тут же. Нагур их узнал, отпетые головорезы Онара, неужели они нашли убежище Борки!? Пройдя чуть дальше Нагур обнаружил еще одно тело под деревом. Воин сжимавший рукоять меча сидел на земле, прислонившись спиной к дереву, другой рукой он прижимал страшную рану в боку. Он весь истек кровью, его голова была низко опущена, воин был мертв. Нагур узнал его, это был тот кому он продал карту топей! Не повезло бедняге. Осмотрев тело, Нагур обнаружил сундук с кучей золота и он знал откуда эта все. Борка и Дерек были мертвы, как и тот кто забрал у них это золото! Нагур понял, что у него только один шанс выжить, он спешно прошел вглубь через болота и вышел на берег через тайнуб тропу. На берегу стояла не большая посудина Борки, Нагур сел в нее и отплыл к континенту, он был доволен.</p>' +
+                            '<p> У Нагура теперь много денег, он в мыслях попращался со старой жизнью проводника, построит дом на континенте и заживет новой счастливой жизнью</p>' +
+                            '<p>Так закончилась это приключение игрок, к соржалению ты погиб в этой истории, возможно если бы ты сделал другой выбор, твоя история могла сложиться по другому.</p>' +
+                            '<button class="btn LeaveTheHollow">Далее</button>');
+                            DialogBox('.HollowDB');
+                        });
+                    }
+                });
+            });
+        });
+    }
+    // $('.HollowDB .dinamicTxt').html('<p>Ты принял предложение воров, теперь нужно придумать способ валить из долины, подальше от глаз Онара!</p> <button class="btn LeaveTheHollow">Далее</button>');
+    // DialogBox('.HollowDB');
+    // var DefeatDerek = false;
+    // var AgreementWithBorka = false;
 
     // $('.tab a').click(function(e) {
     // 		e.preventDefault();
@@ -1285,18 +1436,18 @@ window.onload = function() {
         $('.overlay').fadeIn(300);
     }
 
-    function BanditsDBLists(BanditsAnswears) {
-        $('.db-bandits .dinamicTxt').html(BanditsAnswears +
-            '<ul>' +
-            '<li><span>></span> <i class="HeroAnswear-2">Что будет если я откажусь?</i></li>' +
-            '<li><span>></span> <i class="HeroAnswear-3">Онара больше заботит его сундук с золотом, чем  ваша судьба</i></li>' +
-            '<li><span>></span> <i class="HeroAnswear-4">Почему вы решили меня отпустить, еще и с золотом?</i></li>' +
-            '<li><span>></span> <i class="HeroAnswear-5">Думайте, вы сможете долго тут скрываться?</i></li>' +
-            '<li><span>></span> <i class="HeroAnswear-6">Ладно, я согласен, давайте золото</i></li>' +
-            '<li><span>></span> <i class="HeroAnswear-7">Вам меня не провести, готовьтесь к битве!</i></li>' +
-            '</ul>'
-        );
-    }
+    // function BanditsDBLists(BanditsAnswears) {
+    //     $('.db-bandits .dinamicTxt').html(BanditsAnswears +
+    //         '<ul>' +
+    //         '<li><span>></span> <i class="HeroAnswear-2">Что будет если я откажусь?</i></li>' +
+    //         '<li><span>></span> <i class="HeroAnswear-3">Онара больше заботит его сундук с золотом, чем  ваша судьба</i></li>' +
+    //         '<li><span>></span> <i class="HeroAnswear-4">Почему вы решили меня отпустить, еще и с золотом?</i></li>' +
+    //         '<li><span>></span> <i class="HeroAnswear-5">Думайте, вы сможете долго тут скрываться?</i></li>' +
+    //         '<li><span>></span> <i class="HeroAnswear-6">Ладно, я согласен, давайте золото</i></li>' +
+    //         '<li><span>></span> <i class="HeroAnswear-7">Вам меня не провести, готовьтесь к битве!</i></li>' +
+    //         '</ul>'
+    //     );
+    // }
 
 
 
