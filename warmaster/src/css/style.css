@@ -74,7 +74,7 @@ body {
 
 .ripper {
     width: 307px;
-    right: -70px;
+    right: -90px;
     bottom: -9px;
 }
 
@@ -202,6 +202,18 @@ img {
     background-size: cover;
 }
 
+.bg-img{
+    background: url(../img/bg-pop.jpg) no-repeat top center;
+}
+
+.bg-img .dinamicTxt{
+    color: black;
+}
+
+.bg-img .dinamicTxt p:last-child{
+    border-bottom: 1px solid black;
+}
+
 .min_db {
     background: url(../img/bg-pop.jpg) no-repeat top center;
 }
@@ -254,6 +266,10 @@ img {
 
 .dialog_box p:last-child {
     border-bottom: 1px solid white;
+}
+
+#dinamicTxtHollow p:last-child{
+    border-bottom: 1px solid black;
 }
 
 .min_db p:last-child {
@@ -401,7 +417,7 @@ button:hover {
 }
 
 .tooltip2 {
-    left: 168px;
+    left: 128px;
 }
 
 .tooltip::after, .tooltip2::after, .HomeMessageAlert::after {
@@ -523,11 +539,6 @@ button:hover {
 
 .heads{
     background: url(../img/heads.jpg) no-repeat top center;
-    background-size: cover;
-}
-
-.FarmWorker {
-    background: url(../img/farmworker.jpg) no-repeat top center;
     background-size: cover;
 }
 

@@ -248,7 +248,7 @@ button:hover {
 }
 
 .tooltip2 {
-    left: 168px;
+    left: 129px;
 }
 
 .tooltip::after, .tooltip2::after, .HomeMessageAlert::after {

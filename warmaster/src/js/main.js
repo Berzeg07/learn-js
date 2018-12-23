@@ -16,7 +16,7 @@ window.onload = function() {
 
         HeroGoldInner = 100,
         HeroHPInner = 100,
-        HeroPowerInner = 10,
+        HeroPowerInner = 1,
         HeroDamageInner = 10,
         HeroAtackInner = HeroDamageInner + HeroPowerInner,
         HeroCritInner = 0,
@@ -91,7 +91,6 @@ window.onload = function() {
     }
 
     // Покупка предметов =======================================================
-
     $('#ShowTheProduct').click(function() {
         $(".shop_box").slideToggle(300);
     });
@@ -111,7 +110,6 @@ window.onload = function() {
     function TalkToSeller() {
         $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Продаю по полной цене, выкупаю за половину :)' + '</p>');
         $('.marketPlace .db').fadeIn();
-        btnDisabledTrue();
     }
 
     function BuyFromSeller() {
@@ -130,13 +128,11 @@ window.onload = function() {
         if (HeroGoldInner < itemPrice) {
             $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Эта вещь тебе явно не по карману :)' + '</p>');
             $('.marketPlace .db').fadeIn();
-            btnDisabledTrue();
         }
         // Если предмет не выбран для покупки
         if (typeof parameter2 === 'undefined') {
             $('.marketPlace .db .dinamicTxt').html('<p>' + 'Торговец: Ты не выбрал предмет для покупки :)' + '</p>');
             $('.marketPlace .db').fadeIn();
-            btnDisabledTrue();
             return;
         }
         // Покупка
@@ -235,7 +231,6 @@ window.onload = function() {
     BtnForge.addEventListener('click', Forge);
 
     // Флаг доступа к кузнице
-    // Не забыть поменять значение
     var AccessToTheForge = false;
     var HaraldMission = false;
     var HornOfMrakoris = false;
@@ -297,7 +292,6 @@ window.onload = function() {
     function TalkToHarald() {
         TalkToHaraldTxt('<p>Харальд: Лучшее оружие и броня!</p>');
         FadeInForgeDB();
-        btnDisabledTrue();
     }
 
     // Конец кузница ===========================================================
@@ -355,7 +349,7 @@ window.onload = function() {
                     $('.heavy-armor').css('display', 'block');
                     break;
 
-                case 'Доспех ворона':
+                case 'Доспех Ворона':
                     HeroItemImgDN('.Hero_Armor');
                     $('.armor-crow').css('display', 'block');
                     break;
@@ -378,7 +372,7 @@ window.onload = function() {
                     $('.long-sword').css('display', 'block');
                     break;
 
-                case 'Потрошитель дракона':
+                case 'Потрошитель Дракона':
                     HeroItemImgDN('.Hero_Weapon');
                     $('.ripper').css('display', 'block');
                     break;
@@ -408,15 +402,12 @@ window.onload = function() {
         $('.overlay, .journal_box').fadeIn(500);
     });
     $('.close').click(function journalClose() {
-        $('.overlay, .messWindow').fadeOut(500);
+        $('.overlay, .messWindow, .FarmWorker').fadeOut(500);
     });
 
     // Мастер Ларс ==========================================
     // Флаги для доступа к Ларсу
-
-    // Незабыть поменять булево значение
-    // var trainResolution = false;
-    var trainResolution = true;
+    var trainResolution = false;
     // Совет
     var BtnAdvice = document.getElementById('btn_advice');
     BtnAdvice.addEventListener('click', masterAdvice);
@@ -448,7 +439,6 @@ window.onload = function() {
                 $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt LarsTxtSecond" id="QuestionToLars-3">' + 'Какую броню лучше носить?' + '</p>');
             }
             $('.master .db').fadeIn();
-            btnDisabledTrue();
             $('#QuestionToLars-1').click(function() {
                 $('.master .db .dinamicTxt').html('<p>' + 'Сила увеличивает мощь твоих ударов!' + '</p>');
             });
@@ -501,14 +491,13 @@ window.onload = function() {
         } else {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Думаешь я раздаю советы каждому встречному!' + '</p>');
             $('.master .db').fadeIn();
-            btnDisabledTrue();
         }
     }
 
     // Показ/Скрытие диалоговых окон
     $('.db_close').click(function() {
         $('.dialog_box').fadeOut();
-        btnDisabledFalse();
+        // btnDisabledFalse();
     });
 
     // Тренировка
@@ -524,49 +513,49 @@ window.onload = function() {
         if (trainResolution == false) {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Кто ты такой? Я не тренерую всех подряд!' + '</p>');
             $('.master .db').fadeIn();
-            btnDisabledTrue();
         } else if (HeroPowerInner >= 5) {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Ты достаточно силен, мне больше нечему тебя учить!' + '</p>');
             MasterDb();
-            btnDisabledTrue();
         } else if (trainResolution == true && HeroWeaponEquiped == 'Пусто') {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Онар хорошо отзывался о тебе. У тебя есть оружие? возвращайся когда будет с чем тренироваться!' + '</p>');
             MasterDb();
-            btnDisabledTrue();
         } else if (trainResolution == true && HeroWeaponEquiped !== 'Пусто') {
             if (HeroWeaponEquiped == 'Дубинка') {
                 $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Дубинкой можешь крыс в лесу погонять! Возвращайся с достойным оружием!' + '</p>');
                 MasterDb();
-                btnDisabledTrue();
             } else if (HeroGoldInner < 200) {
                 $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Тренировка стоит 200 монет, возваращайся когда будет чем платить!' + '</p>');
                 MasterDb();
-                btnDisabledTrue();
             } else if (HeroWeaponEquiped !== 'Ржавый меч' && HeroWeaponEquiped !== 'Дубинка' && HeroGoldInner >= 200) {
-                TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner - 200, 'Вы тренеруйтесь: ', 'Ваша сила увеличилась на 1');
+                TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner - 200, 'Тренировка: ', 'Твоя сила увеличилась на 1');
                 HeroPowerInner = HeroPowerInner + 1;
                 HeroPower.innerHTML = HeroPowerInner;
+                $('.FarmWorker').css({
+                    'background': 'url(./img/traning.jpg)',
+                    'background-size': 'cover'
+                });
+                $('.FarmWorker').fadeIn();
             }
         }
     }
     // Конец мастер Ларс ==============================================
 
     // Таверна ==============================================
-    var BtnRumors = document.getElementById('btn_rumors');
-    BtnRumors.addEventListener('click', rumors);
+    // var BtnRumors = document.getElementById('btn_rumors');
+    // BtnRumors.addEventListener('click', rumors);
 
     // Значение для активации разговора с Онаром
     var aboutMissing = false;
 
     // Слухи с таверны активируем возможность разговора с Онаром в aboutMissing
-    function rumors() {
-        $('.taverna .db_1 .DialogWithSelina').html('Селина: Неделю назад на ферме Онара пропал работник, два дня назад пропал еще один. Никто не знает, что с ними. Люди обеспокоены...');
-        $('.taverna .db_1').fadeIn();
-        aboutMissing = true;
-        var SelinasQuest = '<span class="QuestTitle">' + 'Где все пропавшие люди?' + '</span>';
-        var SelinasQuestTxt = '<ul class="LostPeopleQuest">' + '<li>' + SelinasQuest + '<br>' + ' - С фермы Онара пропадают люди, надо разобраться' + '</li>' + '</ul>';
-        QuestListArr(SelinasQuest, SelinasQuestTxt, '#journal_box__inner');
-    }
+    // function rumors() {
+    //     $('.taverna .db_1 .DialogWithSelina').html('Селина: Неделю назад на ферме Онара пропал работник, два дня назад пропал еще один. Никто не знает, что с ними. Люди обеспокоены...');
+    //     $('.taverna .db_1').fadeIn();
+    //     aboutMissing = true;
+    //     var SelinasQuest = '<span class="QuestTitle">' + 'Где все пропавшие люди?' + '</span>';
+    //     var SelinasQuestTxt = '<ul class="LostPeopleQuest">' + '<li>' + SelinasQuest + '<br>' + ' - С фермы Онара пропадают люди, надо разобраться' + '</li>' + '</ul>';
+    //     QuestListArr(SelinasQuest, SelinasQuestTxt, '#journal_box__inner');
+    // }
     var BackToQuestions = '<br>' + '<button class="BackToQuestions">' + 'Назад' + '</button>';
     var btn_talkToSelina = document.getElementById('btn_talkToSelina');
     btn_talkToSelina.addEventListener('click', talkToSelina);
@@ -582,23 +571,53 @@ window.onload = function() {
     }
 
     function talkToSelina() {
-        $('.taverna .db_1 .DialogWithSelina').html('<ul>' + '<li class="QuestionToSelina-1">' + 'Как обстановка в городе?' + '</li>' + '<li class="QuestionToSelina-2">' + 'Что находится на востоке?' + '</li>' + '<li class="QuestionToSelina-3">' + 'Что значит быть гражданином Хориниса?' + '</li>' + '<li class="QuestionToSelina-4">' + 'Расскажи о туманной лощине?' + '</li>' + '</ul>');
-        $('.taverna .db_1').fadeIn();
-        $('.QuestionToSelina-1').click(function() {
-            SelinaAnswers('Селина: В последнее время народ всполошился, слухи полнятся о надвигающейся войне с орками. Город готовит припасы, кузница дни и ночи кует оружие для ополчения, многие покидают город. Все это очень тревожно.' + BackToQuestions);
-            ReturnToSelinasQuestions();
+        $('.OnarDialogBox').css({
+            'background': 'url(./img/selina.jpg) no-repeat top center',
+            'background-size': 'cover'
         });
-        $('.QuestionToSelina-2').click(function() {
-            SelinaAnswers('Селина: Ферма Онара, раньше он состоял в подданстве короля. Онар нанял армию наемников, отказался платить налоги и объявил полную независимость от короны. ' + BackToQuestions);
-            ReturnToSelinasQuestions();
+        $('.db-onar .dinamicTxt').html(' ');
+        $('.db-onar .dinamicTxt').append(
+            '<div class="BanditsAnswears ba-1"><p><b>Селина:</b> Чтобы ты хотел узнать? </p></div>' +
+            '<div class="tab__box" id="tab-13"><p><b>Селина:</b> В последнее время народ всполошился, слухи полнятся о надвигающейся войне с орками. Город готовит припасы, кузница дни и ночи кует оружие для ополчения, многие покидают город. Все это очень тревожно. </p></div>' +
+            '<div class="tab__box" id="tab-14"><p><b>Селина:</b> Ферма Онара, раньше он состоял в подданстве короля. Онар нанял армию наемников, отказался платить налоги и объявил полную независимость от короны.</p></div>' +
+            '<div class="tab__box" id="tab-15"><p><b>Селина:</b> Граждане пользуются особыми привилегиями, имеют доступ к отдельным услугам.</p></div>' +
+            '<div class="tab__box" id="tab-16"><p><b>Селина:</b> Опасное место, непроходимые топи, жуткие твари.</p></div>' +
+            '<div class="tab__box" id="tab-17"><p><b>Селина:</b> На ферме Онара пропали два человека, никто не знает, что с ними, люди обеспокоены. Люди Онара опрашивают людей в городе, собирают любые сведения, объявлена награда за помощь в поисках.</p></div>' +
+            '<ul class="HeroQuestionsList tab">' +
+            '<li> > <i class="HeroAnswear-2"><a href="#tab-13">Как обстановка в городе?</i></a></li>' +
+            '<ul class="toogleHeroQuestions">' +
+            '<li> > <i class="HeroAnswear-3"><a href="#tab-14">Что находится на востоке?</a></i></li>' +
+            '<li> > <i class="HeroAnswear-4"><a href="#tab-15">Что значит быть гражданином Хориниса?</a></i></li>' +
+            '<li> > <i class="HeroAnswear-5"><a href="#tab-16">Расскажи о туманной лощине?</a></i></li>' +
+            '<li> > <i class="HeroAnswear-5"><a href="#tab-17">Какие слухи в последнее время?</a></i></li>' +
+            '<li> > <i class="HeroAnswear-8"> <a style="cursor:pointer;">Покинуть таверну</a></i></li>' +
+            '</ul>' +
+            '</ul>'
+        );
+
+        $('.HeroAnswear-5').click(function() {
+            aboutMissing = true;
+            var SelinasQuest = '<span class="QuestTitle">' + 'Где все пропавшие люди?' + '</span>';
+            var SelinasQuestTxt = '<ul class="LostPeopleQuest">' + '<li>' + SelinasQuest + '<br>' + ' - С фермы Онара пропадают люди, надо разобраться' + '</li>' + '</ul>';
+            QuestListArr(SelinasQuest, SelinasQuestTxt, '#journal_box__inner');
         });
-        $('.QuestionToSelina-3').click(function() {
-            SelinaAnswers('Селина: Граждане пользуются особыми привилегиями, имеют доступ к отдельным услугам.' + BackToQuestions);
-            ReturnToSelinasQuestions();
+
+        $('.HeroAnswear-8').click(function() {
+            $('.OnarDialogBox').fadeOut();
+            $('.overlay').fadeOut();
         });
-        $('.QuestionToSelina-4').click(function() {
-            SelinaAnswers('Селина: Опасное место, непроходимые топи, жуткие твари.' + BackToQuestions);
-            ReturnToSelinasQuestions();
+
+        $('.db-onar').fadeIn();
+        DialogBox('.OnarDialogBox');
+        $('.tab a').click(function(e) {
+            e.preventDefault();
+            $('.toogleHeroQuestions').slideDown();
+            $('.ba-1').css('display', 'none');
+            var tab = $(this).attr('href');
+            $('.tab__box').not(tab).css({
+                'display': 'none'
+            });
+            $(tab).fadeIn(400);
         });
     }
     $('#btn_toEat').click(function() {
@@ -724,10 +743,9 @@ window.onload = function() {
     // Посылаем Сентезу к черту
     function NotPaySenteza() {
         PaySenteza = true;
-        messWindowInner.innerHTML = 'Сентеза избил вас и забрал все деньги...';
-        timeStop.innerHTML = '';
         $('.farm .db_1').fadeOut();
-        $('.overlay, #messWindow').fadeIn();
+        $('#dinamicDbSenteza #dinamicTxtSenteza').html('Сентеза избил тебя и забрал все деньги!');
+        $('#dinamicDbSenteza').fadeIn();
         BtnFarmeGuard.removeEventListener('click', FarmeGuard);
         BtnFarmeGuard.addEventListener('click', afterFirstDialog);
         HeroGoldInner = 0;
@@ -769,17 +787,29 @@ window.onload = function() {
         if (target.id != 'equipItem') {
             $('.HomeMessageAlert').css('display', 'none');
         }
+
         ProductfadeOut('.marketPlace', '#shop_box');
         ProductfadeOut('.forge', '.bg_inner__forge');
+		ProductfadeOut('.taverna', '.selinaDB');
+        ProductfadeOut('.forge', '.db_forge');
+        ProductfadeOut('.farm', '.dinamicDbSenteza');
+        ProductfadeOut('.farm', '#static-db');
+        ProductfadeOut('.master', '.db_lares');
+        ProductfadeOut('.marketPlace', '.db_market');
+
     };
 
     function TalkToOnar() {
 
-        // if (btnOnarDisabled !== true) {
-        //     $('.master_btn__box .tooltip').fadeIn();
-        // }
+        if (btnOnarDisabled != true) {
+            $('.master_btn__box .tooltip').fadeIn();
+        }
         if (OnarQuestTaken == true) {
-            $('.db-onar .dinamicTxt').html('');
+            $('.OnarDialogBox').css({
+                'background': 'url(./img/onar.jpg) no-repeat top center',
+                'background-size': 'cover'
+            });
+            $('.db-onar .dinamicTxt').html(' ');
             $('.db-onar .dinamicTxt').html(
                 '<div class="BanditsAnswears ba-1"><p><b>Онар:</b> Удачи! </p></div>' +
                 '> <i class="leave" style="cursor:pointer;">Покинуть ферму</i>'
@@ -791,56 +821,62 @@ window.onload = function() {
                 $('.OnarDialogBox').fadeOut();
                 $('.overlay').fadeOut();
             });
-        }
-
-        if (btnOnarDisabled != true) {
-            $('.db-onar .dinamicTxt').append(
-                '<div class="BanditsAnswears ba-1"><p><b>Онар:</b> Слышал ты из тех кто решает проблемы? </p></div>' +
-                '<div class="tab__box" id="tab-1"><p><b>Онар:</b> Борка и Дерек, два неразлучных собутыльника. Сначала исчез Дерек, через день сгинул Борка. Он нужен был мне утром, хотел задать пару вопросов, охрана доложила, что он ушел ближе к ночи и не вернулся, решили, как обычно идет нажираться в таверне. </p></div>' +
-                '<div class="tab__box" id="tab-2"><p><b>Онар:</b> Ты не должен об этом никому говорить, пропал мой сундук с золотом. Борка заправлял частью моей казны, Дерек его давнешний телохранитель, вместе они и провернули это дельце.</p></div>' +
-                '<div class="tab__box" id="tab-3"><p><b>Онар:</b> Кругом отвесные скалы, из этой долины только два выхода, по морю или через перевал. Ни там, ни там муха не пролезет без моего ведома. Мои люди обшарили все окрестности, есть только одно место где они могли спрятаться и куда мне не добраться, туманная лощина! Туда я своих людей не пошлю, в этих топях сгинуло не мало народу.</p></div>' +
-                '<div class="tab__box" id="tab-4"><p><b>Онар:</b> Они хорошо экипированы, Дерек искусен в обращении с двуручным мечом, ты должен быть хорошо подготовлен, если конечно не передумал браться за это дело. Я замолвлю за тебя словечко, Ларес тебя потренерует.</p></div>' +
-                '<div class="tab__box" id="tab-5"><p><b>Онар:</b> В обиде не останешься, 1000 золотых за их головы и еще 2000 за возврат сундука с содержимым.</p></div>' +
-                '<div class="tab__box" id="tab-6"><p><b>Онар:</b> (Усмехается) Как я и сказал, в этой долине ничего не происходит без моего ведома, король слаб, мои люди повсюду, я все вижу :)</p> </div>' +
-                '<ul class="HeroQuestionsList tab">' +
-                '<li> > <i class="HeroAnswear-2"><a href="#tab-1">Я готов расследовать это дело, что известно о пропавших людях?</i></a></li>' +
-                '<ul class="toogleHeroQuestions" style="display:none;">' +
-                '<li> > <i class="HeroAnswear-3"><a href="#tab-2">Они ушли с пустыми руками?</a></i></li>' +
-                '<li> > <i class="HeroAnswear-4"><a href="#tab-3">Есть предположения куда они могли податься?</a></i></li>' +
-                '<li> > <i class="HeroAnswear-5"><a href="#tab-4">Чего мне стоит ожидать?</a></i></li>' +
-                '<li> > <i class="HeroAnswear-6"><a href="#tab-5">Сколько я получу за это дело?</a></i></li>' +
-                '<li> > <i class="HeroAnswear-7"><a href="#tab-6">Почему ты уверен, что я не сбегу с твоим золотом в случае успеха?</a></i></li>' +
-                '<li> > <i class="HeroAnswear-8"> <a style="cursor:pointer;">Покинуть ферму</a></i></li>' +
-                '</ul>' +
-                '</ul>'
-            );
-
-            $('.HeroAnswear-2').click(function() {
-                trainResolution = true;
-                var OnarQuest = '<span>' + 'Задание Онара' + '</span>';
-                var OnarQuestTxt = '<li>' + ' - Пропавшие Борка и Дерек вовсе не пропали, захватили с собой сундук с золотом Онара и скрылись. Онар уверен, что они прячутся в туманной лощине. Нужно найти их живыми или мертвыми и вернуть сундук с золотом' + '</li>' + '<li>' + ' - Онар за меня поручился, теперь я могу тренироваться у Лареса' + '</li>';
-                QuestListArr(OnarQuest, OnarQuestTxt, '.LostPeopleQuest');
-            });
-
-            $('.HeroAnswear-8').click(function() {
-                $('.OnarDialogBox').fadeOut();
-                $('.overlay').fadeOut();
-                OnarQuestTaken = true;
-                btnOnarDisabled = true;
-            });
-
-            $('.db-onar').fadeIn();
-            DialogBox('.OnarDialogBox');
-            $('.tab a').click(function(e) {
-                e.preventDefault();
-                $('.toogleHeroQuestions').slideDown();
-                $('.ba-1').css('display', 'none');
-                var tab = $(this).attr('href');
-                $('.tab__box').not(tab).css({
-                    'display': 'none'
+        } else {
+            if (btnOnarDisabled == true) {
+                $('.OnarDialogBox').css({
+                    'background': 'url(./img/onar.jpg) no-repeat top center',
+                    'background-size': 'cover'
                 });
-                $(tab).fadeIn(400);
-            });
+                $('.db-onar .dinamicTxt').html(' ');
+                $('.db-onar .dinamicTxt').append(
+                    '<div class="BanditsAnswears ba-1"><p><b>Онар:</b> Слышал ты из тех кто решает проблемы? </p></div>' +
+                    '<div class="tab__box" id="tab-1"><p><b>Онар:</b> Борка и Дерек, два неразлучных собутыльника. Сначала исчез Дерек, через день сгинул Борка. Он нужен был мне утром, хотел задать пару вопросов, охрана доложила, что он ушел ближе к ночи и не вернулся, решили, как обычно идет нажираться в таверне. </p></div>' +
+                    '<div class="tab__box" id="tab-2"><p><b>Онар:</b> Ты не должен об этом никому говорить, пропал мой сундук с золотом. Борка заправлял частью моей казны, Дерек его давнешний телохранитель, вместе они и провернули это дельце.</p></div>' +
+                    '<div class="tab__box" id="tab-3"><p><b>Онар:</b> Кругом отвесные скалы, из этой долины только два выхода, по морю или через перевал. Ни там, ни там муха не пролезет без моего ведома. Мои люди обшарили все окрестности, есть только одно место где они могли спрятаться и куда мне не добраться, туманная лощина! Туда я своих людей не пошлю, в этих топях сгинуло не мало народу.</p></div>' +
+                    '<div class="tab__box" id="tab-4"><p><b>Онар:</b> Они хорошо экипированы, Дерек искусен в обращении с двуручным мечом, ты должен быть хорошо подготовлен, если конечно не передумал браться за это дело. Я замолвлю за тебя словечко, Ларес тебя потренерует.</p></div>' +
+                    '<div class="tab__box" id="tab-5"><p><b>Онар:</b> В обиде не останешься, 1000 золотых за их головы и еще 2000 за возврат сундука с содержимым.</p></div>' +
+                    '<div class="tab__box" id="tab-6"><p><b>Онар:</b> (Усмехается) Как я и сказал, в этой долине ничего не происходит без моего ведома, король слаб, мои люди повсюду, я все вижу :)</p> </div>' +
+                    '<ul class="HeroQuestionsList tab">' +
+                    '<li> > <i class="HeroAnswear-2"><a href="#tab-1">Я готов расследовать это дело, что известно о пропавших людях?</i></a></li>' +
+                    '<ul class="toogleHeroQuestions" style="display:none;">' +
+                    '<li> > <i class="HeroAnswear-3"><a href="#tab-2">Они ушли с пустыми руками?</a></i></li>' +
+                    '<li> > <i class="HeroAnswear-4"><a href="#tab-3">Есть предположения куда они могли податься?</a></i></li>' +
+                    '<li> > <i class="HeroAnswear-5"><a href="#tab-4">Чего мне стоит ожидать?</a></i></li>' +
+                    '<li> > <i class="HeroAnswear-6"><a href="#tab-5">Сколько я получу за это дело?</a></i></li>' +
+                    '<li> > <i class="HeroAnswear-7"><a href="#tab-6">Почему ты уверен, что я не сбегу с твоим золотом в случае успеха?</a></i></li>' +
+                    '<li> > <i class="HeroAnswear-8"> <a style="cursor:pointer;">Покинуть ферму</a></i></li>' +
+                    '</ul>' +
+                    '</ul>'
+                );
+
+                $('.HeroAnswear-2').click(function() {
+                    trainResolution = true;
+                    var OnarQuest = '<span>' + 'Задание Онара' + '</span>';
+                    var OnarQuestTxt = '<li>' + ' - Пропавшие Борка и Дерек вовсе не пропали, захватили с собой сундук с золотом Онара и скрылись. Онар уверен, что они прячутся в туманной лощине. Нужно найти их живыми или мертвыми и вернуть сундук с золотом' + '</li>' + '<li>' + ' - Онар за меня поручился, теперь я могу тренироваться у Лареса' + '</li>';
+                    QuestListArr(OnarQuest, OnarQuestTxt, '.LostPeopleQuest');
+                });
+
+                $('.HeroAnswear-8').click(function() {
+                    $('.OnarDialogBox').fadeOut();
+                    $('.overlay').fadeOut();
+                    OnarQuestTaken = true;
+                    btnOnarDisabled = true;
+                    console.log(OnarQuestTaken);
+                });
+
+                $('.db-onar').fadeIn();
+                DialogBox('.OnarDialogBox');
+                $('.tab a').click(function(e) {
+                    e.preventDefault();
+                    $('.toogleHeroQuestions').slideDown();
+                    $('.ba-1').css('display', 'none');
+                    var tab = $(this).attr('href');
+                    $('.tab__box').not(tab).css({
+                        'display': 'none'
+                    });
+                    $(tab).fadeIn(400);
+                });
+            }
         }
     }
 
@@ -850,40 +886,47 @@ window.onload = function() {
 
     function ToRest() {
         TimerFunc(15, HeroHP, 100, 'Вы спите: ', 'Здоровье восстановлено!');
+        $('.FarmWorker').css({
+            'background': 'url(./img/bad.jpg) no-repeat top center',
+            'background-size': 'cover'
+        });
+        $('.FarmWorker').fadeIn();
         HeroHPInner = 100;
     }
 
-    // Наняться на работу =======================================
+    // Наняться на работу ======================================================
     var timeOfwork = document.getElementById('timeOfwork');
     BtnWorkFarm.addEventListener('click', GoToWork);
     var timeStop = document.getElementById('stop');
-    var arrButtons = [];
-    var arrButtons = document.getElementsByTagName('button');
+    // var arrButtons = [];
+    // var arrButtons = document.getElementsByTagName('button');
 
-    function btnDisabledTrue() {
-        for (var i = 0; i < arrButtons.length; i++) {
-            arrButtons[i].disabled = true;
-        }
-    }
-
-    function btnDisabledFalse() {
-        for (var i = 0; i < arrButtons.length; i++) {
-            arrButtons[i].disabled = false;
-        }
-    }
+    // function btnDisabledTrue() {
+    //     for (var i = 0; i < arrButtons.length; i++) {
+    //         arrButtons[i].disabled = true;
+    //     }
+    // }
+    //
+    // function btnDisabledFalse() {
+    //     for (var i = 0; i < arrButtons.length; i++) {
+    //         arrButtons[i].disabled = false;
+    //     }
+    // }
 
     function GoToWork() {
         if (PaySenteza !== true) {
             $('.master_btn__box .tooltip2').fadeIn();
         }
         if (PaySenteza == true && HeroGoldInner >= 200) {
-            timeStop.innerHTML = ' ';
-            timeOfwork.innerHTML = ' ';
-            messWindowInner.innerHTML = 'На данный момент нет работы';
-            Overlay();
+            $('#dinamicDbSenteza #dinamicTxtSenteza').html('<p>На данный момент нет работы!</p>');
+            $('#dinamicDbSenteza').fadeIn();
         }
         if (PaySenteza == true && HeroGoldInner < 200) {
             TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner + 100, 'Ты работаешь в поле: ', 'Ты заработал 100 монет');
+            $('.FarmWorker').css({
+                'background': 'url(./img/farmworker.jpg) no-repeat top center',
+                'background-size': 'cover'
+            });
             $('.FarmWorker').fadeIn();
         }
     }
@@ -916,8 +959,7 @@ window.onload = function() {
     // Конец ферма =============================================================
 
     // Битва ===================================================================
-    // не забыть поменять значение у орка
-    var DefeatOrk = true;
+    var DefeatOrk = false;
     var DefeatDerek = false;
     var AgreementWithBorka = false;
 
@@ -1029,7 +1071,7 @@ window.onload = function() {
                 CloseTheBattleWindow();
             }
         }
-        console.log(BattleEnemyHP);
+
         if (HeroHPInner >= 10 && BattleEnemyHP <= 0) {
             var HeroItemIndex = HeroItem[0].indexOf('Охотничий нож');
             if (HeroItemIndex != -1) {
@@ -1207,7 +1249,7 @@ window.onload = function() {
     // Конец Битва =============================================================
 
     // Туманная Лощина =========================================================
-    var MapHollow = true;
+    var MapHollow = false;
 
     function FightOrkHollow() {
         BeastInner('Орк', '<img class="ork_img" src="img/orkavatar.png" alt="">', 'ork');
@@ -1392,7 +1434,7 @@ window.onload = function() {
                             $('.TalkToDerek').click(function() {
                                 $('.KillersDialogBox').fadeOut();
                                 $('.HollowDB .dinamicTxt').html('<p>Ты и Дерек вернулись в хижину, где уже ждал Борка, который во всю готовил телятину на вертеле и разливал пиво. Вы пол дня предавались веселью, уничтожая запасы мяса и спиртного, вечером, как и говорил Дерек явился таинственный проводник, звали его Нагур. Вы собрали остатки припасов и двинулись в путь, в глубь болот. Через эти смертельные топи Нагур вел вас уверенно, пока вы не вышли из топей с южной стороны, к отдаленной части  дикого пляжа, где на причале стояла не большая лодка.</p><p>- Вот мы и на месте! - с улыбкой проговорил Борка.<p><p>- Наш путь к свободе! - Вторил ему Дерек.</p><p>  Нагуру отстегнули 1000 золотых, после чего он молча удалился обратно в болота. Вы сели на посудину и отплыли к континенту.</p><p>В этом приключении ты остался жив сделав правильный выбор, выкарабкался из тяжелой ситуации и даже поимел на этом 1000 золотых! На этом игра окончена игрок!</p>' +
-                                '<button class="btn LeaveTheHollow">Далее</button>');
+                                    '<button class="btn LeaveTheHollow">Далее</button>');
                                 DialogBox('.HollowDB');
                             });
                         });
@@ -1405,10 +1447,10 @@ window.onload = function() {
                         $('.TalkToDerek').click(function() {
                             $('.KillersDialogBox').fadeOut();
                             $('.HollowDB .dinamicTxt').html('<p>Нагур шел быстрым шагом, он опаздывал к условленному времени. Борка и Дерек ждали его в топях, только Нагур знал топь вдоль и поперек, чтобы провести их по тайной тропе и вывести с южной стороны болот. За это он получит 1000 золотых, вполне не плохо за то, чтобы прогуляться по болоту и вернуться домой. Главное, чтобы об этом походе не узнал Онар, ведь тогда с него точно шкуру спустят.</p>' +
-                            '<p> Нагур прошел узкое ущелье, ведущее в топь и остановился в оцепенении. На траве лежали обезглавленные тела двух наемников, их головы валялись тут же. Нагур их узнал, отпетые головорезы Онара, неужели они нашли убежище Борки!? Пройдя чуть дальше Нагур обнаружил еще одно тело под деревом. Воин сжимавший рукоять меча сидел на земле, прислонившись спиной к дереву, другой рукой он прижимал страшную рану в боку. Он весь истек кровью, его голова была низко опущена, воин был мертв. Нагур узнал его, это был тот кому он продал карту топей! Не повезло бедняге. Осмотрев тело, Нагур обнаружил сундук с кучей золота и он знал откуда эта все. Борка и Дерек были мертвы, как и тот кто забрал у них это золото! Нагур понял, что у него только один шанс выжить, он спешно прошел вглубь через болота и вышел на берег через тайнуб тропу. На берегу стояла не большая посудина Борки, Нагур сел в нее и отплыл к континенту, он был доволен.</p>' +
-                            '<p> У Нагура теперь много денег, он в мыслях попращался со старой жизнью проводника, построит дом на континенте и заживет новой счастливой жизнью</p>' +
-                            '<p>Так закончилась это приключение игрок, к соржалению ты погиб в этой истории, возможно если бы ты сделал другой выбор, твоя история могла сложиться по другому.</p>' +
-                            '<button class="btn LeaveTheHollow">Далее</button>');
+                                '<p> Нагур прошел узкое ущелье, ведущее в топь и остановился в оцепенении. На траве лежали обезглавленные тела двух наемников, их головы валялись тут же. Нагур их узнал, отпетые головорезы Онара, неужели они нашли убежище Борки!? Пройдя чуть дальше Нагур обнаружил еще одно тело под деревом. Воин сжимавший рукоять меча сидел на земле, прислонившись спиной к дереву, другой рукой он прижимал страшную рану в боку. Он весь истек кровью, его голова была низко опущена, воин был мертв. Нагур узнал его, это был тот кому он продал карту топей! Не повезло бедняге. Осмотрев тело, Нагур обнаружил сундук с кучей золота и он знал откуда эта все. Борка и Дерек были мертвы, как и тот кто забрал у них это золото! Нагур понял, что у него только один шанс выжить, он спешно прошел вглубь через болота и вышел на берег через тайнуб тропу. На берегу стояла не большая посудина Борки, Нагур сел в нее и отплыл к континенту, он был доволен.</p>' +
+                                '<p> У Нагура теперь много денег, он в мыслях попращался со старой жизнью проводника, построит дом на континенте и заживет новой счастливой жизнью</p>' +
+                                '<p>Так закончилась это приключение игрок, к соржалению ты погиб в этой истории, возможно если бы ты сделал другой выбор, твоя история могла сложиться по другому.</p>' +
+                                '<button class="btn LeaveTheHollow">Далее</button>');
                             DialogBox('.HollowDB');
                         });
                     }
@@ -1416,41 +1458,11 @@ window.onload = function() {
             });
         });
     }
-    // $('.HollowDB .dinamicTxt').html('<p>Ты принял предложение воров, теперь нужно придумать способ валить из долины, подальше от глаз Онара!</p> <button class="btn LeaveTheHollow">Далее</button>');
-    // DialogBox('.HollowDB');
-    // var DefeatDerek = false;
-    // var AgreementWithBorka = false;
-
-    // $('.tab a').click(function(e) {
-    // 		e.preventDefault();
-    // 		// $('a').removeClass('active');
-    // 		// $(this).addClass('active');
-    // 		var tab = $(this).attr('href');
-    // 		$('.tab__box').not(tab).css({'display':'none'});
-    // 		$(tab).fadeIn(400);
-    // 	});
-    //     $('.tab a:first').click();
 
     function DialogBox(ClassName) {
         $(ClassName).fadeIn(300);
         $('.overlay').fadeIn(300);
     }
-
-    // function BanditsDBLists(BanditsAnswears) {
-    //     $('.db-bandits .dinamicTxt').html(BanditsAnswears +
-    //         '<ul>' +
-    //         '<li><span>></span> <i class="HeroAnswear-2">Что будет если я откажусь?</i></li>' +
-    //         '<li><span>></span> <i class="HeroAnswear-3">Онара больше заботит его сундук с золотом, чем  ваша судьба</i></li>' +
-    //         '<li><span>></span> <i class="HeroAnswear-4">Почему вы решили меня отпустить, еще и с золотом?</i></li>' +
-    //         '<li><span>></span> <i class="HeroAnswear-5">Думайте, вы сможете долго тут скрываться?</i></li>' +
-    //         '<li><span>></span> <i class="HeroAnswear-6">Ладно, я согласен, давайте золото</i></li>' +
-    //         '<li><span>></span> <i class="HeroAnswear-7">Вам меня не провести, готовьтесь к битве!</i></li>' +
-    //         '</ul>'
-    //     );
-    // }
-
-
-
     // Конец туманная лощина ===================================================
 
     // Выводим данные с локального хранилища ======================
