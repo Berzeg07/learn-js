@@ -1,5 +1,75 @@
 window.onload = function() {
 
+    gameStart();
+
+    $('.player').click(function() {
+        if (jQuery(this).hasClass('on')) {
+            jQuery(this).removeClass('on');
+            jQuery('#my-hidden-player').get(0).pause();
+        } else {
+            jQuery('.button').removeClass('on');
+            jQuery(this).addClass('on');
+            var pl = jQuery('#my-hidden-player').get(0);
+            pl.pause();
+            pl.src = jQuery(this).attr('data-src');
+            pl.play();
+        }
+    });
+
+    function gameStart() {
+        $('.OnarDialogBox').css({
+            'background': 'url(./img/start.jpg) no-repeat top center',
+            'background-size': 'cover'
+        });
+        $('.db-onar .dinamicTxt').html(' ');
+        $('.db-onar .dinamicTxt').append(
+            '<div><p>Приветствую игрок! Ты старый вояка, когда то служивший в рядах королевской армии. После демобилизации ты решил податься на поиски приключений избрав путь наемника. В своих странствиях ты путешествуешь от города к городу в поисках тех, кто готов заплатить за твои услуги. Сегодня ты прибыл к портовому городу Хоринис</p></div>' +
+            '<ul style="padding-top:10px;">' +
+            '<li style="margin-right:10px;"> <button class="btn toHorinis">Далее</button></li>' +
+            '</ul>'
+        );
+        $('.toHorinis').click(function() {
+            $('.OnarDialogBox').css({
+                'background': 'url(./img/horinis.jpg) no-repeat top center',
+                'background-size': 'cover'
+            });
+            $('.db-onar .dinamicTxt').html(' ');
+            $('.db-onar .dinamicTxt').append(
+                '<div class="ba-1"><p>Стражник: Стой кто идет!?</p></div>' +
+                '<div class="tab__box" id="tab1"><p>Стражник: в Хоринисе объявлено военное положение, мы не пускаем незнакомцев, нам бродяги не нужны!</p></div>' +
+                '<div class="tab__box" id="tab2"><p>Стражник: есть один способ, ты должен снять жилье на месяц и будешь оформлен как постоялец, мой брат как раз занимается этим, это будет стоить 200 монет</p></div>' +
+                '<div class="tab__box" id="tab3"><p>Стражник: дом сразу за стеной справа, там сейчас мой брат, он даст тебе ключ. И смотри без шороху тут, тюрьмы у нас заполнены, но место всегда найдется!</p></div>' +
+                '<ul class="tab" style="padding-top:10px;">' +
+                '<li class="ba-1"> > <i><a href="#tab1">Я приехал с западных земель, почему нельзя пройти в город?</a></i></li>' +
+                '<ul class="toogleHeroQuestions" style="display:none;">' +
+                '<li class="question-1"> > <i><a href="#tab2">Что я могу сделать, чтобы попасть в город?</a></i></li>' +
+                '<li class="question-2" style="display:none;"> > <i><a href="#tab3">Ладно, мне жилье не помешает для отдыха и моего барахла</a></i></li>' +
+                '</ul>' +
+                '</ul>' +
+                '<div class="question-3" style="display:none;"> > <i><a href="#">Пройти в город</a></i></div>'
+            );
+            tabsDialog();
+            $('.question-1').click(function() {
+                $(this).css('display', 'none');
+                $('.question-2').fadeIn();
+            });
+            $('.question-2').click(function() {
+                $(this).css('display', 'none');
+                $('.question-3').fadeIn();
+            });
+            $('.question-3').click(function() {
+                $('.OnarDialogBox').fadeOut();
+                $('.overlay').fadeOut();
+                $('.player').trigger('click');
+                var Horinis = '<span class="QuestTitle">' + 'Хоринис' + '</span>';
+                var HorinisTxt = '<ul class="Horinis">' + '<li>' + Horinis + '<br>' + ' - Чертов охранник содрал с меня 200 золотых, чтобы я мог попасть в город, нужно искать работу' + '</li>' + '</ul>';
+                QuestListArr(Horinis, HorinisTxt, '#journal_box__inner');
+            });
+
+        });
+        $('.db-onar').fadeIn();
+        DialogBox('.OnarDialogBox');
+    }
     // Окно оповещений
     var messWindow = document.getElementById('messWindow'),
         messWindowInner = document.getElementById('messWindowInner'),
@@ -15,7 +85,7 @@ window.onload = function() {
         HeroHP = document.getElementById('hero_hp'),
 
         HeroGoldInner = 100,
-        HeroHPInner = 100,
+        HeroHPInner = 40,
         HeroPowerInner = 1,
         HeroDamageInner = 10,
         HeroAtackInner = HeroDamageInner + HeroPowerInner,
@@ -530,11 +600,12 @@ window.onload = function() {
                 TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner - 200, 'Тренировка: ', 'Твоя сила увеличилась на 1');
                 HeroPowerInner = HeroPowerInner + 1;
                 HeroPower.innerHTML = HeroPowerInner;
-                $('.FarmWorker').css({
-                    'background': 'url(./img/traning.jpg)',
-                    'background-size': 'cover'
-                });
-                $('.FarmWorker').fadeIn();
+                dialogBg('url(./img/traning.jpg)');
+                // $('.FarmWorker').css({
+                //     'background': 'url(./img/traning.jpg)',
+                //     'background-size': 'cover'
+                // });
+                // $('.FarmWorker').fadeIn();
             }
         }
     }
@@ -609,20 +680,11 @@ window.onload = function() {
 
         $('.db-onar').fadeIn();
         DialogBox('.OnarDialogBox');
-        $('.tab a').click(function(e) {
-            e.preventDefault();
-            $('.toogleHeroQuestions').slideDown();
-            $('.ba-1').css('display', 'none');
-            var tab = $(this).attr('href');
-            $('.tab__box').not(tab).css({
-                'display': 'none'
-            });
-            $(tab).fadeIn(400);
-        });
+        tabsDialog();
     }
     $('#btn_toEat').click(function() {
-        var PriceOfFood = 150;
-        SelinaAnswers('Селина: Лучшее жаркое в Хоринисе :) Цена 150 монет!' + '<br>' + '<button class="ToEat" style="margin-top:10px;">' + 'Кушать' + '</button>' + '<button class="CancelToEat" style="margin-left:10px; margin-top:10px;">' + 'Отмена' + '</button>');
+        var PriceOfFood = 50;
+        SelinaAnswers('Селина: Лучшее жаркое в Хоринисе, всего за 50 монет!' + '<br>' + '<button class="ToEat" style="margin-top:10px;">' + 'Кушать' + '</button>' + '<button class="CancelToEat" style="margin-left:10px; margin-top:10px;">' + 'Отмена' + '</button>');
         $('.taverna .db_1').fadeIn();
         $('.ToEat').click(function() {
             if (HeroGoldInner >= PriceOfFood) {
@@ -640,6 +702,68 @@ window.onload = function() {
             $('.taverna .db_1').fadeOut();
         });
     });
+
+    $('#btn_nagur').click(function() {
+        $('.OnarDialogBox').css({
+            'background': 'url(./img/nagur.jpg) no-repeat top center',
+            'background-size': 'cover'
+        });
+        if (MapHollow != true) {
+            $('.db-onar .dinamicTxt').html(' ');
+            $('.db-onar .dinamicTxt').append(
+                '<div class="NagurDB"><p><b>Нагур:</b> Продам карту топей, цена 100 золотых!</p></div>' +
+                '<ul class="HeroQuestionsList" style="display:flex; padding-top:10px;">' +
+                '<li style="margin-right:10px;"> <button class="btn buyTheMap">Купить</button></li>' +
+                '<li> <button class="btn leaveFromNagur">Уйти</button></li>' +
+                '</ul>'
+            );
+        } else {
+            $('.db-onar .dinamicTxt').html(' ');
+            $('.db-onar .dinamicTxt').append(
+                '<div class="NagurDB"><p><b>Нагур:</b> У меня для тебя больше ничего нет</p></div>' +
+                '<ul class="HeroQuestionsList" style="display:flex; padding-top:10px;">' +
+                '<li> <button class="btn leaveFromNagur">Уйти</button></li>' +
+                '</ul>'
+            );
+        }
+        $('.buyTheMap').click(function() {
+            var mapPrice = 100;
+            if (HeroGoldInner >= mapPrice) {
+                var NagurMap = '<span>' + 'Карта Нагура' + '</span>';
+                var NagurQuestTxt = '<li>' + ' - Таинственный Нагур продал мне карту топей, теперь я могу исследовать туманную лощину!' + '</li>';
+                QuestListArr(NagurMap, NagurQuestTxt, '.LostPeopleQuest');
+                HeroGoldInner = HeroGoldInner - mapPrice;
+                HeroGold.innerHTML = HeroGoldInner;
+                $('.NagurDB').html('<p><b>Нагур:</b> Удачи!</p>');
+                MapHollow = true;
+            }
+            if (HeroGoldInner < mapPrice && MapHollow != true) {
+                $('.NagurDB').html('<p><b>Нагур:</b> Возвращайся когда будешь достаточно богат для клочка карты</p>');
+            }
+        });
+
+
+        $('.leaveFromNagur').click(function() {
+            $('.OnarDialogBox').fadeOut();
+            $('.overlay').fadeOut();
+        });
+
+        $('.db-onar').fadeIn();
+        DialogBox('.OnarDialogBox');
+    });
+
+    function tabsDialog() {
+        $('.tab a').click(function(e) {
+            e.preventDefault();
+            $('.toogleHeroQuestions').slideDown();
+            $('.ba-1').css('display', 'none');
+            var tab = $(this).attr('href');
+            $('.tab__box').not(tab).css({
+                'display': 'none'
+            });
+            $(tab).fadeIn(400);
+        });
+    }
 
     // Конец таверна ========================================
 
@@ -790,7 +914,7 @@ window.onload = function() {
 
         ProductfadeOut('.marketPlace', '#shop_box');
         ProductfadeOut('.forge', '.bg_inner__forge');
-		ProductfadeOut('.taverna', '.selinaDB');
+        ProductfadeOut('.taverna', '.selinaDB');
         ProductfadeOut('.forge', '.db_forge');
         ProductfadeOut('.farm', '.dinamicDbSenteza');
         ProductfadeOut('.farm', '#static-db');
@@ -851,6 +975,7 @@ window.onload = function() {
 
                 $('.HeroAnswear-2').click(function() {
                     trainResolution = true;
+                    $('#btn_nagur').css('display', 'inline-block');
                     var OnarQuest = '<span>' + 'Задание Онара' + '</span>';
                     var OnarQuestTxt = '<li>' + ' - Пропавшие Борка и Дерек вовсе не пропали, захватили с собой сундук с золотом Онара и скрылись. Онар уверен, что они прячутся в туманной лощине. Нужно найти их живыми или мертвыми и вернуть сундук с золотом' + '</li>' + '<li>' + ' - Онар за меня поручился, теперь я могу тренироваться у Лареса' + '</li>';
                     QuestListArr(OnarQuest, OnarQuestTxt, '.LostPeopleQuest');
@@ -863,19 +988,9 @@ window.onload = function() {
                     btnOnarDisabled = true;
                     console.log(OnarQuestTaken);
                 });
-
                 $('.db-onar').fadeIn();
                 DialogBox('.OnarDialogBox');
-                $('.tab a').click(function(e) {
-                    e.preventDefault();
-                    $('.toogleHeroQuestions').slideDown();
-                    $('.ba-1').css('display', 'none');
-                    var tab = $(this).attr('href');
-                    $('.tab__box').not(tab).css({
-                        'display': 'none'
-                    });
-                    $(tab).fadeIn(400);
-                });
+                tabsDialog();
             }
         }
     }
@@ -885,13 +1000,24 @@ window.onload = function() {
     rest.addEventListener('click', ToRest);
 
     function ToRest() {
-        TimerFunc(15, HeroHP, 100, 'Вы спите: ', 'Здоровье восстановлено!');
+        if (HeroHPInner < 50) {
+            TimerFunc(15, HeroHP, 50, 'Отдых: ', 'Часть здоровья восстановлено!');
+            dialogBg('url(./img/bad.jpg) no-repeat top center');
+            HeroHPInner = 50;
+        } else {
+            var heroHPnow = $('#hero_hp').html();
+            TimerFunc(15, HeroHP, heroHPnow, 'Отдых: ', 'Ты отдохнул. Сон восстанавливает не более 50% здоровья');
+            dialogBg('url(./img/bad.jpg) no-repeat top center');
+        }
+    }
+
+    // Функция смены фона у больших диалоговых окон
+    function dialogBg(bgUrl) {
         $('.FarmWorker').css({
-            'background': 'url(./img/bad.jpg) no-repeat top center',
+            'background': bgUrl,
             'background-size': 'cover'
         });
         $('.FarmWorker').fadeIn();
-        HeroHPInner = 100;
     }
 
     // Наняться на работу ======================================================
@@ -923,11 +1049,12 @@ window.onload = function() {
         }
         if (PaySenteza == true && HeroGoldInner < 200) {
             TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner + 100, 'Ты работаешь в поле: ', 'Ты заработал 100 монет');
-            $('.FarmWorker').css({
-                'background': 'url(./img/farmworker.jpg) no-repeat top center',
-                'background-size': 'cover'
-            });
-            $('.FarmWorker').fadeIn();
+            dialogBg('url(./img/farmworker.jpg) no-repeat top center');
+            // $('.FarmWorker').css({
+            //     'background': 'url(./img/farmworker.jpg) no-repeat top center',
+            //     'background-size': 'cover'
+            // });
+            // $('.FarmWorker').fadeIn();
         }
     }
 
@@ -959,7 +1086,8 @@ window.onload = function() {
     // Конец ферма =============================================================
 
     // Битва ===================================================================
-    var DefeatOrk = false;
+    // не забыть поменять значение!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    var DefeatOrk = true;
     var DefeatDerek = false;
     var AgreementWithBorka = false;
 
@@ -1433,7 +1561,9 @@ window.onload = function() {
                             );
                             $('.TalkToDerek').click(function() {
                                 $('.KillersDialogBox').fadeOut();
-                                $('.HollowDB .dinamicTxt').html('<p>Ты и Дерек вернулись в хижину, где уже ждал Борка, который во всю готовил телятину на вертеле и разливал пиво. Вы пол дня предавались веселью, уничтожая запасы мяса и спиртного, вечером, как и говорил Дерек явился таинственный проводник, звали его Нагур. Вы собрали остатки припасов и двинулись в путь, в глубь болот. Через эти смертельные топи Нагур вел вас уверенно, пока вы не вышли из топей с южной стороны, к отдаленной части  дикого пляжа, где на причале стояла не большая лодка.</p><p>- Вот мы и на месте! - с улыбкой проговорил Борка.<p><p>- Наш путь к свободе! - Вторил ему Дерек.</p><p>  Нагуру отстегнули 1000 золотых, после чего он молча удалился обратно в болота. Вы сели на посудину и отплыли к континенту.</p><p>В этом приключении ты остался жив сделав правильный выбор, выкарабкался из тяжелой ситуации и даже поимел на этом 1000 золотых! На этом игра окончена игрок!</p>' +
+                                $('.HollowDB .dinamicTxt').html('<img src="./img/ship.jpg"><p>Ты и Дерек вернулись в хижину, где уже ждал Борка, который во всю готовил телятину на вертеле и разливал пиво. Вы пол дня предавались веселью, уничтожая запасы мяса и вина.</p>' +
+                                    '<p>Вечером, как и говорил Дерек явился таинственный проводник и звали его Нагур. Тот самый у которого ты купил карту топей. </p>' +
+                                    '<p>Вы собрали остатки припасов и двинулись в путь, в глубь болот. Через эти смертельные топи Нагур вел вас уверенно, пока вы не вышли из топей с южной стороны, к отдаленной части  дикого пляжа, где на причале стояла не плохая посудина, заблаговременно и в тайне построеная Боркой.</p><p>- Вот мы и на месте! - с улыбкой проговорил Борка.<p><p>- Наш путь к свободе! - Вторил ему Дерек.</p><p>  Нагуру отстегнули 1000 золотых, после чего он молча удалился обратно в болота. Вы сели на посудину и отплыли к континенту.</p><p>В этом приключении ты остался жив сделав правильный выбор, не всегда то, что кажется плохим является таковым на самом деле. Ты выкарабкался из трудной ситуации и даже поимел на этом 1000 золотых! На этом игра окончена игрок!</p>' +
                                     '<button class="btn LeaveTheHollow">Далее</button>');
                                 DialogBox('.HollowDB');
                             });
@@ -1446,7 +1576,7 @@ window.onload = function() {
                         );
                         $('.TalkToDerek').click(function() {
                             $('.KillersDialogBox').fadeOut();
-                            $('.HollowDB .dinamicTxt').html('<p>Нагур шел быстрым шагом, он опаздывал к условленному времени. Борка и Дерек ждали его в топях, только Нагур знал топь вдоль и поперек, чтобы провести их по тайной тропе и вывести с южной стороны болот. За это он получит 1000 золотых, вполне не плохо за то, чтобы прогуляться по болоту и вернуться домой. Главное, чтобы об этом походе не узнал Онар, ведь тогда с него точно шкуру спустят.</p>' +
+                            $('.HollowDB .dinamicTxt').html('<img src="./img/dead.jpg"><p>Нагур шел быстрым шагом, он опаздывал к условленному времени. Борка и Дерек ждали его в топях, только Нагур знал топь вдоль и поперек, чтобы провести их по тайной тропе и вывести с южной стороны болот. За это он получит 1000 золотых, вполне не плохо за то, чтобы прогуляться по болоту и вернуться домой. Главное, чтобы об этом походе не узнал Онар, ведь тогда с него точно шкуру спустят.</p>' +
                                 '<p> Нагур прошел узкое ущелье, ведущее в топь и остановился в оцепенении. На траве лежали обезглавленные тела двух наемников, их головы валялись тут же. Нагур их узнал, отпетые головорезы Онара, неужели они нашли убежище Борки!? Пройдя чуть дальше Нагур обнаружил еще одно тело под деревом. Воин сжимавший рукоять меча сидел на земле, прислонившись спиной к дереву, другой рукой он прижимал страшную рану в боку. Он весь истек кровью, его голова была низко опущена, воин был мертв. Нагур узнал его, это был тот кому он продал карту топей! Не повезло бедняге. Осмотрев тело, Нагур обнаружил сундук с кучей золота и он знал откуда эта все. Борка и Дерек были мертвы, как и тот кто забрал у них это золото! Нагур понял, что у него только один шанс выжить, он спешно прошел вглубь через болота и вышел на берег через тайнуб тропу. На берегу стояла не большая посудина Борки, Нагур сел в нее и отплыл к континенту, он был доволен.</p>' +
                                 '<p> У Нагура теперь много денег, он в мыслях попращался со старой жизнью проводника, построит дом на континенте и заживет новой счастливой жизнью</p>' +
                                 '<p>Так закончилась это приключение игрок, к соржалению ты погиб в этой истории, возможно если бы ты сделал другой выбор, твоя история могла сложиться по другому.</p>' +

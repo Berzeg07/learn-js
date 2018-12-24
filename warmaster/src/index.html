@@ -12,6 +12,9 @@
 </head>
 
 <body>
+
+	<div id="melody-1" class="player" data-src="audio/gothic.mp3"></div>
+	<audio id="my-hidden-player" loop></audio>
 	<div class="container">
 		<!-- <div class="timer_box border">
 			<span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">10:00</span>
@@ -141,7 +144,7 @@
 				<div class="npc lares"><img src="img/lars.png" alt=""></div>
 				<div class="master_btn__box lares_btn">
 					<button class="btn" id="btn_master" type="submit">Тренироваться</button>
-					<button class="btn" id="btn_advice" type="submit">Посоветоваться</button>
+					<button class="btn" id="btn_advice" type="submit">Совет</button>
 				</div>
 				<div class="dialog_box db db_lares bg-img">
 					<div class="db_close">х</div>
@@ -218,6 +221,7 @@
 					<button class="btn" id="btn_toEat" type="button">Подкрепиться</button>
 					<!-- <button class="btn" id="btn_rumors" type="button">Слухи</button> -->
 					<button class="btn" id="btn_talkToSelina" type="button">Говорить</button>
+					<button class="btn" id="btn_nagur" style="display:none;" type="button">Нагур</button>
 				</div>
 				<div class="dialog_box db_1 bg-img selinaDB">
 					<div class="db_close">х</div>

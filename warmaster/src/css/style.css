@@ -4,6 +4,23 @@
     margin: 0;
 }
 
+a{
+    text-decoration: none;
+}
+
+.player{
+    position: fixed;
+    right: 40px;
+    width: 62px;
+    height: 56px;
+    background: url(../img/pause.png) no-repeat center;
+    cursor:pointer;
+}
+
+.on{
+    background: url(../img/play.png) no-repeat center;
+}
+
 li {
     list-style: none;
 }
@@ -99,6 +116,10 @@ body {
 img {
     width: 100%;
     height: auto;
+}
+
+.HollowDB .dinamicTxt{
+    line-height: 20px;
 }
 
 .container {
