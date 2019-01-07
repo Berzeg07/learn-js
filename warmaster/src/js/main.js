@@ -75,7 +75,7 @@ window.onload = function() {
         messWindowInner = document.getElementById('messWindowInner'),
 
         // Персонаж ============================================================
-        HeroPowerAbility = 1,
+        // HeroPowerAbility = 5,
         weapon = false,
         HeroPower = document.getElementById('hero_power'),
         HeroGold = document.getElementById('hero_gold'),
@@ -85,12 +85,12 @@ window.onload = function() {
         HeroHP = document.getElementById('hero_hp'),
 
         HeroGoldInner = 100,
-        HeroHPInner = 40,
-        HeroPowerInner = 1,
+        HeroHPInner = 100,
+        HeroPowerInner = 0,
         HeroDamageInner = 10,
         HeroAtackInner = HeroDamageInner + HeroPowerInner,
-        HeroCritInner = 0,
-        HeroArmorBase = 5,
+        HeroCritInner = 20,
+        HeroArmorBase = 0,
         HeroArmorInner = HeroArmorBase;
 
     HeroArmor.innerHTML = HeroArmorInner;
@@ -111,44 +111,44 @@ window.onload = function() {
     }
 
     // Крыса ===================================================================
-    var RatHPBase = 5,
+    var RatHPBase = 100,
         RatHP = RatHPBase,
-        RatPower = 10,
+        RatPower = 15,
         RatDamage = RatPower + 5,
         RatCrit = 10,
-        RatArmor = 5,
+        RatArmor = 0,
 
         // Волк ================================================================
-        WoolfHPBase = 5,
+        WoolfHPBase = 100,
         WoolfHP = WoolfHPBase,
-        WoolfPower = 15,
-        WoolfDamage = WoolfPower + 10,
-        WoolfCrit = 20,
-        WoolfArmor = 10,
+        WoolfPower = 25,
+        WoolfDamage = WoolfPower + 5,
+        WoolfCrit = 10,
+        WoolfArmor = 0,
 
         // Мракорис ============================================================
-        MrakHPBase = 10,
+        MrakHPBase = 100,
         MrakHP = MrakHPBase,
-        MrakPower = 0,
+        MrakPower = 35,
         MrakDamage = MrakPower + 5,
         MrakCrit = 10,
-        MrakArmor = 5,
+        MrakArmor = 0,
 
         // Орк =================================================================
-        OrkHPBase = 10,
+        OrkHPBase = 100,
         OrkHP = OrkHPBase,
-        OrkPower = 10,
+        OrkPower = 40,
         OrkDamage = OrkPower + 5,
-        OrkCrit = 10,
-        OrkArmor = 1;
+        OrkCrit = 20,
+        OrkArmor = 5;
 
-    // Борка ===============================================================
-    DerekHPBase = 10,
+    // Дерек ===============================================================
+    DerekHPBase = 100,
         DerekHP = DerekHPBase,
-        DerekPower = 10,
+        DerekPower = 30,
         DerekDamage = DerekPower + 5,
         DerekCrit = 10,
-        DerekArmor = 1;
+        DerekArmor = 0;
 
 
 
@@ -301,6 +301,7 @@ window.onload = function() {
     BtnForge.addEventListener('click', Forge);
 
     // Флаг доступа к кузнице
+
     var AccessToTheForge = false;
     var HaraldMission = false;
     var HornOfMrakoris = false;
@@ -469,10 +470,10 @@ window.onload = function() {
         }
     }
     $('#journal').click(function() {
-        $('.overlay, .journal_box').fadeIn(500);
+        $('.overlay, .journal_box').fadeIn();
     });
     $('.close').click(function journalClose() {
-        $('.overlay, .messWindow, .FarmWorker').fadeOut(500);
+        $('.overlay, .messWindow, .FarmWorker').fadeOut();
     });
 
     // Мастер Ларс ==========================================
@@ -496,17 +497,21 @@ window.onload = function() {
     }
 
     var HornOfMrakoris = false;
+    var sitizen = false;
 
     function masterAdvice() {
         if (trainResolution == true) {
-            if (HaraldMission == true) {
-                $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt LarsTxtSecond" id="QuestionToLars-3">' + 'Какую броню лучше носить?' + '</p>' + '<p class="LarsTxt" id="QuestionToLars-2">' + 'Как стать гражданином Хориниса?' + '</p>');
-            }
-            if (HornOfMrakoris == true) {
-                $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt LarsTxtSecond" id="QuestionToLars-3">' + 'Какую броню лучше носить?' + '</p>' + '<p class="LarsTxt" id="QuestionToLars-4">' + 'Что можешь рассказать о Мракорисе?' + '</p>');
-            }
-            if (HornOfMrakoris != true && HaraldMission != true) {
-                $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt LarsTxtSecond" id="QuestionToLars-3">' + 'Какую броню лучше носить?' + '</p>');
+            if (sitizen != true) {
+                if (HaraldMission == true) {
+                    $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt LarsTxtSecond" id="QuestionToLars-3">' + 'Какую броню лучше носить?' + '</p>' + '<p class="LarsTxt" id="QuestionToLars-2">' + 'Как стать гражданином Хориниса?' + '</p>');
+                }
+            } else {
+                if (HornOfMrakoris == true) {
+                    $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt LarsTxtSecond" id="QuestionToLars-3">' + 'Какую броню лучше носить?' + '</p>' + '<p class="LarsTxt" id="QuestionToLars-4">' + 'Что можешь рассказать о Мракорисе?' + '</p>');
+                }
+                if (HornOfMrakoris != true && HaraldMission != true) {
+                    $('.master .db .dinamicTxt').html('<p class="LarsTxt LarsTxtFirst" id="QuestionToLars-1">' + 'На что влияет сила?' + '</p>' + '<p class="LarsTxt LarsTxtSecond" id="QuestionToLars-3">' + 'Какую броню лучше носить?' + '</p>');
+                }
             }
             $('.master .db').fadeIn();
             $('#QuestionToLars-1').click(function() {
@@ -516,13 +521,14 @@ window.onload = function() {
                 $('.master .db .dinamicTxt').html('<p>' + 'Тяжелая броня делает тебя крепче, но в ней ты более медлительный и быстрее устаешь, в некоторых ситуациях в тяжелом снаряжении ты будешь более уязвимым.' + '</p>');
             });
             $('#QuestionToLars-4').click(function() {
-                $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Опасный зверь, но довольно медлительный. Даже не думай подобраться незаметно, учуит за сотню шагов. Если уж встретился  с этой зверюгой лицом к лицу, тебя спасет только скорость и проворство!' + '</p>');
+                $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Опасный зверь, но довольно медлительный. Даже не думай подобраться незаметно, учуит за сотню шагов. Если уж встретился  с этой зверюгой лицом к лицу, обращай внимание на первый удар, если схватил большой урон, немедленно отступай!' + '</p>');
                 var HaraldQuestMrakoris = '<span class="QuestTitle">' + 'Рог Мракориса' + '</span>';
-                var HaraldQuestMrakorisTxt = '<li>' + ' - Ларес сказал, чтобы победить медлительного Мракориса нужно быть налегке.' + '</li>';
+                var HaraldQuestMrakorisTxt = '<li>' + ' - Ларес сказал, чтобы победить Мракориса надо избегать его критической атаки или вовремя отступить' + '</li>';
                 QuestListArr(HaraldQuestMrakoris, HaraldQuestMrakorisTxt, '.HaraldQuestWeapon');
             });
             $('#QuestionToLars-2').click(function() {
-                $('.master .db .dinamicTxt').html('<p>' + 'Чтобы стать гражданином, кто то из влиятельных жителей города должен за тебя поручиться!' + '</p>' + '<button class="btn LaresQuest">' + 'Помоги стать гражданином...' + '</button>');
+                sitizen = true;
+                $('.master .db .dinamicTxt').html('<p class="citizen">' + 'Чтобы стать гражданином, кто то из влиятельных жителей города должен за тебя поручиться!' + '</p>' + '<button class="btn LaresQuest">' + 'Помоги стать гражданином...' + '</button>');
                 $('.LaresQuest').click(function() {
                     $('.master .db .dinamicTxt').html('<p>' + 'Ты должен проявить себя в каком либо деле, скажем охотничем... Добудь мне три хвоста болотной крысы и две волчьи шкуры.' + '</p>');
                     var LaresQuest = '<span>' + 'Задание Лареса' + '</span>';
@@ -581,10 +587,10 @@ window.onload = function() {
     function training() {
         var HeroWeaponEquiped = $('#hero_weapon span').html();
         if (trainResolution == false) {
-            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Кто ты такой? Я не тренерую всех подряд!' + '</p>');
+            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Кто ты такой? Я не тренирую всех подряд!' + '</p>');
             $('.master .db').fadeIn();
         } else if (HeroPowerInner >= 5) {
-            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Ты достаточно силен, мне больше нечему тебя учить!' + '</p>');
+            $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Ты достаточно силен, мне больше нечему тебя учить' + '</p>');
             MasterDb();
         } else if (trainResolution == true && HeroWeaponEquiped == 'Пусто') {
             $('.master .db .dinamicTxt').html('<p>' + 'Ларес: Онар хорошо отзывался о тебе. У тебя есть оружие? возвращайся когда будет с чем тренироваться!' + '</p>');
@@ -683,8 +689,8 @@ window.onload = function() {
         tabsDialog();
     }
     $('#btn_toEat').click(function() {
-        var PriceOfFood = 50;
-        SelinaAnswers('Селина: Лучшее жаркое в Хоринисе, всего за 50 монет!' + '<br>' + '<button class="ToEat" style="margin-top:10px;">' + 'Кушать' + '</button>' + '<button class="CancelToEat" style="margin-left:10px; margin-top:10px;">' + 'Отмена' + '</button>');
+        var PriceOfFood = 110;
+        SelinaAnswers('Селина: Лучшее жаркое в Хоринисе, всего за 110 монет!' + '<br>' + '<button class="ToEat" style="margin-top:10px;">' + 'Кушать' + '</button>' + '<button class="CancelToEat" style="margin-left:10px; margin-top:10px;">' + 'Отмена' + '</button>');
         $('.taverna .db_1').fadeIn();
         $('.ToEat').click(function() {
             if (HeroGoldInner >= PriceOfFood) {
@@ -693,9 +699,10 @@ window.onload = function() {
                 HeroGoldInner = HeroGoldInner - PriceOfFood;
                 HeroGold.innerHTML = HeroGoldInner;
                 SelinaAnswers('Здоровье полностью восстановлено!');
+                return;
             }
             if (HeroGoldInner < PriceOfFood) {
-                SelinaAnswers('Селина: Боюсь твоих денег не достаточно для оплаты :) ');
+                SelinaAnswers('Селина: твоих денег не достаточно для оплаты :) ');
             }
         });
         $('.CancelToEat').click(function() {
@@ -855,7 +862,7 @@ window.onload = function() {
             BtnFarmeGuard.addEventListener('click', afterFirstDialog);
             BtnWorkFarm.disabled = false;
             var FarmQuest = '<span class="QuestTitle">' + 'Ферма Онара' + '</span>';
-            var FarmQuestTxt = '<ul class="OnarsFarm">' + '<li>' + FarmQuest + '<br>' + ' - Меня пропустили на ферму, теперь я могу заработать не много денег в полях. Но для этого пришлось отвалить Сентезе 100 золотых (Надо будет с ним разобраться попозже!)' + '</li>' + '</ul>';
+            var FarmQuestTxt = '<ul class="OnarsFarm">' + '<li>' + FarmQuest + '<br>' + ' - Меня пропустили на ферму, теперь я могу заработать не много денег в полях. Но для этого пришлось отвалить Сентезе 100 золотых, чертов ублюдок!' + '</li>' + '</ul>';
             QuestListArr(FarmQuest, FarmQuestTxt, '#journal_box__inner');
         } else if (HeroGoldInner < 100) {
             dinamicTxtSenteza.innerHTML = '<p>' + 'Сентеза: У тебя и 100 монет не наберется, пошел прочь оборванец!' + '</p>';
@@ -875,7 +882,7 @@ window.onload = function() {
         HeroGoldInner = 0;
         HeroGold.innerHTML = HeroGoldInner;
         var FarmQuest = '<span class="QuestTitle">' + 'Ферма Онара' + '</span>';
-        var FarmQuestTxt = '<ul class="OnarsFarm">' + '<li>' + FarmQuest + '<br>' + ' - Меня пропустили на ферму, теперь я могу заработать не много денег в полях. Этот ублюдок, Сентеза навалял мне по полной и отжал все бабло, он еще поплатится!)' + '</li>' + '</ul>';
+        var FarmQuestTxt = '<ul class="OnarsFarm">' + '<li>' + FarmQuest + '<br>' + ' - Меня пропустили на ферму, теперь я могу заработать не много денег в полях. Этот ублюдок, Сентеза навалял мне по полной и отжал все бабло!' + '</li>' + '</ul>';
         QuestListArr(FarmQuest, FarmQuestTxt, '#journal_box__inner');
     }
 
@@ -911,17 +918,29 @@ window.onload = function() {
         if (target.id != 'equipItem') {
             $('.HomeMessageAlert').css('display', 'none');
         }
-
-        ProductfadeOut('.marketPlace', '#shop_box');
-        ProductfadeOut('.forge', '.bg_inner__forge');
-        ProductfadeOut('.taverna', '.selinaDB');
-        ProductfadeOut('.forge', '.db_forge');
-        ProductfadeOut('.farm', '.dinamicDbSenteza');
-        ProductfadeOut('.farm', '#static-db');
-        ProductfadeOut('.master', '.db_lares');
-        ProductfadeOut('.marketPlace', '.db_market');
-
     };
+
+    $('.taverna').mouseleave(function() {
+        $('.selinaDB').fadeOut();
+    });
+    $('.marketPlace').mouseleave(function() {
+        $('#shop_box').fadeOut();
+    });
+    $('.forge').mouseleave(function() {
+        $('.db_forge, .bg_inner__forge').fadeOut();
+    });
+    $('.farm').mouseleave(function() {
+        $('.dinamicDbSenteza').fadeOut();
+    });
+    $('.farm').mouseleave(function() {
+        $('#static-db').fadeOut();
+    });
+    $('.master').mouseleave(function() {
+        $('.db_lares').fadeOut();
+    });
+    $('.marketPlace').mouseleave(function() {
+        $('.db_market').fadeOut();
+    });
 
     function TalkToOnar() {
 
@@ -986,7 +1005,7 @@ window.onload = function() {
                     $('.overlay').fadeOut();
                     OnarQuestTaken = true;
                     btnOnarDisabled = true;
-                    console.log(OnarQuestTaken);
+  
                 });
                 $('.db-onar').fadeIn();
                 DialogBox('.OnarDialogBox');
@@ -1001,7 +1020,7 @@ window.onload = function() {
 
     function ToRest() {
         if (HeroHPInner < 50) {
-            TimerFunc(15, HeroHP, 50, 'Отдых: ', 'Часть здоровья восстановлено!');
+            TimerFunc(15, HeroHP, 50, 'Отдых: ', 'Часть здоровья восстановлена');
             dialogBg('url(./img/bad.jpg) no-repeat top center');
             HeroHPInner = 50;
         } else {
@@ -1044,8 +1063,10 @@ window.onload = function() {
             $('.master_btn__box .tooltip2').fadeIn();
         }
         if (PaySenteza == true && HeroGoldInner >= 200) {
+            $('#btnNextSenteza').css('display', 'none');
             $('#dinamicDbSenteza #dinamicTxtSenteza').html('<p>На данный момент нет работы!</p>');
             $('#dinamicDbSenteza').fadeIn();
+            return;
         }
         if (PaySenteza == true && HeroGoldInner < 200) {
             TimerFunc(10, HeroGold, HeroGoldInner = HeroGoldInner + 100, 'Ты работаешь в поле: ', 'Ты заработал 100 монет');
@@ -1086,8 +1107,8 @@ window.onload = function() {
     // Конец ферма =============================================================
 
     // Битва ===================================================================
-    // не забыть поменять значение!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    var DefeatOrk = true;
+
+    var DefeatOrk = false;
     var DefeatDerek = false;
     var AgreementWithBorka = false;
 
@@ -1095,7 +1116,7 @@ window.onload = function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         if (EnemyAttr == 'ork') {
             DefeatOrk = true;
-            console.log(DefeatOrk);
+      
         }
     }
 
@@ -1103,12 +1124,12 @@ window.onload = function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         if (EnemyAttr == 'derek') {
             DefeatDerek = true;
-            console.log(DefeatDerek);
+          
         }
     }
 
     function ShowFightBox() {
-        $('.overlay, .fight-box').fadeIn(1500);
+        $('.overlay, .fight-box').fadeIn();
     }
 
     function HeroParamInner() {
@@ -1159,8 +1180,6 @@ window.onload = function() {
         $('.HeroHP').html(HeroHPInner);
         BattleEnemyHP = BattleEnemyHP - HeroAtackInnerNew;
 
-        console.log('Атака героя ' + HeroAtackInnerNew);
-
         var EnemyAttr = $('#AtackToBattle').attr('name');
 
         switch (EnemyAttr) {
@@ -1181,7 +1200,7 @@ window.onload = function() {
                 break;
         }
 
-        if (HeroHPInner <= 10 && BattleEnemyHP >= 1) {
+        if (HeroHPInner <= 0 && BattleEnemyHP >= 1) {
             var HeroWeaponBattle = $('#hero_weapon span').html(),
                 HeroArmorBattle = $('#hero_armor_equiped span').html();
             if (HeroWeaponBattle != 'Пусто') {
@@ -1191,12 +1210,19 @@ window.onload = function() {
                 LostTheItem(HeroArmorBattle);
             }
             if (HeroWeaponBattle != 'Пусто' || HeroArmorBattle != 'Пусто') {
-                BattleMess('<p>' + 'Ты едва выжил в этой схватке и еле унес ноги побросав все снаряжение!' + '</p>' + '<div class="RunAway">' + '>> ' + ' &npbsp; <button class="RunAwayBtn DbBtn">' + 'Бежать со всех ног!' + '</button> ' + ' <<' + '</div>');
-                CloseTheBattleWindow();
-
+                if (EnemyAttr == 'derek') {
+                    DerekWin();
+                } else {
+                    BattleMess('<p>' + 'Ты едва выжил в этой схватке и еле унес ноги побросав все снаряжение!' + '</p>' + '<div class="RunAway">' + '<button class="RunAwayBtn DbBtn">' + 'Бежать со всех ног!' + '</button> ' + '</div>');
+                    CloseTheBattleWindow();
+                }
             } else {
-                BattleMess('<p>' + 'Ты тяжело ранен, но чудом сумел скрыться, истекая кровью!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Бежать со всех ног!' + '</button> ' + ' <<' + '</div>');
-                CloseTheBattleWindow();
+                BattleMess('<p>' + 'Ты тяжело ранен, но чудом сумел скрыться, истекая кровью!' + '</p>' + '<div class="RunAway">' + ' <button class="RunAwayBtn DbBtn">' + 'Бежать со всех ног!' + '</button> ' + '</div>');
+                if (EnemyAttr == 'derek') {
+                    DerekWin();
+                } else {
+                    CloseTheBattleWindow();
+                }
             }
         }
 
@@ -1206,32 +1232,34 @@ window.onload = function() {
                 switch (EnemyAttr) {
                     case 'rat':
                         DropItem(50, 'Хвост крысы');
-                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Хвост крысы</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Хвост крысы</span>' + '</p>' + '<div class="RunAway">' + '<button class="RunAwayBtn DbBtn">' + 'Уйти' + '</button> ' + '</div>');
                         break;
                     case 'woolf':
-                        DropItem(150, 'Волчья шкура');
-                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Волчья шкура</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        DropItem(100, 'Волчья шкура');
+                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Волчья шкура</span>' + '</p>' + '<div class="RunAway">' + ' <button class="RunAwayBtn DbBtn">' + 'Уйти' + '</button> ' + '</div>');
                         break;
                     case 'mrakoris':
-                        DropItem(300, 'Рог Мракориса');
-                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Рог Мракориса</span>' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                        DropItem(400, 'Рог Мракориса');
+                        BattleMess('<p>' + 'Ты победил! Добыча: ' + '<span style="font-weight:bold;">Рог Мракориса</span>' + '</p>' + '<div class="RunAway">' + ' <button class="RunAwayBtn DbBtn">' + 'Уйти' + '</button> ' + '</div>');
                         break;
                     case 'ork':
+                        BattleMess('<p>' + 'Ты победил!' + '</p>' + '<div class="RunAway">' + ' <button class="RunAwayBtn DbBtn">' + 'Уйти' + '</button> ' + '</div>');
                         DefeatTheOrk();
                         break;
                     case 'derek':
+                        BattleMess('<p>' + 'Ты победил!' + '</p>' + '<div class="RunAway">' + ' <button class="RunAwayBtn DbBtn">' + 'Уйти' + '</button> ' + '</div>');
                         DefeatTheDerek();
                         break;
                 }
             } else {
-                BattleMess('<p>' + 'Ты победил!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+                BattleMess('<p>' + 'Ты победил!' + '</p>' + '<div class="RunAway">' + ' <button class="RunAwayBtn DbBtn">' + 'Уйти' + '</button> ' + '</div>');
                 DefeatTheOrk();
                 DefeatTheDerek();
             }
             CloseTheBattleWindow();
         }
         if (HeroHPInner <= 10 && BattleEnemyHP <= 0) {
-            BattleMess('<p>' + 'Ты победил с большим трудом и истек кровью, здоровье на минимуме!' + '</p>' + '<div class="RunAway">' + '>> ' + ' <button class="RunAwayBtn DbBtn">' + 'Покинуть место боя' + '</button> ' + ' <<' + '</div>');
+            BattleMess('<p>' + 'Ты победил с большим трудом и истек кровью, здоровье на минимуме!' + '</p>' + '<div class="RunAway">' + ' <button class="RunAwayBtn DbBtn">' + 'Уйти' + '</button> ' + '</div>');
             DefeatTheOrk();
             DefeatTheDerek();
             CloseTheBattleWindow();
@@ -1239,6 +1267,14 @@ window.onload = function() {
         if (HeroHPInner <= 0) {
             HeroHpAfterFight();
         }
+    }
+
+    function DerekWin() {
+        $('#db_fight .dinamicTxt').html('<p>Ты убит! Весь прогресс будет сброшен! Нужно начинать игру сначала, постарайся лучше подготовиться к этому бою...</p><button class="btn reload">Далее</botton>');
+        $('#db_fight').fadeIn();
+        $('.reload').click(function() {
+            location.reload();
+        });
     }
     // Конец функции Atack =====================================================
 
@@ -1274,26 +1310,22 @@ window.onload = function() {
     // Ставим в параметрах хар-ки врагов
     $('#AtackToBattle').click(function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
-        console.log('Атрибут врага ' + EnemyAttr);
+   
         switch (EnemyAttr) {
             case 'rat':
-                Atack(RatHP, RatCrit, RatDamage, RatArmor);
-                console.log('HP крысы ' + RatHP);
+                Atack(RatHP, RatCrit, RatDamage, RatArmor);              
                 break;
             case 'woolf':
-                Atack(WoolfHP, WoolfCrit, WoolfDamage, WoolfArmor);
-                console.log('HP волка ' + WoolfHP);
+                Atack(WoolfHP, WoolfCrit, WoolfDamage, WoolfArmor);             
                 break;
             case 'mrakoris':
                 Atack(MrakHP, MrakCrit, MrakDamage, MrakArmor);
                 break;
             case 'ork':
-                Atack(OrkHP, OrkCrit, OrkDamage, OrkArmor);
-                console.log('HP Орка ' + OrkHP);
+                Atack(OrkHP, OrkCrit, OrkDamage, OrkArmor);              
                 break;
             case 'derek':
                 Atack(DerekHP, DerekCrit, DerekDamage, DerekArmor);
-                console.log('HP Дерека ' + DerekHP);
                 break;
         }
     });
@@ -1322,8 +1354,8 @@ window.onload = function() {
 
     function BattleMess(TextMess) {
         $('.db_fight .dinamicTxt').html(TextMess);
-        $('.db_fight').fadeIn(500);
-        $('.fb_overlay').fadeIn(500);
+        $('.db_fight').fadeIn();
+        $('.fb_overlay').fadeIn();
     }
 
     function LostTheItem(heroItem) {
@@ -1349,9 +1381,9 @@ window.onload = function() {
     Retreat.addEventListener('click', RetreatFunc);
 
     function RetreatFunc() {
-        $('.overlay, .fight-box').fadeOut(1000);
+        $('.overlay, .fight-box').fadeOut();
         $('.db_fight').fadeOut();
-        $('.fb_overlay').fadeOut(500);
+        $('.fb_overlay').fadeOut();
     }
 
     // Дроп предметов с мобов ==================================================
@@ -1377,6 +1409,7 @@ window.onload = function() {
     // Конец Битва =============================================================
 
     // Туманная Лощина =========================================================
+
     var MapHollow = false;
 
     function FightOrkHollow() {
@@ -1423,6 +1456,10 @@ window.onload = function() {
                 $('.AtackTheOrk').click(function() {
                     $('#RetreatFromBattle').css('display', 'none');
                     FightOrkHollow();
+                });
+                $('.RunFromOrk').click(function() {
+                    $('.fight-box').fadeOut();
+                    $('.overlay').fadeOut();
                 });
             });
         }
@@ -1478,7 +1515,7 @@ window.onload = function() {
                         $('.HeroQuestionsList').css('display', 'none');
                         HeroGoldCurrent = Number(HeroGoldCurrent) + 1000;
                         HeroGold.innerHTML = HeroGoldCurrent;
-                        console.log(HeroGoldCurrent);
+        
                         $('.tab').html('<li> > <i class="LeaveTheHollow">Покинуть лощину</i></li>');
                     });
                     // Принимаем предложение Борки, берем золото и уходим ======
@@ -1564,8 +1601,11 @@ window.onload = function() {
                                 $('.HollowDB .dinamicTxt').html('<img src="./img/ship.jpg"><p>Ты и Дерек вернулись в хижину, где уже ждал Борка, который во всю готовил телятину на вертеле и разливал пиво. Вы пол дня предавались веселью, уничтожая запасы мяса и вина.</p>' +
                                     '<p>Вечером, как и говорил Дерек явился таинственный проводник и звали его Нагур. Тот самый у которого ты купил карту топей. </p>' +
                                     '<p>Вы собрали остатки припасов и двинулись в путь, в глубь болот. Через эти смертельные топи Нагур вел вас уверенно, пока вы не вышли из топей с южной стороны, к отдаленной части  дикого пляжа, где на причале стояла не плохая посудина, заблаговременно и в тайне построеная Боркой.</p><p>- Вот мы и на месте! - с улыбкой проговорил Борка.<p><p>- Наш путь к свободе! - Вторил ему Дерек.</p><p>  Нагуру отстегнули 1000 золотых, после чего он молча удалился обратно в болота. Вы сели на посудину и отплыли к континенту.</p><p>В этом приключении ты остался жив сделав правильный выбор, не всегда то, что кажется плохим является таковым на самом деле. Ты выкарабкался из трудной ситуации и даже поимел на этом 1000 золотых! На этом игра окончена игрок!</p>' +
-                                    '<button class="btn LeaveTheHollow">Далее</button>');
+                                    '<button class="btn endGame">Закончить игру</button>');
                                 DialogBox('.HollowDB');
+                                $('.endGame').click(function() {
+                                    location.reload();
+                                });
                             });
                         });
                     }
@@ -1580,8 +1620,11 @@ window.onload = function() {
                                 '<p> Нагур прошел узкое ущелье, ведущее в топь и остановился в оцепенении. На траве лежали обезглавленные тела двух наемников, их головы валялись тут же. Нагур их узнал, отпетые головорезы Онара, неужели они нашли убежище Борки!? Пройдя чуть дальше Нагур обнаружил еще одно тело под деревом. Воин сжимавший рукоять меча сидел на земле, прислонившись спиной к дереву, другой рукой он прижимал страшную рану в боку. Он весь истек кровью, его голова была низко опущена, воин был мертв. Нагур узнал его, это был тот кому он продал карту топей! Не повезло бедняге. Осмотрев тело, Нагур обнаружил сундук с кучей золота и он знал откуда эта все. Борка и Дерек были мертвы, как и тот кто забрал у них это золото! Нагур понял, что у него только один шанс выжить, он спешно прошел вглубь через болота и вышел на берег через тайнуб тропу. На берегу стояла не большая посудина Борки, Нагур сел в нее и отплыл к континенту, он был доволен.</p>' +
                                 '<p> У Нагура теперь много денег, он в мыслях попращался со старой жизнью проводника, построит дом на континенте и заживет новой счастливой жизнью</p>' +
                                 '<p>Так закончилась это приключение игрок, к соржалению ты погиб в этой истории, возможно если бы ты сделал другой выбор, твоя история могла сложиться по другому.</p>' +
-                                '<button class="btn LeaveTheHollow">Далее</button>');
+                                '<button class="btn endGame">Закончить игру</button>');
                             DialogBox('.HollowDB');
+                            $('.endGame').click(function() {
+                                location.reload();
+                            });
                         });
                     }
                 });
