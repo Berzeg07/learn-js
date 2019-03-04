@@ -952,6 +952,7 @@ window.onload = function() {
                 'background': 'url(./img/onar.jpg) no-repeat top center',
                 'background-size': 'cover'
             });
+            $('.OnarDialogBox .db-onar').css('display','block');
             $('.db-onar .dinamicTxt').html(' ');
             $('.db-onar .dinamicTxt').html(
                 '<div class="BanditsAnswears ba-1"><p><b>Онар:</b> Удачи! </p></div>' +
@@ -1005,7 +1006,6 @@ window.onload = function() {
                     $('.overlay').fadeOut();
                     OnarQuestTaken = true;
                     btnOnarDisabled = true;
-  
                 });
                 $('.db-onar').fadeIn();
                 DialogBox('.OnarDialogBox');
@@ -1116,7 +1116,7 @@ window.onload = function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         if (EnemyAttr == 'ork') {
             DefeatOrk = true;
-      
+
         }
     }
 
@@ -1124,7 +1124,7 @@ window.onload = function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
         if (EnemyAttr == 'derek') {
             DefeatDerek = true;
-          
+
         }
     }
 
@@ -1310,19 +1310,19 @@ window.onload = function() {
     // Ставим в параметрах хар-ки врагов
     $('#AtackToBattle').click(function() {
         var EnemyAttr = $('#AtackToBattle').attr('name');
-   
+
         switch (EnemyAttr) {
             case 'rat':
-                Atack(RatHP, RatCrit, RatDamage, RatArmor);              
+                Atack(RatHP, RatCrit, RatDamage, RatArmor);
                 break;
             case 'woolf':
-                Atack(WoolfHP, WoolfCrit, WoolfDamage, WoolfArmor);             
+                Atack(WoolfHP, WoolfCrit, WoolfDamage, WoolfArmor);
                 break;
             case 'mrakoris':
                 Atack(MrakHP, MrakCrit, MrakDamage, MrakArmor);
                 break;
             case 'ork':
-                Atack(OrkHP, OrkCrit, OrkDamage, OrkArmor);              
+                Atack(OrkHP, OrkCrit, OrkDamage, OrkArmor);
                 break;
             case 'derek':
                 Atack(DerekHP, DerekCrit, DerekDamage, DerekArmor);
@@ -1515,7 +1515,7 @@ window.onload = function() {
                         $('.HeroQuestionsList').css('display', 'none');
                         HeroGoldCurrent = Number(HeroGoldCurrent) + 1000;
                         HeroGold.innerHTML = HeroGoldCurrent;
-        
+
                         $('.tab').html('<li> > <i class="LeaveTheHollow">Покинуть лощину</i></li>');
                     });
                     // Принимаем предложение Борки, берем золото и уходим ======
@@ -1637,17 +1637,5 @@ window.onload = function() {
         $('.overlay').fadeIn(300);
     }
     // Конец туманная лощина ===================================================
-
-    // Выводим данные с локального хранилища ======================
-    // if (localStorage.getItem('HeroPowerAbility')!==null){
-    //     HeroPowerAbility = localStorage.getItem('HeroPowerAbility');
-    //     HeroPower.innerHTML = HeroPowerAbility;
-    // }
-    // if (localStorage.getItem('backgroundColor')!==null){
-    //     bgColor = localStorage.getItem('backgroundColor');
-    //     document.body.style.backgroundColor = (bgColor);
-    // }
-
-    // Конец вывод данных с локального хранилища ===================
 }
 // конец onload
