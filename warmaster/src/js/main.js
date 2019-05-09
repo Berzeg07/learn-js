@@ -952,7 +952,7 @@ window.onload = function() {
                 'background': 'url(./img/onar.jpg) no-repeat top center',
                 'background-size': 'cover'
             });
-            $('.OnarDialogBox .db-onar').css('display','block');
+            $('.OnarDialogBox .db-onar').css('display', 'block');
             $('.db-onar .dinamicTxt').html(' ');
             $('.db-onar .dinamicTxt').html(
                 '<div class="BanditsAnswears ba-1"><p><b>Онар:</b> Удачи! </p></div>' +

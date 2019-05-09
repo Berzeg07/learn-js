@@ -1,0 +1,24 @@
+@import "imports/reset";
+
+h1{
+    color: red;
+    span{
+        color: orange;
+    }
+}
+
+.wrapper{
+    display: flex;
+}
+
+@media(min-width:768px){
+    html{
+        font-size: 12px;
+    }
+}
+
+@media(min-width:992px){
+    html{
+        font-size: 15px;
+    }
+}
